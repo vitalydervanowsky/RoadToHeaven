@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- creation of animation list-->
+    <item
+        android:drawable="@drawable/cabrioright"
+        android:duration="80" />
+    <item
+        android:drawable="@drawable/cabrioright2"
+        android:duration="80" />
+</animation-list>

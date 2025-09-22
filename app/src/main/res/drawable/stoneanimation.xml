@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- creation of animation list-->
+    <item
+        android:drawable="@drawable/stone1"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone2"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone4"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone5"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone6"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone7"
+        android:duration="80" />
+    <item
+        android:drawable="@drawable/stone8"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone9"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/stone"
+        android:duration="100" />
+</animation-list>

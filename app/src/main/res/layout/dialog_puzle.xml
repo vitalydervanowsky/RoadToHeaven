@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFEFA">
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="330dp"
+        android:layout_height="330dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/frame" />
+
+    <TextView
+        android:id="@+id/textViewTrials"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="14"
+        android:textColor="#142270"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView17"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView14"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView10"
+        app:layout_constraintTop_toTopOf="@+id/puzleView13"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView15"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView11"
+        app:layout_constraintTop_toTopOf="@+id/puzleView14"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView16"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView12"
+        app:layout_constraintTop_toTopOf="@+id/puzleView15"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView13"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView9"
+        app:layout_constraintTop_toBottomOf="@+id/puzleView9"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView6"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView2"
+        app:layout_constraintTop_toTopOf="@+id/puzleView5"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView7"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView3"
+        app:layout_constraintTop_toTopOf="@+id/puzleView6"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView8"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView4"
+        app:layout_constraintTop_toTopOf="@+id/puzleView7"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView9"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView5"
+        app:layout_constraintTop_toBottomOf="@+id/puzleView5"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView10"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView6"
+        app:layout_constraintTop_toTopOf="@+id/puzleView9"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView11"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView7"
+        app:layout_constraintTop_toTopOf="@+id/puzleView10"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView12"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView8"
+        app:layout_constraintTop_toTopOf="@+id/puzleView11"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView5"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@+id/puzleView1"
+        app:layout_constraintTop_toBottomOf="@+id/puzleView1"
+        app:srcCompat="@drawable/carright1" />
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginBottom="50dp"
+        android:background="#84C8E6"
+        android:gravity="center"
+        android:text="Закрыть"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/puzleView16" />
+
+    <TextView
+        android:id="@+id/textViewQuestion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Текст вопроса"
+        android:textColor="#3F51B5"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView17"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="Соберите мозайку, передвинув фрагменты на свои места"
+        android:textColor="#FA1302"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewTrials"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView1"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView17"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView2"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@+id/puzleView1"
+        app:layout_constraintTop_toTopOf="@+id/puzleView1"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView3"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@+id/puzleView2"
+        app:layout_constraintTop_toTopOf="@+id/puzleView2"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/puzleView4"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@+id/puzleView3"
+        app:layout_constraintTop_toTopOf="@+id/puzleView3"
+        app:srcCompat="@drawable/carright1" />
+
+    <com.carloclub.roadtoheaven.CustomImageView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Текст вопроса"
+        android:textColor="#064C83"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
