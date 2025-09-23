@@ -1,0 +1,17 @@
+*.iml
+*.png
+*.docx
+*.xlsx
+*.pptx
+*.mxl
+*.epf
+.gradle/
+local.properties
+.idea/
+/app/debug
+/app/release
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
