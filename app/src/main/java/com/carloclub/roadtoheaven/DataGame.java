@@ -1,9 +1,5 @@
 package com.carloclub.roadtoheaven;
 
-import com.carloclub.roadtoheaven.MapObjects.MapObject;
-
-import java.util.Map;
-
 public class DataGame {
     private int speed = 60;
     private int tank=40;
@@ -17,7 +13,7 @@ public class DataGame {
     private int burgers=0;
 
     private MapActivity mapActivity;
-    public MyMap Map;
+    public MyMap map;
     public String currentMap="";
 
     public int SCALE = 75;
@@ -123,7 +119,7 @@ public class DataGame {
 
     public void setActivity(MapActivity mapActivity){
         this.mapActivity = mapActivity;
-        Map = mapActivity.Map;
+        map = mapActivity.map;
         updateActivityFields();
     }
 

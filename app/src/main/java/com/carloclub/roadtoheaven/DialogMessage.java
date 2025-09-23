@@ -12,12 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DialogMessage {
     public static Dialog dialog;
-    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, AppCompatActivity mActivity){
-        showMessage(imageBig, imageSmall, text, bonus, mActivity, R.layout.dialog_message);
+    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, AppCompatActivity activity){
+        showMessage(imageBig, imageSmall, text, bonus, activity, R.layout.dialog_message);
     }
 
-    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, AppCompatActivity mActivity, int idSource){
-        dialog = new Dialog(mActivity);
+    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, AppCompatActivity activity, int idSource){
+        dialog = new Dialog(activity);
         dialog.setContentView(idSource);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (imageBig!=0)
@@ -26,7 +26,7 @@ public class DialogMessage {
             ((ImageView)dialog.findViewById(R.id.imageViewBig)).setVisibility(View.INVISIBLE);
 
         if (imageSmall!=0)
-            ((ImageView)dialog.findViewById(R.id.imageViewSmall)).setImageDrawable(mActivity.getDrawable(imageSmall));
+            ((ImageView)dialog.findViewById(R.id.imageViewSmall)).setImageDrawable(activity.getDrawable(imageSmall));
         else
             ((ImageView)dialog.findViewById(R.id.imageViewSmall)).setVisibility(View.INVISIBLE);
 
@@ -37,7 +37,7 @@ public class DialogMessage {
 
         Button buttonClose3= dialog.findViewById(R.id.OK);
         buttonClose3.setOnClickListener(v -> {
-            dialog.hide();
+            dialog.dismiss();
         });
 
         dialog.show();

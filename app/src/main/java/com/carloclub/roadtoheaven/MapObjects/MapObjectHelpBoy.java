@@ -6,56 +6,56 @@ import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
-import com.carloclub.roadtoheaven.Tasks;
+import com.carloclub.roadtoheaven.Task;
 
-public class MapObjectHelpBoy extends MapObject{
-    public Tasks task;
+public class MapObjectHelpBoy extends MapObject {
+    public Task task;
 
-    public MapObjectHelpBoy(int x, int y, MapActivity mActivity) {
-        super(x, y, mActivity);
+    public MapObjectHelpBoy(int x, int y, MapActivity activity) {
+        super(x, y, activity);
         type = "helpboy";
-        task = new Tasks((MapObject)this);
+        task = new Task(this);
         dialog.setContentView(R.layout.dialog_helpboy);
 
         Button buttonStart = dialog.findViewById(R.id.starthelp);
-        buttonStart.setOnClickListener(v -> StartFill());
+        buttonStart.setOnClickListener(v -> startFill());
 
-        Button buttonClose= dialog.findViewById(R.id.close);
-        buttonClose.setOnClickListener(v -> EndFill());
+        Button buttonClose = dialog.findViewById(R.id.close);
+        buttonClose.setOnClickListener(v -> endFill());
     }
 
-    private void StartFill() {
-        dialog.hide();
-        task.StartTask();
+    private void startFill() {
+        dialog.dismiss();
+        task.startTask();
     }
 
-    public void EndFill(){
-        dialog.hide();
+    public void endFill() {
+        dialog.dismiss();
     }
 
     @Override
-    public void RunAction(){
-        if (!task.Started)
+    public void runAction() {
+        if (!task.isStarted)
             dialog.show();
     }
 
     @Override
-    public void loadAttributes(String[] attributes){
+    public void loadAttributes(String[] attributes) {
         //textHello = attributes[3];
-        int targetX = Integer.valueOf(attributes[1])-1;
-        int targetY = Integer.valueOf(attributes[2])-1;
-        task.TargetCell = mapActivity.Map.Cells[targetX][targetY];
+        int targetX = Integer.valueOf(attributes[1]) - 1;
+        int targetY = Integer.valueOf(attributes[2]) - 1;
+        task.targetCell = mapActivity.map.mMapCells[targetX][targetY];
     }
 
     @Override
-    public void FinishTask(){
+    public void finishTask() {
 
-        Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies() +1);
+        Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies() + 1);
 
 
-        task.finished = true;
+        task.isFinished = true;
 
-        DialogMessage.showMessage(R.drawable.happyboy,R.drawable.icon_ruby,"За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи","+1",mapActivity);
+        DialogMessage.showMessage(R.drawable.happyboy, R.drawable.icon_ruby, "За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи", "+1", mapActivity);
     }
 
 }

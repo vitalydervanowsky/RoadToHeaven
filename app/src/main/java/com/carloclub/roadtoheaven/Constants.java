@@ -1,8 +1,6 @@
 package com.carloclub.roadtoheaven;
 
-import static androidx.core.content.res.ResourcesCompat.getDrawable;
-
-import com.carloclub.roadtoheaven.Maps.Sokulka;
+import com.carloclub.roadtoheaven.Maps.Sokolka;
 
 public class Constants {
 
@@ -11,12 +9,12 @@ public class Constants {
     public final static int TANK_SIZE = 4000;
     public final static int SCALE = 60;
     public final static DataGame DATAGAME= new DataGame();
-    public final static MyMap sokulka = new MyMap(30, 21, R.drawable.mapsokulka);
 
-    public final static MyMap getMap(String CityName){
-        if (CityName.equals("Sokulka")) {
-            Sokulka.LoadMap(sokulka);
-            return sokulka;
+    public static MyMap getMap(String cityName){
+        if (cityName.equals("Sokolka")) {
+            MyMap sokolka = new MyMap(30, 21, R.drawable.map_sokolka);
+            Sokolka.LoadMap(sokolka);
+            return sokolka;
         }
         return null;
     }

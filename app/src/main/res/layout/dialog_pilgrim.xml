@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="670dp"
+    android:layout_height="320dp"
+    android:background="@drawable/dialogkaralina">
+
+    <Button
+        android:id="@+id/starthelp"
+        android:layout_width="163dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="40dp"
+        android:background="#A7E45E"
+        android:gravity="center"
+        android:text="Подвезти"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:background="#84C8E6"
+        android:gravity="center"
+        android:text="Нет"
+        app:layout_constraintBottom_toBottomOf="@+id/starthelp"
+        app:layout_constraintStart_toEndOf="@+id/starthelp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="Привет! меня зовут Каролина. Я совршаю поломничество в санктуарий святого Антония автоспом. Если ты меня подвезешь, я буду тебе очень благодарна и обещаю помолиться за тебя  в чудесном месте."
+        android:textColor="#182360"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

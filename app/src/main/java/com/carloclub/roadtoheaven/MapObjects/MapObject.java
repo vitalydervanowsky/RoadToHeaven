@@ -4,36 +4,39 @@ import android.app.Dialog;
 import android.media.MediaPlayer;
 
 import com.carloclub.roadtoheaven.MapActivity;
-import com.carloclub.roadtoheaven.Tasks;
+import com.carloclub.roadtoheaven.Task;
 
 public class MapObject {
-    public int X;
-    public int Y;
+    public int x;
+    public int y;
     public String type;
     public Dialog dialog;
     public MapActivity mapActivity;
-    public Tasks Task;
-    public MediaPlayer ObjectMediaPlayer;
+    public Task task;
+    public MediaPlayer mediaPlayer;
 
-    public MapObject(int x, int y, MapActivity mActivity){
-        this.X = x;
-        this.Y = y;
-        mapActivity =mActivity;
+    public MapObject(int x, int y, MapActivity activity) {
+        this.x = x;
+        this.y = y;
+        mapActivity = activity;
         dialog = new Dialog(mapActivity);
 
     }
 
 
-    public void RunAction(){
+    public void runAction() {
 
     }
-    public void FinishTask(){
+
+    public void finishTask() {
 
     }
-    public void updateData(){
+
+    public void updateData() {
 
     }
-    public void loadAttributes(String[] attributes){
+
+    public void loadAttributes(String[] attributes) {
 
     }
 
