@@ -23,116 +23,119 @@ import java.util.Date;
 import java.util.Random;
 
 public class MapObjectStones extends MapObject {
-    private TextView TextMoney;
+    private TextView textMoney;
     Random random;
-    Puzle puzle;
+    Puzzle puzzle;
     Date lastOK;
-    private TextView TextFuel;
+    private TextView textFuel;
     Date lastSuccess;
-    public MapObjectStones(int X, int Y, MapActivity MainActivity){
-        super(X, Y, MainActivity);
-        dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+
+    public MapObjectStones(int X, int Y, MapActivity activity) {
+        super(X, Y, activity);
+        dialog = new Dialog(activity, R.style.FullScreenDialog);
         random = new Random();
         type = "stones";
         dialog.setContentView(R.layout.dialog_church);
         Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> EndFill());
-        //ObjectMediaPlayer = MediaPlayer.create(MainActivity, R.raw.organ);
-        puzle = new Puzle(this);
+        buttonStop.setOnClickListener(v -> endFill());
+        //ObjectMediaPlayer = MediaPlayer.create(activity, R.raw.organ);
+        puzzle = new Puzzle(this);
     }
-    public void EndFill(){
-        ObjectMediaPlayer.pause();
-        dialog.hide();
+
+    public void endFill() {
+        mediaPlayer.pause();
+        dialog.dismiss();
     }
 
     @Override
-    public void RunAction(){
-        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,"На этом руднике новые камни ещё не выросли","", mapActivity);
+    public void runAction() {
+        if (lastSuccess != null && (Calendar.getInstance().getTime().getTime() - lastSuccess.getTime()) < 180000) { //чаще 3 минут не давать
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, "В галерее технический перерыв: 5 минут", "", mapActivity);
             return;
         }
 
-        showPuzle();
+        showPuzzle();
         //dialog.show();
 
     }
 
-    public void showPuzle(){
-        puzle.startPuzle(mapActivity.Map.Stones[random.nextInt(mapActivity.Map.Stones.length-1)]);
+    public void showPuzzle() {
+        puzzle.startPuzzle(mapActivity.map.mStones[random.nextInt(mapActivity.map.mStones.length - 1)]);
         //dialog.show();
     }
+
     @Override
-    public void loadAttributes(String[] attributes){
+    public void loadAttributes(String[] attributes) {
 
     }
 
 
-    public class Puzle {
-        MapObject parrent;
+    public class Puzzle {
+        MapObject mapObject;
 
         CustomImageView[] imageViews;
-        Bitmap [] fragments;
-        int [] idnexes;
+        Bitmap[] fragments;
+        int[] indexes;
         public Dialog dialog;
-        int trials=14; //осталось попыток
+        int attempts = 14; //осталось попыток
 
         CustomImageView currentView;
 
-        public Puzle(MapObject Stones) {
-            parrent = Stones;
-            dialog = new Dialog(parrent.mapActivity);
-            dialog.setContentView(R.layout.dialog_puzle);
+        public Puzzle(MapObject Stones) {
+            mapObject = Stones;
+            dialog = new Dialog(mapObject.mapActivity);// todo use mapActivity
+            dialog.setContentView(R.layout.dialog_puzzle);
             imageViews = new CustomImageView[16];
-            idnexes = new int[16];
+            indexes = new int[16];
             fragments = new Bitmap[16];
-            imageViews[0]=dialog.findViewById(R.id.puzleView1);
-            imageViews[1]=dialog.findViewById(R.id.puzleView2);
-            imageViews[2]=dialog.findViewById(R.id.puzleView3);
-            imageViews[3]=dialog.findViewById(R.id.puzleView4);
-            imageViews[4]=dialog.findViewById(R.id.puzleView5);
-            imageViews[5]=dialog.findViewById(R.id.puzleView6);
-            imageViews[6]=dialog.findViewById(R.id.puzleView7);
-            imageViews[7]=dialog.findViewById(R.id.puzleView8);
-            imageViews[8]=dialog.findViewById(R.id.puzleView9);
-            imageViews[9]=dialog.findViewById(R.id.puzleView10);
-            imageViews[10]=dialog.findViewById(R.id.puzleView11);
-            imageViews[11]=dialog.findViewById(R.id.puzleView12);
-            imageViews[12]=dialog.findViewById(R.id.puzleView13);
-            imageViews[13]=dialog.findViewById(R.id.puzleView14);
-            imageViews[14]=dialog.findViewById(R.id.puzleView15);
-            imageViews[15]=dialog.findViewById(R.id.puzleView16);
+            imageViews[0] = dialog.findViewById(R.id.puzzleView1);
+            imageViews[1] = dialog.findViewById(R.id.puzzleView2);
+            imageViews[2] = dialog.findViewById(R.id.puzzleView3);
+            imageViews[3] = dialog.findViewById(R.id.puzzleView4);
+            imageViews[4] = dialog.findViewById(R.id.puzzleView5);
+            imageViews[5] = dialog.findViewById(R.id.puzzleView6);
+            imageViews[6] = dialog.findViewById(R.id.puzzleView7);
+            imageViews[7] = dialog.findViewById(R.id.puzzleView8);
+            imageViews[8] = dialog.findViewById(R.id.puzzleView9);
+            imageViews[9] = dialog.findViewById(R.id.puzzleView10);
+            imageViews[10] = dialog.findViewById(R.id.puzzleView11);
+            imageViews[11] = dialog.findViewById(R.id.puzzleView12);
+            imageViews[12] = dialog.findViewById(R.id.puzzleView13);
+            imageViews[13] = dialog.findViewById(R.id.puzzleView14);
+            imageViews[14] = dialog.findViewById(R.id.puzzleView15);
+            imageViews[15] = dialog.findViewById(R.id.puzzleView16);
 
-            for (int i=0; i<16;i++){
+            for (int i = 0; i < 16; i++) {
                 imageViews[i].setOnClickListener(v -> {
                     onClick(v.getId());
                 });
             }
 
-            Button buttonStopPuzle = dialog.findViewById(R.id.close);
-            buttonStopPuzle.setOnClickListener(v -> {
-                dialog.hide();
+            Button buttonStopPuzzle = dialog.findViewById(R.id.close);
+            buttonStopPuzzle.setOnClickListener(v -> {
+                dialog.dismiss();
                 //this = null;
             });
         }
 
-        public void onClick(int ID){
-            if (trials==0) {
-                dialog.hide();
+        public void onClick(int ID) {
+            if (attempts == 0) {
+                dialog.dismiss();
                 //Toast.makeText(parrent.MainActivity, "К сожалению, 10 попыток закончились. Попробуйте ещё раз", Toast.LENGTH_SHORT).show();
                 return;
             }
             CustomImageView v = dialog.findViewById(ID);
-            if (currentView==null){
+            if (currentView == null) {
                 currentView = v;
-                currentView.isCurrent=true;
+                currentView.isCurrent = true;
                 currentView.invalidate();
                 v.setAlpha((float) 0.4);
                 return;
             }
 
             currentView.setAlpha((float) 0.9);
-            if (v==currentView){
-                currentView.isCurrent=false;
+            if (v == currentView) {
+                currentView.isCurrent = false;
                 currentView.invalidate();
                 currentView = null;
                 return;
@@ -141,90 +144,90 @@ public class MapObjectStones extends MapObject {
 
             int from = 0;
             int to = 0;
-            for (int i=0; i<16;i++){
-                if (currentView==imageViews[i]) from=i;
-                if (v==imageViews[i]) to=i;
+            for (int i = 0; i < 16; i++) {
+                if (currentView == imageViews[i]) from = i;
+                if (v == imageViews[i]) to = i;
             }
 
             //меняем
-            int tmp = idnexes[from];
-            idnexes[from] = idnexes[to];
-            idnexes[to] = tmp;
+            int tmp = indexes[from];
+            indexes[from] = indexes[to];
+            indexes[to] = tmp;
 
-            currentView.isCurrent=false;
+            currentView.isCurrent = false;
             currentView.invalidate();
             currentView = null;
-            trials--;
+            attempts--;
             updateViews();
 
             //проверяем
-            boolean OK=true;
-            for (int i=0; i<16;i++){
-                if (idnexes[i]!=i) OK = false;
+            boolean isOk = true;
+            for (int i = 0; i < 16; i++) {
+                if (indexes[i] != i) isOk = false;
             }
 
-            if (OK){
-                Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()+1);
-                parrent.mapActivity.updateBar();
-                trials=0;
-                ((TextView)dialog.findViewById(R.id.textViewTrials)).setText("");
-                ((TextView)dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
-                if (Constants.DATAGAME.getStones()==7) {
-                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.icon_stones, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            if (isOk) {
+                Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+                mapObject.mapActivity.updateBar();
+                attempts = 0;
+                ((TextView) dialog.findViewById(R.id.textViewTrials)).setText("");
+                ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
+                if (Constants.DATAGAME.getStones() == 7) {
+                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                } else {
+                    DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
                 }
-                else
-                    DialogMessage.showMessage(R.drawable.gratulation,R.drawable.icon_stones,"Поздравляем! Вы добыли 1 камень","Собрано: "+String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
 
                 lastSuccess = Calendar.getInstance().getTime();
                 //Toast.makeText(parrent.MainActivity, "Поздравляем! Вы добыли 1 камень", Toast.LENGTH_SHORT).show();
-                //dialog.hide();
-            }
-            else if (trials==0){
+                //dialog.dismiss();
+            } else if (attempts == 0) {
                 //((TextView)dialog.findViewById(R.id.textView3)).setText("Не получилось((( Попробуйте ещё раз");
-                DialogMessage.showMessage(R.drawable.gratulation,0,"Не получилось((( Попробуйте ещё раз","", mapActivity);
-                dialog.hide();
+                DialogMessage.showMessage(R.drawable.gratulation, 0, "Не получилось((( Попробуйте ещё раз", "", mapActivity);
+                dialog.dismiss();
             }
 
         }
 
-        public void updateViews(){
-            for (int i=0; i<16;i++){
+        public void updateViews() {
+            for (int i = 0; i < 16; i++) {
                 // Устанавливаем фрагмент изображения в ImageView
-                imageViews[i].setImageBitmap(fragments[idnexes[i]]);
+                imageViews[i].setImageBitmap(fragments[indexes[i]]);
             }
-            ((TextView)dialog.findViewById(R.id.textViewTrials)).setText(String.valueOf(trials));
+            ((TextView) dialog.findViewById(R.id.textViewTrials)).setText(String.valueOf(attempts));
         }
-        public void startPuzle(MyMap.Stone stone){
-            trials=14;
-            ((TextView)dialog.findViewById(R.id.textView3)).setText("Соберите мозайку, передвинув фрагменты не более 14 раз");
+
+        public void startPuzzle(MyMap.Stone stone) {
+            attempts = 14;
+            ((TextView) dialog.findViewById(R.id.textView3)).setText("Соберите мозайку, передвинув фрагменты не более 14 раз");
             //Разрезаем изображение и по-очереди вкладываем в каждый Вью
-            ((TextView)dialog.findViewById(R.id.textViewQuestion)).setText(stone.question);
+            ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(stone.question);
             //идентификатор картинки 400х400
-            int IDImage = parrent.mapActivity.getResources().getIdentifier(stone.data, "drawable",parrent.mapActivity.getPackageName());
+            int IDImage = mapObject.mapActivity.getResources().getIdentifier(stone.data, "drawable", mapObject.mapActivity.getPackageName());
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inScaled = false;
-            Bitmap originalBitmap = BitmapFactory.decodeResource(parrent.mapActivity.getResources(), IDImage, options); // Определяем координаты и размеры фрагмента
+            Bitmap originalBitmap = BitmapFactory.decodeResource(mapObject.mapActivity.getResources(), IDImage, options); // Определяем координаты и размеры фрагмента
 
-            for (int y=0; y<4; y++)
-                for (int x=0; x<4; x++){
-                    int num = y*4+x+1;
+            for (int y = 0; y < 4; y++)
+                for (int x = 0; x < 4; x++) {
+                    int num = y * 4 + x + 1;
                     // Создаем фрагмент изображения
-                    fragments[num-1] = Bitmap.createBitmap(originalBitmap, x*100, y*100, 100, 100);
+                    fragments[num - 1] = Bitmap.createBitmap(originalBitmap, x * 100, y * 100, 100, 100);
 
                 }
 
             //Перемешиваем вьюшки случайным образом за 8 перемещений
-            for (int i=0; i<16;i++){
-                idnexes[i] = i;
+            for (int i = 0; i < 16; i++) {
+                indexes[i] = i;
             }
             //Random random = new Random();
-            for (int i=0; i<8;i++){ //делаем 8 итераций, меняя 2 случайных фрагмента
+            for (int i = 0; i < 8; i++) { //делаем 8 итераций, меняя 2 случайных фрагмента
                 int from = random.nextInt(15);
                 int to = random.nextInt(15);
 
-                int tmp = idnexes[from];
-                idnexes[from] = idnexes[to];
-                idnexes[to] = tmp;
+                int tmp = indexes[from];
+                indexes[from] = indexes[to];
+                indexes[to] = tmp;
             }
 
             //игрок должен будет вернуть всё за 14  манипуляций

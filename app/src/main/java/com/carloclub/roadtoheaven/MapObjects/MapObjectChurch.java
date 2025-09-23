@@ -9,35 +9,36 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 
 public class MapObjectChurch extends MapObject {
-    String Tytle;
-    int interierID;
-    public MapObjectChurch(int X, int Y, MapActivity mActivity){
-        super(X, Y, mActivity);
+    String title;
+    int interiorId;
+
+    public MapObjectChurch(int X, int Y, MapActivity activity) {
+        super(X, Y, activity);
         type = "church";
         dialog.setContentView(R.layout.dialog_church);
         Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> EndFill());
-        ObjectMediaPlayer = MediaPlayer.create(mActivity, R.raw.organ);
+        buttonStop.setOnClickListener(v -> endFill());
+        mediaPlayer = MediaPlayer.create(activity, R.raw.organ);
     }
-    public void EndFill(){
-        ObjectMediaPlayer.pause();
-        dialog.hide();
+
+    public void endFill() {
+        mediaPlayer.pause();
+        dialog.dismiss();
     }
 
     @Override
-    public void RunAction(){
-        ((ImageView)dialog.findViewById(R.id.imageViewInterier)).setImageResource(interierID);
-        ((TextView)dialog.findViewById(R.id.textViewTytle)).setText(Tytle);
+    public void runAction() {
+        ((ImageView) dialog.findViewById(R.id.imageViewInterier)).setImageResource(interiorId);
+        ((TextView) dialog.findViewById(R.id.textViewTytle)).setText(title);
         dialog.show();
-        ObjectMediaPlayer.start();
+        mediaPlayer.start();
     }
 
     @Override
-    public void loadAttributes(String[] attributes){
-
-            Tytle = attributes[3];
-            if (attributes[2]!=null)
-                interierID = mapActivity.getResources().getIdentifier(attributes[2],"drawable", mapActivity.getPackageName());
-
+    public void loadAttributes(String[] attributes) {
+        title = attributes[3];
+        if (attributes[2] != null) {
+            interiorId = mapActivity.getResources().getIdentifier(attributes[2], "drawable", mapActivity.getPackageName());
+        }
     }
 }

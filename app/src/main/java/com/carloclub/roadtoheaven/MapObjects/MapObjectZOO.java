@@ -15,7 +15,7 @@ import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
-import com.carloclub.roadtoheaven.Tasks;
+import com.carloclub.roadtoheaven.Task;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,8 +23,7 @@ import java.util.TimerTask;
 public class MapObjectZOO extends MapObject {
     public Dialog dialog2;
     public Dialog dialog3;
-    public Tasks Task;
-    public Tasks Task2;
+    public com.carloclub.roadtoheaven.Task Task2;
 
     ImageView cat;
     Timer timer;
@@ -41,13 +40,13 @@ public class MapObjectZOO extends MapObject {
         objectY = Y;
         type = "ZOO";
         timer = new Timer();
-        Task = new Tasks((MapObject)this);
-        Task.bonus = 0;
-        Task.text = "Словите розового кота";
-        Task2 = new Tasks((MapObject)this);
+        task = new Task((MapObject)this);
+        task.bonus = 0;
+        task.text = "Словите розового кота";
+        Task2 = new Task((MapObject)this);
         Task2.bonus = 1000;
         Task2.text = "Отвезите кота в ЗОО магазин";
-        Task2.TargetCell = MainActivity.Map.Cells[X][Y]; //Во втором задании сразу известна ячейка: нужо вернуть кота назад сюда
+        Task2.targetCell = MainActivity.map.mMapCells[X][Y]; //Во втором задании сразу известна ячейка: нужо вернуть кота назад сюда
 
         cat = MainActivity.findViewById(R.id.cat);
 
@@ -70,13 +69,14 @@ public class MapObjectZOO extends MapObject {
 
     public void StartFill(){
         dialog.hide();
-        Task.StartTask();
-        Task2.Started=false;
+        mapActivity.myTasks.add(task);
+        task.startTask();
+        Task2.isStarted =false;
         //dialog2.show();
         //Запускаем бегать кота
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) cat.getLayoutParams();
-        int startX = (X)*mapActivity.Map.Scale;
-        int startY = (Y+1)*mapActivity.Map.Scale;
+        int startX = (x)*mapActivity.map.scale;
+        int startY = (y +1)*mapActivity.map.scale;
         params.setMargins(startX,startY,0,0);
         cat.setLayoutParams(params);
         cat.setVisibility(View.VISIBLE);
@@ -98,10 +98,10 @@ public class MapObjectZOO extends MapObject {
         dialog3.hide();
     }
     @Override
-    public void RunAction(){
-        if (Task2.Started)
+    public void runAction(){
+        if (Task2.isStarted)
             return;
-        if (Task.Started)
+        if (task.isStarted)
             return;
 
         dialog.show();
@@ -109,20 +109,21 @@ public class MapObjectZOO extends MapObject {
     }
 
     @Override
-    public void FinishTask(){
-        if (Task2.Started&&!Task2.finished) {
+    public void finishTask(){
+        if (Task2.isStarted &&!Task2.isFinished) {
             cat.setVisibility(View.INVISIBLE);
             Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() + Task2.bonus);
             //dialog3.show();
-            Task2.finished = true;
+            Task2.isFinished = true;
             mapActivity.updateBar();
 
             DialogMessage.showMessage(R.drawable.dialog_back_zoo,R.drawable.icon_money,"Спасибо, добрый человек! Получи же свою заслуженную награду: 1 000 монет.","+1 000",mapActivity);
         } else {
-            Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() + Task.bonus);
+            Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() + task.bonus);
             dialog2.show();
-            Task.finished = true;
-            Task2.StartTask();
+            task.isFinished = true;
+            mapActivity.myTasks.add(Task2);
+            Task2.startTask();
             mapActivity.updateBar();
 
             //останавливаем и убираем с формы кота
@@ -194,11 +195,11 @@ public class MapObjectZOO extends MapObject {
                 public void run() {
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) cat.getLayoutParams();
                     ConstraintLayout.LayoutParams newparams = new Constraints.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                    MyMap.MapCell CurrentCell = mapActivity.Map.FindCellByXY(params.leftMargin, params.topMargin);
+                    MyMap.MapCell CurrentCell = mapActivity.map.findCellByXY(params.leftMargin, params.topMargin);
                     //Координаты верхней левой точки текущей ячейки на карте
-                    int startX = (CurrentCell.X)* mapActivity.Map.Scale;
-                    int startY = (CurrentCell.Y)* mapActivity.Map.Scale;
-                    MyMap.MapCell CarCell = mapActivity.Map.FindCellByXY(mapActivity.carX, mapActivity.carY);
+                    int startX = (CurrentCell.x)* mapActivity.map.scale;
+                    int startY = (CurrentCell.y)* mapActivity.map.scale;
+                    MyMap.MapCell CarCell = mapActivity.map.findCellByXY(mapActivity.carX, mapActivity.carY);
                     int danger =0; //опасность: 1-слева; 2-сверху; 3-справа; 4-снизу
                     int toLeft =0; //перспектива налево: 0-нет дороги; 1-впереди тупик; 10-впереди машина; 2-впереди повороты
                     int toUp =0;   //перспектива вверх: 0-нет дороги; 1-впереди тупик; 10-впереди машина; 2-впереди повороты
@@ -206,20 +207,20 @@ public class MapObjectZOO extends MapObject {
                     int toDown =0;   //перспектива вниз: 0-нет дороги; 1-впереди тупик; 10-впереди машина; 2-впереди повороты
 
                     //сканируем дорогу вправо           x и y - это индексы
-                    for (int x = CurrentCell.X+1; x< mapActivity.Map.Length; x++){
-                        if (!mapActivity.Map.Cells[x][CurrentCell.Y].type.equals("Road"))
+                    for (int x = CurrentCell.x +1; x< mapActivity.map.mLength; x++){
+                        if (!mapActivity.map.mMapCells[x][CurrentCell.y].type.equals("Road"))
                             //это не дорога. поіск останвліваем
                             break;
 
                         if (toRight==0) toRight=1; //как минимум в тупик, но дорога куда-то едет
-                        if (CurrentCell.Y<(mapActivity.Map.Height-1))
-                            if (mapActivity.Map.Cells[x][CurrentCell.Y+1].type.equals("Road"))
+                        if (CurrentCell.y <(mapActivity.map.mHeight -1))
+                            if (mapActivity.map.mMapCells[x][CurrentCell.y +1].type.equals("Road"))
                                 toRight=2; //с этой дороги можно будет свернуть (вниз)
-                        if (CurrentCell.Y>0)
-                            if (mapActivity.Map.Cells[x][CurrentCell.Y-1].type.equals("Road"))
+                        if (CurrentCell.y >0)
+                            if (mapActivity.map.mMapCells[x][CurrentCell.y -1].type.equals("Road"))
                                 toRight=2; //с этой дороги можно будет свернуть (вверх)
 
-                        if (CarCell.X==(x) && CarCell.Y==CurrentCell.Y){
+                        if (CarCell.x ==(x) && CarCell.y ==CurrentCell.y){
                             //в этой клетке сейчас машина.
                             danger=3;
                             //toRight=toRight*10;
@@ -228,20 +229,20 @@ public class MapObjectZOO extends MapObject {
                     }
 
                     //сканируем дорогу влево
-                    for (int x=CurrentCell.X-1; x>=0; x--){
-                        if (!mapActivity.Map.Cells[x][CurrentCell.Y].type.equals("Road"))
+                    for (int x = CurrentCell.x -1; x>=0; x--){
+                        if (!mapActivity.map.mMapCells[x][CurrentCell.y].type.equals("Road"))
                             //это не дорога. поіск останвліваем
                             break;
 
                         if (toLeft==0) toLeft=1; //как минимум в тупик, но дорога куда-то едет
-                        if (CurrentCell.Y<(mapActivity.Map.Height-1))
-                            if (mapActivity.Map.Cells[x][CurrentCell.Y+1].type.equals("Road"))
+                        if (CurrentCell.y <(mapActivity.map.mHeight -1))
+                            if (mapActivity.map.mMapCells[x][CurrentCell.y +1].type.equals("Road"))
                                 toLeft=2; //с этой дороги можно будет свернуть (вниз)
-                        if (CurrentCell.Y>0)
-                            if (mapActivity.Map.Cells[x][CurrentCell.Y-1].type.equals("Road"))
+                        if (CurrentCell.y >0)
+                            if (mapActivity.map.mMapCells[x][CurrentCell.y -1].type.equals("Road"))
                                 toLeft=2; //с этой дороги можно будет свернуть (вверх)
 
-                        if (CarCell.X==(x) && CarCell.Y==CurrentCell.Y){
+                        if (CarCell.x ==(x) && CarCell.y ==CurrentCell.y){
                             //в этой клетке сейчас машина.
                             danger=1;
                             //toLeft=toLeft*10;
@@ -250,20 +251,20 @@ public class MapObjectZOO extends MapObject {
                     }
 
                     //сканируем дорогу вниз
-                    for (int y = CurrentCell.Y+1; y< mapActivity.Map.Height; y++){
-                        if (!mapActivity.Map.Cells[CurrentCell.X][y].type.equals("Road"))
+                    for (int y = CurrentCell.y +1; y< mapActivity.map.mHeight; y++){
+                        if (!mapActivity.map.mMapCells[CurrentCell.x][y].type.equals("Road"))
                             //это не дорога. поіск останвліваем
                             break;
 
                         if (toDown==0) toDown=1; //как минимум в тупик, но дорога куда-то едет
-                        if (CurrentCell.X<(mapActivity.Map.Length-1))
-                            if (mapActivity.Map.Cells[CurrentCell.X+1][y].type.equals("Road"))
+                        if (CurrentCell.x <(mapActivity.map.mLength -1))
+                            if (mapActivity.map.mMapCells[CurrentCell.x +1][y].type.equals("Road"))
                                 toDown=2; //с этой дороги можно будет свернуть (вправо)
-                        if (CurrentCell.X>0)
-                            if (mapActivity.Map.Cells[CurrentCell.X-1][y].type.equals("Road"))
+                        if (CurrentCell.x >0)
+                            if (mapActivity.map.mMapCells[CurrentCell.x -1][y].type.equals("Road"))
                                 toDown=2; //с этой дороги можно будет свернуть (влево)
 
-                        if (CarCell.X==(CurrentCell.X) && CarCell.Y==y){
+                        if (CarCell.x ==(CurrentCell.x) && CarCell.y ==y){
                             //в этой клетке сейчас машина.
                             danger=4;
                             //toUp=toUp*10;
@@ -272,20 +273,20 @@ public class MapObjectZOO extends MapObject {
                     }
 
                     //сканируем дорогу вверх  toUp
-                    for (int y=CurrentCell.Y-1; y>=0; y--){
-                        if (!mapActivity.Map.Cells[CurrentCell.X][y].type.equals("Road"))
+                    for (int y = CurrentCell.y -1; y>=0; y--){
+                        if (!mapActivity.map.mMapCells[CurrentCell.x][y].type.equals("Road"))
                             //это не дорога. поіск останвліваем
                             break;
 
                         if (toUp==0) toUp=1; //как минимум в тупик, но дорога куда-то едет
-                        if (CurrentCell.X<(mapActivity.Map.Length-1))
-                            if (mapActivity.Map.Cells[CurrentCell.X+1][y].type.equals("Road"))
+                        if (CurrentCell.x <(mapActivity.map.mLength -1))
+                            if (mapActivity.map.mMapCells[CurrentCell.x +1][y].type.equals("Road"))
                                 toUp=2; //с этой дороги можно будет свернуть (вправо)
-                        if (CurrentCell.X>0)
-                            if (mapActivity.Map.Cells[CurrentCell.X-1][y].type.equals("Road"))
+                        if (CurrentCell.x >0)
+                            if (mapActivity.map.mMapCells[CurrentCell.x -1][y].type.equals("Road"))
                                 toUp=2; //с этой дороги можно будет свернуть (влево)
 
-                        if (CarCell.X==(CurrentCell.X) && CarCell.Y==y){
+                        if (CarCell.x ==(CurrentCell.x) && CarCell.y ==y){
                             //в этой клетке сейчас машина.
                             danger=2;
                             //toDown=toDown*10;
@@ -335,7 +336,7 @@ public class MapObjectZOO extends MapObject {
                             else if (danger==3&&toLeft>0) newTrend=1; //лучше в противоположном направлении, чем под машину
                         }
                         else if (danger==2||danger==4){
-                            //опасность по оси Y. Лучше повернуть влево или вправо, но не в тупик
+                            //опасность по оси y. Лучше повернуть влево или вправо, но не в тупик
                             if (toLeft>1) newTrend=1;
                             else if (toRight>1) newTrend=3;
                             else if (danger==2&&toDown>1) newTrend=4; //лучше в противоположном направлении, чем в тупик
@@ -362,7 +363,7 @@ public class MapObjectZOO extends MapObject {
                     //Бежим в направлении
                     int newX=params.leftMargin;
                     int newY=params.topMargin;
-                    int stepPix = (int)(mapActivity.Map.Scale*2.5/ Constants.DATAGAME.SCALE);
+                    int stepPix = (int)(mapActivity.map.scale *2.5/ Constants.DATAGAME.SCALE);
 
                     if (newTrend==1) newX=newX-stepPix;
                     else if (newTrend==2) newY=newY-stepPix;
@@ -370,11 +371,11 @@ public class MapObjectZOO extends MapObject {
                     else if (newTrend==4) newY=newY+stepPix;
                     Trend=newTrend;
 
-                    Task.TargetCell = mapActivity.Map.FindCellByXY(newX, newY);
+                    task.targetCell = mapActivity.map.findCellByXY(newX, newY);
                     params.setMargins(newX,newY,0,0);
                     cat.setLayoutParams(params);
-                    if (Task == mapActivity.ChekTusk(CarCell))
-                        Task.FinishTask();
+                    if (task == task.checkTasks(mapActivity,CarCell))
+                        task.finishTask();
 
                 }
             });

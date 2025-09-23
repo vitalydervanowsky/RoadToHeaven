@@ -1,9 +1,7 @@
 package com.carloclub.roadtoheaven;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 
 import java.util.ArrayList;
@@ -44,10 +40,10 @@ public class BridgeActivity extends AppCompatActivity {
     Timer timer;
     TimerDown timerDown;
 
-    MyMap.Question[] Questions;
+    MyMap.Question[] questions;
 
-    int MaxStep = 7;
-    
+    int maxStep = 7;
+
     ArrayList <ImageView> imageStones;
     boolean[] usedRubies = new boolean[7];
 
@@ -68,7 +64,7 @@ public class BridgeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        Questions = Constants.DATAGAME.Map.getQuestions(MaxStep, "Ru");
+        questions = Constants.DATAGAME.map.getQuestions(maxStep, "Ru");
 
         questionTextView = findViewById(R.id.questionTextView);
         //stepTextView = findViewById(R.id.stepTextView);
@@ -108,7 +104,7 @@ public class BridgeActivity extends AppCompatActivity {
             buttonAnswer2.setVisibility(View.VISIBLE);
             findViewById(R.id.imageViewRubi).setVisibility(View.VISIBLE);
         }
-        questionTextView.setText("К сожалению, Вы ошиблись(((\n  Cтоительство моста прервано");
+        questionTextView.setText("К сожалению, Вы ошиблись(((\n  Cтоительство моста приостановлено");
         buttonAnswer1.setText("Завершить стройку");
         buttonAnswer2.setText("1 Рубин Помощи");
 
@@ -121,7 +117,7 @@ public class BridgeActivity extends AppCompatActivity {
 //            if (isGameOver) {
 //                startGame();
 //            } else {
-                enterAnswer(1);
+            enterAnswer(1);
             //}
         });
 
@@ -129,7 +125,7 @@ public class BridgeActivity extends AppCompatActivity {
 //            if (isGameOver) {
 //                showRules();
 //            } else {
-                enterAnswer(2);
+            enterAnswer(2);
             //}
         });
 
@@ -150,7 +146,7 @@ public class BridgeActivity extends AppCompatActivity {
 
 
 
-       // buttonThank.setOnClickListener(v -> dialog.hide());
+        // buttonThank.setOnClickListener(v -> dialog.hide());
 
         buttonLang.setOnClickListener(v -> changeLang());
 
@@ -228,19 +224,20 @@ public class BridgeActivity extends AppCompatActivity {
             else imageStone.setImageDrawable(getDrawable(R.drawable.nostone));
 
         }
-        
+
     }
 
     private void enterAnswer(int userAnswer) {
         if (pause || isGameOver) {
             if (userAnswer==2){
-                    Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies()-1);
-                    findViewById(R.id.imageViewRubi).setVisibility(View.INVISIBLE);
-                    usedRubies[step-1]=true;
-                    step++;
-                    isGameOver=false;
-                    updateStones(0);
-                    showQuestion();
+                Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies()-1);
+                Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()+1);
+                findViewById(R.id.imageViewRubi).setVisibility(View.INVISIBLE);
+                usedRubies[step-1]=true;
+                step++;
+                isGameOver=false;
+                updateStones(0);
+                showQuestion();
 
             }
             else finish();
@@ -248,9 +245,8 @@ public class BridgeActivity extends AppCompatActivity {
             return;
 
         };
-        Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()-1);
 
-        int trueAnswer = Questions[step-1].trueAnswer;
+        int trueAnswer = questions[step-1].trueAnswer;
         if (trueAnswer == 1) {
             buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
         }
@@ -277,20 +273,30 @@ public class BridgeActivity extends AppCompatActivity {
             buttonAnswer3.setBackgroundResource(R.drawable.rombbad);
         }
         isGameOver = userAnswer != trueAnswer;
+        if (isGameOver) {
+            incorrectMediaPlayer.start();
+        } else {
+            correctMediaPlayer.start();
+        }
+        if (Constants.DATAGAME.getStones()==0 && Constants.DATAGAME.getRubies()>0){
+            Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies()-1);
+            isGameOver = false;
+        }
+        else
+            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()-1);
+
         timerDown = new TimerDown();
         pause = true;
         timer.schedule(timerDown, 1500, 1500);
         if (isGameOver) {
-            incorrectMediaPlayer.start();
-            // выведем диалог и завершим активность
+
         } else {
             updateStones(step);
-            correctMediaPlayer.start();
         }
     }
 
     private void showQuestion() {
-        MyMap.Question currentQuestion = Questions[step - 1];
+        MyMap.Question currentQuestion = questions[step - 1];
         questionTextView.setVisibility(View.VISIBLE);
         buttonAnswer1.setVisibility(View.VISIBLE);
         buttonAnswer2.setVisibility(View.VISIBLE);
@@ -343,7 +349,7 @@ public class BridgeActivity extends AppCompatActivity {
                 if (isGameOver) {
                     //step = 0;
                     showStartMenu();
-                } else if (step == MaxStep) { //
+                } else if (step == maxStep) { //
                     isGameOver = true;
                     step++;
                     updateStones(0);

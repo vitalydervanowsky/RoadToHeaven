@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Sokolka.setOnClickListener(v ->{
             Intent i = new Intent(MainActivity.this, MapActivity.class);
             i.putExtra("Head", "Сокулка");
-            i.putExtra("CityName", "Sokulka");
+            i.putExtra("CityName", "Sokolka");
             startActivityForResult(i,0);
         });
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(MainActivity.this, DialogActivity.class);
         i.putExtra("videoPath", "android.resource://" + getPackageName() + "/" + R.raw.hello);
-        //i.putExtra("CityName", "Sokulka");
+        //i.putExtra("CityName", "Sokolka");
         startActivityForResult(i,0);
     }
 }

@@ -2,8 +2,6 @@ package com.carloclub.roadtoheaven.MapObjects;
 
 import android.media.MediaPlayer;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
@@ -11,43 +9,49 @@ import com.carloclub.roadtoheaven.R;
 public class MapObjectRM extends MapObject {
     public MediaPlayer playerPaterNoster;
     public MediaPlayer playerAveMaria;
-    public MapObjectRM(int X, int Y, MapActivity mActivity){
-        super(X, Y, mActivity);
+
+    public MapObjectRM(int X, int Y, MapActivity activity) {
+        super(X, Y, activity);
         type = "RM";
         dialog.setContentView(R.layout.dialog_rm);
         Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> EndFill());
-        playerPaterNoster = MediaPlayer.create(mActivity, R.raw.organ);
-        playerAveMaria = MediaPlayer.create(mActivity, R.raw.organ);
-        dialog.findViewById(R.id.buttotPaterNoster).setOnClickListener(v -> PaterNoster());
-        dialog.findViewById(R.id.buttonAveMaria).setOnClickListener(v -> AveMaria());
-    }
-    public void EndFill(){
-        playerPaterNoster.stop();
-        playerAveMaria.stop();
-        dialog.hide();
+        buttonStop.setOnClickListener(v -> endFill());
+        playerPaterNoster = MediaPlayer.create(activity, R.raw.organ);
+        playerAveMaria = MediaPlayer.create(activity, R.raw.organ);
+        dialog.findViewById(R.id.buttotPaterNoster).setOnClickListener(v -> paterNoster());
+        dialog.findViewById(R.id.buttonAveMaria).setOnClickListener(v -> aveMaria());
     }
 
-    public void PaterNoster(){
-        if (playerPaterNoster.isPlaying())
+    public void endFill() {
+        playerPaterNoster.stop();
+        playerAveMaria.stop();
+        dialog.dismiss();
+    }
+
+    public void paterNoster() {
+        if (playerPaterNoster.isPlaying()) {
             playerPaterNoster.stop();
-        else
+        } else {
             playerPaterNoster.start();
+        }
     }
-    public void AveMaria(){
-        if (playerAveMaria.isPlaying())
+
+    public void aveMaria() {
+        if (playerAveMaria.isPlaying()) {
             playerAveMaria.stop();
-        else
+        } else {
             playerAveMaria.start();
+        }
     }
+
     @Override
-    public void RunAction(){
+    public void runAction() {
         dialog.show();
         //ObjectMediaPlayer.start();
     }
 
     @Override
-    public void loadAttributes(String[] attributes){
+    public void loadAttributes(String[] attributes) {
 
     }
 }

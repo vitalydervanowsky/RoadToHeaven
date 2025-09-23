@@ -2,8 +2,6 @@ package com.carloclub.roadtoheaven;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Constraints;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
@@ -31,7 +29,7 @@ public class MapActivity extends AppCompatActivity {
     TextView textMoney;
     TextView textStones;
     TextView textRubi;
-    private MediaPlayer correctMediaPlayer;
+    public MediaPlayer correctMediaPlayer;
 
     int clickX;
     int clickY;
@@ -39,8 +37,9 @@ public class MapActivity extends AppCompatActivity {
     int navX=0;
     int navY=0;
     MoveCar mMoveCar;
+    MoveWalpaper moveWalpaper;
     private AnimationDrawable isAnimation;
-    public MyMap Map;// = new MyMap(28, 21);
+    public MyMap map;// = new MyMap(28, 21);
     Timer timer;
     int currentX = 1;
     int currentY = 1;
@@ -52,11 +51,13 @@ public class MapActivity extends AppCompatActivity {
     int lastY =0;   //служебный. Для параллельной прокрутки по вертикали
     int lastX =0;   //служебный. Для параллельной прокрутки по горизонтали
     int trend =3;   //0 право, 1 лево, 2 вверх, 3 вниз
-    ArrayList<Tasks> myTasks;
+    public ArrayList<Task> myTasks;
     private MediaPlayer rrrMediaPlayer;
     ScrollView sv;
     HorizontalScrollView sh;
     boolean fuelDanger= false;
+
+    public float displayDensity=0;
 
     ScaleGestureDetector scaleDetector;
 
@@ -80,18 +81,18 @@ public class MapActivity extends AppCompatActivity {
         );
 
 
-
+        myTasks =new ArrayList <Task>();
         String CityName = getIntent().getStringExtra("CityName");
-        Map = Constants.getMap(CityName);
-        float level = getApplicationContext().getResources().getDisplayMetrics().density;
-        Map.Scale = (int) (Constants.DATAGAME.SCALE*level); //
-        Map.createObjects(MapActivity.this);
+        map = Constants.getMap(CityName);
+        displayDensity = getApplicationContext().getResources().getDisplayMetrics().density;
+        map.scale = (int) (Constants.DATAGAME.SCALE*displayDensity); //
+        map.createObjects(MapActivity.this);
 
         ImageView imageBack = findViewById(R.id.imageView);
         //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) imageBack.getLayoutParams();
-        imageBack.setImageDrawable(getDrawable(Map.BackgroundID));
+        imageBack.setImageDrawable(getDrawable(map.mBackgroundId));
         //int realScale = (int)params.height *Constants.DATAGAME.SCALE/ 21  /48; //в образце 21 вертикальная клетка
-        imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(Map.Length*Map.Scale, Map.Height*Map.Scale));
+        imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength * map.scale, map.mHeight * map.scale));
 
         scaleDetector = new ScaleGestureDetector(this, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
             @Override
@@ -99,20 +100,20 @@ public class MapActivity extends AppCompatActivity {
                 if (mMoveCar!=null) return true;
                 float factor = detector.getScaleFactor();
 
-                if (factor > 1.0f && Map.Scale<700) {
+                if (factor > 1.0f && map.scale <700) {
                     //MyMap.MapCell CellInCenter = whyCellInCenter();
-                    zoomMapToSCALE((int)(Map.Scale*1.03));
+                    zoomMapToSCALE((int)(map.scale *1.03));
                     //scrollToCell(CellInCenter);
-                } else if (factor < 1.0f && Map.Scale>35) {
+                } else if (factor < 1.0f && map.scale >72) {
                     //MyMap.MapCell CellInCenter = whyCellInCenter();
-                    zoomMapToSCALE((int)(Map.Scale/1.03));
+                    zoomMapToSCALE((int)(map.scale /1.03));
                     //scrollToCell(CellInCenter);
                 }
                 return true;
             }
         });
 
-        myTasks =new ArrayList <Tasks>();
+
         timer = new Timer();
         car = findViewById(R.id.car);
         nav = findViewById(R.id.nav);
@@ -133,7 +134,7 @@ public class MapActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 int pointerCount = event.getPointerCount();
                 if (pointerCount>=2){
-                    //zoomMapToSCALE(Map.Scale+5);
+                    //zoomMapToSCALE(map.scale+5);
                     scaleDetector.onTouchEvent(event);
                     return true;
                 }
@@ -172,7 +173,7 @@ public class MapActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 int pointerCount = event.getPointerCount();
                 if (pointerCount>=2){
-                    //zoomMapToSCALE(Map.Scale+5);
+                    //zoomMapToSCALE(map.scale+5);
                     scaleDetector.onTouchEvent(event);
                     return true;
                 }
@@ -232,24 +233,70 @@ public class MapActivity extends AppCompatActivity {
         isAnimation = (AnimationDrawable)car.getDrawable();
         isAnimation.start();
 
-        DialogMessage.showMessage(R.drawable.stones, R.drawable.icon_bridge, "Собери 7 камней знаний на каменных рудниках, чтобы построить разрушенный мост и выехать из города", "Удачи!" , MapActivity.this);
+        //DialogMessage.showMessage(R.drawable.stones, R.drawable.icon_bridge, "Собери 7 камней знаний на каменных рудниках, чтобы построить разрушенный мост и выехать из города", "Удачи!" , MapActivity.this);
+
+        showRubies();
+
+        zoomMapToSCALE(72);
+        findViewById(R.id.cloudView).setVisibility(View.VISIBLE);
+        moveWalpaper = new MoveWalpaper();
+        timer.schedule(moveWalpaper, 700, 20);
+    }
+
+
+
+
+
+    private void showRubies(){
+        ArrayList<MyMap.MapCell> CR = map.getCellsRubies();
+        showAnimateViev(findViewById(R.id.ruby1), CR, 1);
+        showAnimateViev(findViewById(R.id.ruby2), CR, 2);
+        showAnimateViev(findViewById(R.id.ruby3), CR, 3);
+        showAnimateViev(findViewById(R.id.ruby4), CR, 4);
+
+
+        CR = map.getCellsStones();
+        showAnimateViev(findViewById(R.id.stones1), CR, 1);
+        showAnimateViev(findViewById(R.id.stones2), CR, 2);
+        showAnimateViev(findViewById(R.id.stones3), CR, 3);
+        showAnimateViev(findViewById(R.id.stones4), CR, 4);
+        showAnimateViev(findViewById(R.id.stones5), CR, 5);
+        showAnimateViev(findViewById(R.id.stones6), CR, 6);
+        showAnimateViev(findViewById(R.id.stones7), CR, 7);
+    }
+
+    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell){
+        if (CR.size()>=numCell){
+            IV.setVisibility(View.VISIBLE);
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) IV.getLayoutParams();
+            int x = CR.get(numCell-1).x * map.scale;
+            int y = CR.get(numCell-1).y * map.scale;
+            params.setMargins(x,y+ map.scale /2,0,0);
+            params.width = (int)(map.scale *0.5);
+            params.height = params.width;
+            IV.setLayoutParams(params);
+            AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
+            IVAnimation.start();
+        }
+        else IV.setVisibility(View.INVISIBLE);
+
 
     }
 
     private void moveImageView(int positionY, int positionX) {
         //Клик по карте.
         //проверяем, можно ли  в эту ячейку поехать.
-        MyMap.MapCell CurrentCell = Map.FindCellByXY(currentX, currentY);
-        MyMap.MapCell NewCell = Map.FindCellByXY(positionX, positionY);
+        MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
+        MyMap.MapCell NewCell = map.findCellByXY(positionX, positionY);
         if (NewCell.object==null && !NewCell.type.equals("Road"))
             return;
 
         //Строим маршрут и запускаем движение машины
-        ArrayList<MyMap.MapCell> Rote = Map.BuildRote(CurrentCell,NewCell);
+        ArrayList<MyMap.MapCell> Rote = map.buildRoute(CurrentCell,NewCell);
         if (Rote==null) return;
-        Map.Rote = Rote;
+        map.mRoute = Rote;
 
-        if (NewCell.X==navX && NewCell.Y==navY ){
+        if (NewCell.x ==navX && NewCell.y ==navY ){
             //начинаем ехать
             if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
             mMoveCar = new MoveCar();
@@ -259,14 +306,16 @@ public class MapActivity extends AppCompatActivity {
             rrrMediaPlayer.start();
         }
         else {
+            Task.startNextTask(MapActivity.this);
+
             //Устанавливаем навигационную ссылку
             if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
 
-            navX=NewCell.X;
-            navY=NewCell.Y;
+            navX=NewCell.x;
+            navY=NewCell.y;
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) nav.getLayoutParams();
-            int startX = (navX)*Map.Scale;
-            int startY = (navY)*Map.Scale;
+            int startX = (navX)* map.scale;
+            int startY = (navY)* map.scale;
             params.setMargins(startX,startY,0,0);
             nav.setLayoutParams(params);
             nav.setVisibility(View.VISIBLE);
@@ -288,34 +337,36 @@ public class MapActivity extends AppCompatActivity {
         int centerX = scrollX+(int)(getApplicationContext().getResources().getDisplayMetrics().widthPixels/2);
         int centerY = scrollY+(int)(getApplicationContext().getResources().getDisplayMetrics().heightPixels/2);
 
-        int newCenterX = (int)(centerX*newSCALE/Map.Scale);
-        int newCenterY = (int)(centerY*newSCALE/Map.Scale);
+        int newCenterX = (int)(centerX*newSCALE/ map.scale);
+        int newCenterY = (int)(centerY*newSCALE/ map.scale);
 
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
-        MyMap.MapCell CurrentCell = Map.FindCellByXY(currentX, currentY);
+        MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
 
-        Map.Scale = newSCALE;
+        map.scale = newSCALE;
         ImageView imageBack = findViewById(R.id.imageView);
-        imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(Map.Length*Map.Scale, Map.Height*Map.Scale));
+        imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength * map.scale, map.mHeight * map.scale));
 
-        currentX=CurrentCell.X*Map.Scale;
-        currentY=CurrentCell.Y*Map.Scale;
+        currentX=CurrentCell.x * map.scale;
+        currentY=CurrentCell.y * map.scale;
 
         params.setMargins(currentX,currentY,0,0);
-        params.width = Map.Scale;
-        params.height = Map.Scale;
+        params.width = (int)(map.scale *0.9);
+        params.height = params.width;
         car.setLayoutParams(params);
 
         params = (ConstraintLayout.LayoutParams) nav.getLayoutParams();
-        int startX = (navX)*Map.Scale;
-        int startY = (navY)*Map.Scale;
+        int startX = (navX)* map.scale;
+        int startY = (navY)* map.scale;
         params.setMargins(startX,startY,0,0);
-        params.width = Map.Scale;
-        params.height = Map.Scale;
+        params.width = map.scale;
+        params.height = map.scale;
         nav.setLayoutParams(params);
 
         carX=currentX;
         carY=currentY;
+
+        showRubies();
 
         int newScrollY = Math.max(0,newCenterY-(int)(getApplicationContext().getResources().getDisplayMetrics().heightPixels/2));
         int newScrollX = Math.max(0,newCenterX-(int)(getApplicationContext().getResources().getDisplayMetrics().widthPixels/2));
@@ -325,14 +376,14 @@ public class MapActivity extends AppCompatActivity {
 
 
         //подгоним размер машинки
-        //car.setLayoutParams(new ConstraintLayout.LayoutParams(Map.Length*Map.Scale, Map.Height*Map.Scale));
+        //car.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength*map.scale, map.mHeight*map.scale));
     }
 
     private MyMap.MapCell whyCellInCenter(){
         int scrollY = sv.getScrollY()+400;
         int scrollX = sh.getScrollX()+700;
 
-        return Map.FindCellByXY(scrollX, scrollY);
+        return map.findCellByXY(scrollX, scrollY);
     }
 
     private void scrollToCell(MyMap.MapCell cell){
@@ -342,8 +393,8 @@ public class MapActivity extends AppCompatActivity {
         int scrollX = sh.getScrollX();
         boolean isMove=false;
 
-        int x = (cell.X)*Map.Scale;
-        int y = (cell.Y)*Map.Scale;
+        int x = (cell.x)* map.scale;
+        int y = (cell.y)* map.scale;
 
         if (scrollX<(x-720) || scrollX>(x-680)){
             scrollX = x-700;
@@ -377,8 +428,8 @@ public class MapActivity extends AppCompatActivity {
             scrollX = CurrentX-700; //sh.scrollTo(CurrentX, CurrenrY);
             isMove=true;
         }  //Если позиция машины у левой границы или за ней (CurrentX меньше, чем scrollX, то  перемещаем карту на позицию машины+ширина экрана
-        else if (CurrentX<(scrollX+30) && scrollX>0) {
-            scrollX = CurrentX-30;
+        else if (CurrentX<(scrollX+60) && scrollX>0) {
+            scrollX = CurrentX-60;
             isMove=true;
         }
 
@@ -407,46 +458,30 @@ public class MapActivity extends AppCompatActivity {
         textRubi.setText(String.valueOf(Constants.DATAGAME.getRubies()));
     }
 
-
-    public Tasks ChekTusk(MyMap.MapCell Cell){
-        //Поиск заданя
-        for (int i = 1; i<= myTasks.size(); i++){
-            Tasks Task = myTasks.get(i-1);
-            //Проверяем задания, которые направлены на любой объект какого-то типа (в них заполнен тип (TargetType), но не заполнена ячейка (TargetCell))
-            if (Task.TargetType.equals(Cell.type)&& !Task.TargetType.equals(""))
-                return Task;
-
-            //Проверяем задания, которые направлены на конкретный объект какого-то типа (в них НЕ заполнен тип (TargetType), но заполнена ячейка (TargetCell))
-            if (Task.TargetCell!=null && Task.TargetCell.X==Cell.X && Task.TargetCell.Y==Cell.Y && !Task.finished)
-                return Task;
-        }
-        return null;
-    }
-
     public void twistCar(){
         //Поворачиваем машину в нужном направлении
-        MyMap.MapCell NextCell = Map.Rote.get(0);
-        if (NextCell.Y*Map.Scale< currentY && trend !=2){
+        MyMap.MapCell NextCell = map.mRoute.get(0);
+        if (NextCell.y * map.scale < currentY && trend !=2){
             trend =2;
             car.setImageDrawable(getDrawable(R.drawable.caranimationup));
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
 
-        if (NextCell.X*Map.Scale< currentX && trend !=1){
+        if (NextCell.x * map.scale < currentX && trend !=1){
             trend =1;
             car.setImageDrawable(getDrawable(R.drawable.caranimationleft));
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
 
-        if (NextCell.X*Map.Scale> currentX && trend !=0){
+        if (NextCell.x * map.scale > currentX && trend !=0){
             trend =0;
             car.setImageDrawable(getDrawable(R.drawable.caranimation));
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
-        if (NextCell.Y*Map.Scale> currentY && trend !=3) {
+        if (NextCell.y * map.scale > currentY && trend !=3) {
             trend =3;
             car.setImageDrawable(getDrawable(R.drawable.caranimationdown));
             isAnimation = (AnimationDrawable)car.getDrawable();
@@ -485,8 +520,8 @@ public class MapActivity extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     //ConstraintLayout.LayoutParams newparams = new Constraints.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    int stepPix = (int)(Map.Scale*3/Constants.DATAGAME.SCALE);
-                    int metr = 6;//(int)(1600/Map.Scale);
+                    int stepPix = (int)(map.scale *3/Constants.DATAGAME.SCALE);
+                    int metr = 6;//(int)(1600/map.scale);
                     //Получили координаты машинки, теперь сравниваем их с координатами следующей ячейки и решаем, что делать дальше
                     if (params.topMargin!= currentY || params.leftMargin!= currentX){
                         //Не доехали до следующей ячейки продолжаем двигать
@@ -518,11 +553,11 @@ public class MapActivity extends AppCompatActivity {
 
                     //Проехали очередной шаг. Решаем дальше
                     boolean isEnd=false;
-                    if (Map.Rote.size()==0)
+                    if (map.mRoute.size()==0)
                         isEnd=true;
                     else {
-                        MyMap.MapCell NextCell = Map.Rote.get(0);
-                        if (NextCell.X==navX && NextCell.Y==navY)
+                        MyMap.MapCell NextCell = map.mRoute.get(0);
+                        if (NextCell.x ==navX && NextCell.y ==navY && ! NextCell.type.equals("Road"))
                             isEnd=true;
                     }
                     if (isEnd){
@@ -534,12 +569,13 @@ public class MapActivity extends AppCompatActivity {
                         nav.setVisibility(View.INVISIBLE);
 
                         //Активизируем объект, на который попали
-                        MyMap.MapCell CurrentCell = Map.Cells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
-                        if (CurrentCell.object!=null) CurrentCell.object.RunAction();
+                        MyMap.MapCell CurrentCell = map.mMapCells[navX][navY]; //]map.findCellByXY(currentX, currentY);
+                        if (CurrentCell.object!=null) CurrentCell.object.runAction();
 
                         //Если есть задания к этой ячейке, запусаем их завершение
-                        Tasks Task = ChekTusk(Map.Cells[navX][navY]); //Map.FindCellByXY(currentX, currentY));
-                        if (Task!=null) Task.FinishTask();
+                        Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));
+                        //if (task!=null) task.finishTask();
+                        //task.startNextTask(MapActivity.this);
 
                         //zoomMapToSCALE(Constants.DATAGAME.SCALE*2);
                         scrollToCar(currentX,currentY);
@@ -550,16 +586,53 @@ public class MapActivity extends AppCompatActivity {
                     twistCar();
 
                     //Фиксируем координаты следующей ячейки
-                    MyMap.MapCell NextCell = Map.Rote.get(0);
-                    currentX = NextCell.X*Map.Scale;
-                    currentY = NextCell.Y*Map.Scale;
+                    MyMap.MapCell NextCell = map.mRoute.get(0);
+                    currentX = NextCell.x * map.scale;
+                    currentY = NextCell.y * map.scale;
 
                     //и удаляем текуший шаг (который начали ехать)
-                    Map.Rote.remove(0);
-
+                    map.mRoute.remove(0);
                 }
             });
         }
     }
 
+    class MoveWalpaper extends TimerTask {
+        ////////////int Orientation =0; // 0 вниз 1- влево  2-вправо
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    if (moveWalpaper==null)
+                        return;
+                    ImageView cloud = findViewById(R.id.cloudView);
+                    if (map.scale >=Constants.DATAGAME.SCALE*displayDensity) {
+                        moveWalpaper.cancel();
+                        moveWalpaper = null;
+
+                        Task.startNextTask(MapActivity.this);
+                        return;
+
+                    }
+
+
+                    int alfaCloud = (int)(cloud.getAlpha()*100);
+                    if (alfaCloud>0){
+                        cloud.setAlpha((float)(alfaCloud-2)/100);
+                        zoomMapToSCALE(map.scale +1);
+                        sv.scrollTo(0, 0);
+                        sh.scrollTo(0, 0);
+                    }
+                    else {
+                        cloud.setVisibility(View.INVISIBLE);
+                        zoomMapToSCALE(map.scale +1);
+                        sv.scrollTo(0, 0);
+                        sh.scrollTo(0, 0);
+                    }
+                    //nav.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    }
 }
