@@ -41,6 +41,10 @@ public class MapObjectHunger extends MapObject {
     }
 
     @Override
+    public boolean isActual(){
+        return !task.isStarted;
+    }
+    @Override
     public void runAction() {
         if (!task.isStarted)
             dialog.show();

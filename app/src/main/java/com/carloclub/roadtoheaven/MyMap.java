@@ -14,6 +14,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class MyMap {
@@ -53,8 +54,9 @@ public class MyMap {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("piligrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
-                    CR.add(mMapCells[x][y]);
+                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+                    if (mMapCells[x][y].object.isActual())
+                        CR.add(mMapCells[x][y]);
                 }
 
             }
@@ -66,7 +68,8 @@ public class MyMap {
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
                 if (mMapCells[x][y].type.equals("books")|| mMapCells[x][y].type.equals("stones")|| mMapCells[x][y].type.equals("RM")){
-                    CR.add(mMapCells[x][y]);
+                    if (mMapCells[x][y].object.isActual())
+                        CR.add(mMapCells[x][y]);
                 }
 
             }

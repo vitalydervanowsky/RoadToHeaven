@@ -27,10 +27,14 @@ public class MapObjectPilgrim extends MapObject {
         task.startTask();
     }
 
+    @Override
+    public boolean isActual(){
+        return !task.isStarted;
+    }
 
     @Override
     public void runAction(){
-        if (!task.isStarted || task.isFinished)
+        if (!task.isStarted)
             DialogMessage.showMessage(0,0,"Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.","Спасибо",mapActivity,R.drawable.karalina);
     }
 

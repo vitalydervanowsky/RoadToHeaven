@@ -3,6 +3,7 @@ package com.carloclub.roadtoheaven.MapObjects;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.core.view.WindowCompat;
 
+import com.carloclub.roadtoheaven.BridgeActivity;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.CustomImageView;
 import com.carloclub.roadtoheaven.DialogMessage;
@@ -26,20 +28,156 @@ public class MapObjectStones extends MapObject {
     private TextView textMoney;
     Random random;
     Puzzle puzzle;
-    Date lastOK;
-    private TextView textFuel;
+
     Date lastSuccess;
+    TextView buttonAnswer1;
+    TextView buttonAnswer2;
+    TextView buttonAnswer3;
+    TextView buttonAnswer4;
+    public MediaPlayer correctMediaPlayer;
+    private MediaPlayer incorrectMediaPlayer;
+    private MediaPlayer triumfMediaPlayer;
+    int trueAnswer;
+    String [] answers;
+
+    boolean isEnterAnswer;
 
     public MapObjectStones(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         dialog = new Dialog(activity, R.style.FullScreenDialog);
         random = new Random();
         type = "stones";
-        dialog.setContentView(R.layout.dialog_church);
+        dialog.setContentView(R.layout.dialog_puzzle);
         Button buttonStop = dialog.findViewById(R.id.close);
         buttonStop.setOnClickListener(v -> endFill());
+        answers = new String[4];
         //ObjectMediaPlayer = MediaPlayer.create(activity, R.raw.organ);
         puzzle = new Puzzle(this);
+        buttonAnswer1 = dialog.findViewById(R.id.buttonAnswer1);
+        buttonAnswer2 = dialog.findViewById(R.id.buttonAnswer2);
+        buttonAnswer3 = dialog.findViewById(R.id.buttonAnswer3);
+        buttonAnswer4 = dialog.findViewById(R.id.buttonAnswer4);
+
+        if (correctMediaPlayer == null) {
+            correctMediaPlayer = MediaPlayer.create(mapActivity, R.raw.ok);
+        }
+        if (incorrectMediaPlayer == null) {
+            incorrectMediaPlayer = MediaPlayer.create(mapActivity, R.raw.error);
+        }
+        if (triumfMediaPlayer == null) {
+            triumfMediaPlayer = MediaPlayer.create(mapActivity, R.raw.triumf);
+        }
+
+        buttonAnswer1.setOnClickListener(v -> {
+            if (isEnterAnswer){
+                enterAnswer(1);
+            }
+            else {
+                showAnswers();
+            }
+        });
+
+        buttonAnswer2.setOnClickListener(v -> {
+            if (isEnterAnswer){
+                enterAnswer(2);
+            }
+            else {
+                startHelp();
+            }
+        });
+
+        buttonAnswer3.setOnClickListener(v -> {
+                enterAnswer(3);
+        });
+
+        buttonAnswer4.setOnClickListener(v -> {
+            enterAnswer(4);
+        });
+
+    }
+    private void enterAnswer(int userAnswer) {
+        if (trueAnswer == 1) {
+            buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
+        }
+        if (trueAnswer == 2) {
+            buttonAnswer2.setBackgroundResource(R.drawable.rombgood);
+        }
+        if (trueAnswer == 3) {
+            buttonAnswer3.setBackgroundResource(R.drawable.rombgood);
+        }
+        if (trueAnswer == 4) {
+            buttonAnswer4.setBackgroundResource(R.drawable.rombgood);
+        }
+
+        if (userAnswer == 1 && trueAnswer != 1) {
+            buttonAnswer1.setBackgroundResource(R.drawable.rombbad);
+        }
+        if (userAnswer == 2 && trueAnswer != 2) {
+            buttonAnswer2.setBackgroundResource(R.drawable.rombbad);
+        }
+        if (userAnswer == 4 && trueAnswer != 4) {
+            buttonAnswer4.setBackgroundResource(R.drawable.rombbad);
+        }
+        if (userAnswer == 3 && trueAnswer != 3) {
+            buttonAnswer3.setBackgroundResource(R.drawable.rombbad);
+        }
+        boolean isGameOver = userAnswer != trueAnswer;
+        if (isGameOver) {
+            incorrectMediaPlayer.start();
+        } else {
+            triumfMediaPlayer.start();
+            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+                mapActivity.updateBar();
+                ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
+                if (Constants.DATAGAME.getStones() == 7) {
+                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                } else {
+                    DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                }
+                lastSuccess = Calendar.getInstance().getTime();
+                mapActivity.showRubies();
+        }
+        dialog.hide();
+
+    }
+    public void startHelp() {
+        buttonAnswer1.setVisibility(View.INVISIBLE);
+        buttonAnswer2.setVisibility(View.INVISIBLE);
+        buttonAnswer3.setVisibility(View.INVISIBLE);
+        buttonAnswer4.setVisibility(View.INVISIBLE);
+    }
+    public void showAnswers() {
+        int r = random.nextInt(mapActivity.map.mStones.length - 4);
+        int i=1;
+        while (i<=4){
+            if (mapActivity.map.mStones[r].answer.equals(puzzle.stone.answer)) {
+                r++;
+                continue;
+            }
+            answers[i-1] = mapActivity.map.mStones[r].answer;
+            i++;
+            r++;
+        }
+
+        i = random.nextInt(3);
+        answers[i] = puzzle.stone.answer;
+        trueAnswer=i+1;
+
+        buttonAnswer1.setVisibility(View.VISIBLE);
+        buttonAnswer2.setVisibility(View.VISIBLE);
+        buttonAnswer3.setVisibility(View.VISIBLE);
+        buttonAnswer4.setVisibility(View.VISIBLE);
+        buttonAnswer1.setText(answers[0]);
+        buttonAnswer2.setText(answers[1]);
+        buttonAnswer3.setText(answers[2]);
+        buttonAnswer4.setText(answers[3]);
+
+        buttonAnswer1.setBackgroundResource(R.drawable.romb);
+        buttonAnswer2.setBackgroundResource(R.drawable.romb);
+        buttonAnswer3.setBackgroundResource(R.drawable.romb);
+        buttonAnswer4.setBackgroundResource(R.drawable.romb);
+
+        isEnterAnswer=true;
     }
 
     public void endFill() {
@@ -54,11 +192,27 @@ public class MapObjectStones extends MapObject {
             return;
         }
 
+
         showPuzzle();
+
+        buttonAnswer1.setText("Знаю ответ");
+        buttonAnswer2.setText("Разгадать подсказку");
+        buttonAnswer3.setVisibility(View.INVISIBLE);
+        buttonAnswer4.setVisibility(View.INVISIBLE);
+        startHelp();
+
+        isEnterAnswer=false;
         //dialog.show();
 
     }
 
+    @Override
+    public boolean isActual(){
+        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
+            return false;
+        }
+        return true;
+    }
     public void showPuzzle() {
         puzzle.startPuzzle(mapActivity.map.mStones[random.nextInt(mapActivity.map.mStones.length - 1)]);
         //dialog.show();
@@ -73,18 +227,20 @@ public class MapObjectStones extends MapObject {
     public class Puzzle {
         MapObject mapObject;
 
+        public MyMap.Stone stone;
+
         CustomImageView[] imageViews;
         Bitmap[] fragments;
         int[] indexes;
-        public Dialog dialog;
+        //public Dialog dialog;
         int attempts = 14; //осталось попыток
 
         CustomImageView currentView;
 
         public Puzzle(MapObject Stones) {
             mapObject = Stones;
-            dialog = new Dialog(mapObject.mapActivity);// todo use mapActivity
-            dialog.setContentView(R.layout.dialog_puzzle);
+            //dialog = new Dialog(mapObject.mapActivity);// todo use mapActivity
+            //dialog.setContentView(R.layout.dialog_puzzle);
             imageViews = new CustomImageView[16];
             indexes = new int[16];
             fragments = new Bitmap[16];
@@ -167,20 +323,22 @@ public class MapObjectStones extends MapObject {
             }
 
             if (isOk) {
-                Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
-                mapObject.mapActivity.updateBar();
-                attempts = 0;
-                ((TextView) dialog.findViewById(R.id.textViewTrials)).setText("");
-                ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
-                if (Constants.DATAGAME.getStones() == 7) {
-                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-                } else {
-                    DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-                }
+                showAnswers();
+                correctMediaPlayer.start();
+                return;
+//                Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+//                mapObject.mapActivity.updateBar();
+//                attempts = 0;
+//                ((TextView) dialog.findViewById(R.id.textViewTrials)).setText("");
+//                ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
+//                if (Constants.DATAGAME.getStones() == 7) {
+//                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+//                } else {
+//                    DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+//                }
+//
+//                lastSuccess = Calendar.getInstance().getTime();
 
-                lastSuccess = Calendar.getInstance().getTime();
-                //Toast.makeText(parrent.MainActivity, "Поздравляем! Вы добыли 1 камень", Toast.LENGTH_SHORT).show();
-                //dialog.dismiss();
             } else if (attempts == 0) {
                 //((TextView)dialog.findViewById(R.id.textView3)).setText("Не получилось((( Попробуйте ещё раз");
                 DialogMessage.showMessage(R.drawable.gratulation, 0, "Не получилось((( Попробуйте ещё раз", "", mapActivity);
@@ -198,7 +356,8 @@ public class MapObjectStones extends MapObject {
         }
 
         public void startPuzzle(MyMap.Stone stone) {
-            attempts = 14;
+            this.stone = stone;
+            attempts = 1000;
             ((TextView) dialog.findViewById(R.id.textView3)).setText("Соберите мозайку, передвинув фрагменты не более 14 раз");
             //Разрезаем изображение и по-очереди вкладываем в каждый Вью
             ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(stone.question);

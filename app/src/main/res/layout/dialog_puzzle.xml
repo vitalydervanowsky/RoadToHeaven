@@ -6,6 +6,72 @@
     android:layout_height="match_parent"
     android:background="#FFFEFA">
 
+    <TextView
+        android:id="@+id/buttonAnswer2"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/romb"
+        android:gravity="center|center_horizontal"
+        android:text="Разгадать подсказку"
+        android:textColor="#F1F1ED"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer3"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
+        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
+        app:layout_goneMarginLeft="3dp" />
+
+    <TextView
+        android:id="@+id/buttonAnswer1"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/romb"
+        android:gravity="center|center_horizontal"
+        android:text="Знаю ответ"
+        android:textColor="#F1F1ED"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer2"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
+        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
+        app:layout_goneMarginLeft="3dp" />
+
+    <TextView
+        android:id="@+id/buttonAnswer3"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/romb"
+        android:gravity="center|center_horizontal"
+        android:text="3"
+        android:textColor="#F1F1ED"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer4"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
+        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
+        app:layout_goneMarginLeft="3dp" />
+
+    <TextView
+        android:id="@+id/buttonAnswer4"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-60dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/romb"
+        android:gravity="center|center_horizontal"
+        android:text="4"
+        android:textColor="#F1F1ED"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imageView17"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_goneMarginLeft="3dp" />
+
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="330dp"
@@ -22,8 +88,9 @@
         android:gravity="center"
         android:text="14"
         android:textColor="#142270"
-        android:textSize="48sp"
+        android:textSize="8sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/textViewQuestion"
         app:layout_constraintStart_toStartOf="@+id/textViewQuestion"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
@@ -135,6 +202,7 @@
         android:background="#84C8E6"
         android:gravity="center"
         android:text="Закрыть"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textViewQuestion"
         app:layout_constraintStart_toStartOf="@+id/textView3" />
@@ -148,7 +216,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="center"
         android:text="Текст вопроса"
-        android:textColor="#3F51B5"
+        android:textColor="#E91E63"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@+id/imageView17"
@@ -164,6 +232,7 @@
         android:text="Соберите мозайку, передвинув фрагменты на свои места"
         android:textColor="#FA1302"
         android:textSize="13sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textViewQuestion"
         app:layout_constraintStart_toStartOf="@+id/textViewQuestion"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />

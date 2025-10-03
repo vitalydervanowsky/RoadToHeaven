@@ -8,6 +8,8 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
+import java.util.Calendar;
+
 public class MapObjectHelpBoy extends MapObject {
     public Task task;
 
@@ -34,6 +36,10 @@ public class MapObjectHelpBoy extends MapObject {
         dialog.dismiss();
     }
 
+    @Override
+    public boolean isActual(){
+        return !task.isStarted;
+    }
     @Override
     public void runAction() {
         if (!task.isStarted)

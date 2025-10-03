@@ -39,4 +39,8 @@ public class MapObject {
 
     }
 
+    public boolean isActual(){
+        return true;
+    }
+
 }

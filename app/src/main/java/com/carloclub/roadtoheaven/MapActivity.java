@@ -247,7 +247,7 @@ public class MapActivity extends AppCompatActivity {
 
 
 
-    private void showRubies(){
+    public void showRubies(){
         ArrayList<MyMap.MapCell> CR = map.getCellsRubies();
         showAnimateViev(findViewById(R.id.ruby1), CR, 1);
         showAnimateViev(findViewById(R.id.ruby2), CR, 2);
@@ -272,7 +272,7 @@ public class MapActivity extends AppCompatActivity {
             int x = CR.get(numCell-1).x * map.scale;
             int y = CR.get(numCell-1).y * map.scale;
             params.setMargins(x,y+ map.scale /2,0,0);
-            params.width = (int)(map.scale *0.5);
+            params.width = (int)(map.scale *0.6);
             params.height = params.width;
             IV.setLayoutParams(params);
             AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
