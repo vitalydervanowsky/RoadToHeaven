@@ -53,7 +53,7 @@ public class MyMap {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("piligrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
                     CR.add(mMapCells[x][y]);
                 }
 
