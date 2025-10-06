@@ -21,7 +21,11 @@ public class MapObject {
         this.y = y;
         mapActivity = activity;
         dialog = new Dialog(mapActivity);
-
+        dialog.setOnDismissListener(dialog -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+        });
     }
 
 

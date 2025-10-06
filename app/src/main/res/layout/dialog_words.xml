@@ -529,7 +529,7 @@
         android:layout_height="35dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
-        android:background="#84C8E6"
+        android:background="@color/blue_button"
         android:gravity="center"
         android:text="Закрыть"
         app:layout_constraintBottom_toBottomOf="parent"

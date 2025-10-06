@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        ImageView Sokolka = findViewById(R.id.imageSokolka);
-        Sokolka.setOnClickListener(v ->{
+        ImageView sokolka = findViewById(R.id.imageSokolka);
+        sokolka.setOnClickListener(v ->{
             Intent i = new Intent(MainActivity.this, MapActivity.class);
             i.putExtra("Head", "Сокулка");
             i.putExtra("CityName", "Sokolka");

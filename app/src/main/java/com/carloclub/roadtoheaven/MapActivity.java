@@ -499,8 +499,8 @@ public class MapActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, DialogActivity.class);
             i.putExtra("videoPath", "android.resource://" + getPackageName() + "/" + R.raw.complete);
-            //i.putExtra("CityName", "Sokulka");
-            startActivityForResult(i,0);
+            //i.putExtra("CityName", "Sokolka");
+            startActivityForResult(i, 0);
 
             finish();
         }
@@ -569,8 +569,10 @@ public class MapActivity extends AppCompatActivity {
                         nav.setVisibility(View.INVISIBLE);
 
                         //Активизируем объект, на который попали
-                        MyMap.MapCell CurrentCell = map.mMapCells[navX][navY]; //]map.findCellByXY(currentX, currentY);
-                        if (CurrentCell.object!=null) CurrentCell.object.runAction();
+                        MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
+                        if (currentCell.object != null) {
+                            currentCell.object.runAction();
+                        }
 
                         //Если есть задания к этой ячейке, запусаем их завершение
                         Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));

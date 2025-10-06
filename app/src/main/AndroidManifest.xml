@@ -13,8 +13,8 @@
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,22 +24,22 @@
 
         <activity
             android:name=".MapActivity"
-            android:screenOrientation="landscape"
-            android:resizeableActivity="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true" >
-        </activity>
-
+            android:exported="false"
+            android:resizeableActivity="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".DialogActivity"
-            android:screenOrientation="landscape"
-            android:exported="true" >
-        </activity>
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".BridgeActivity"
-            android:screenOrientation="landscape"
-            android:exported="true" >
-        </activity>
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".story.StoryActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
 
     </application>
 

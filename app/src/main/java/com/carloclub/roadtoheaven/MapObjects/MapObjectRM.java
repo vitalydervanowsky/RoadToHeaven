@@ -1,7 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
 import android.media.MediaPlayer;
-import android.widget.Button;
 
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
@@ -18,8 +17,15 @@ public class MapObjectRM extends MapObject {
         super(X, Y, activity);
         type = "RM";
         dialog.setContentView(R.layout.dialog_rm);
-        Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> endFill());
+        dialog.setOnDismissListener(dialog1 -> {
+            if (playerAveMaria != null) {
+                playerAveMaria.stop();
+            }
+            if (playerPaterNoster != null) {
+                playerPaterNoster.stop();
+            }
+        });
+        dialog.findViewById(R.id.close).setOnClickListener(v -> dialog.dismiss());
         playerPaterNoster = MediaPlayer.create(activity, R.raw.organ);
         playerAveMaria = MediaPlayer.create(activity, R.raw.organ);
         dialog.findViewById(R.id.buttotPaterNoster).setOnClickListener(v -> paterNoster());
@@ -33,16 +39,22 @@ public class MapObjectRM extends MapObject {
     }
 
     public void paterNoster() {
+        if (playerAveMaria.isPlaying()) {
+            playerAveMaria.pause();
+        }
         if (playerPaterNoster.isPlaying()) {
-            playerPaterNoster.stop();
+            playerPaterNoster.pause();
         } else {
             playerPaterNoster.start();
         }
     }
 
     public void aveMaria() {
+        if (playerPaterNoster.isPlaying()) {
+            playerPaterNoster.pause();
+        }
         if (playerAveMaria.isPlaying()) {
-            playerAveMaria.stop();
+            playerAveMaria.pause();
         } else {
             playerAveMaria.start();
         }

@@ -1,8 +1,8 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
 import android.media.MediaPlayer;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.Gravity;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.carloclub.roadtoheaven.MapActivity;
@@ -15,28 +15,32 @@ public class MapObjectChurch extends MapObject {
     public MapObjectChurch(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "church";
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setGravity(Gravity.BOTTOM | Gravity.START);
+        }
         dialog.setContentView(R.layout.dialog_church);
-        Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> endFill());
-        mediaPlayer = MediaPlayer.create(activity, R.raw.organ);
-    }
-
-    public void endFill() {
-        mediaPlayer.pause();
-        dialog.dismiss();
+        dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
+            dialog.dismiss();
+            com.carloclub.roadtoheaven.story.Helper.INSTANCE.showStoryActivity(mapActivity);
+        });
+        dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
     }
 
     @Override
     public void runAction() {
-        ((ImageView) dialog.findViewById(R.id.imageViewInterier)).setImageResource(interiorId);
-        ((TextView) dialog.findViewById(R.id.textViewTytle)).setText(title);
+        ((TextView) dialog.findViewById(R.id.textView)).setText(title);
         dialog.show();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer = MediaPlayer.create(mapActivity, R.raw.organ);
         mediaPlayer.start();
     }
 
     @Override
     public void loadAttributes(String[] attributes) {
-        title = attributes[3];
+        title = attributes[0];
         if (attributes[2] != null) {
             interiorId = mapActivity.getResources().getIdentifier(attributes[2], "drawable", mapActivity.getPackageName());
         }
