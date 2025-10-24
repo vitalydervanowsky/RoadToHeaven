@@ -61,6 +61,8 @@ public class MapActivity extends AppCompatActivity {
 
     ScaleGestureDetector scaleDetector;
 
+    boolean isEvacuation=false;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -229,9 +231,15 @@ public class MapActivity extends AppCompatActivity {
             moveImageView(clickY, (clickX));
         });
 
+        findViewById(R.id.imageViewtruck).setOnClickListener(v -> {
+            startEvacuation();
+        });
+
         //включаем анимацию текущего положения машины (картинки)
         isAnimation = (AnimationDrawable)car.getDrawable();
         isAnimation.start();
+
+
 
         //DialogMessage.showMessage(R.drawable.stones, R.drawable.icon_bridge, "Собери 7 камней знаний на каменных рудниках, чтобы построить разрушенный мост и выехать из города", "Удачи!" , MapActivity.this);
 
@@ -245,7 +253,35 @@ public class MapActivity extends AppCompatActivity {
 
 
 
+    public void startEvacuation(){
+        MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
 
+        ArrayList<MyMap.MapCell> Rote = new ArrayList<MyMap.MapCell>();
+        for (int x = 0; x < map.mLength; x++) {
+            for (int y = 0; y < map.mHeight; y++) {
+                if (map.mMapCells[x][y].type.equals("fuel")){
+                    ArrayList<MyMap.MapCell> currentRote=map.buildRoute(CurrentCell,map.mMapCells[x][y]);
+                    if (Rote==null) continue;
+                    if (Rote.size()==0 || currentRote.size()<Rote.size()){
+                        Rote=currentRote;
+                    }
+                }
+            }
+        }
+        if (Rote.size()==0) return;
+        isEvacuation=true;
+        map.mRoute = Rote;
+//        navX=NewCell.x;
+//        navY=NewCell.y;
+        if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
+        mMoveCar = new MoveCar();
+        trend=-1;
+        twistCar();
+        timer.schedule(mMoveCar, 20, 20-(Constants.DATAGAME.getSpeed()-60)/10);
+        //rrrMediaPlayer.reset();
+        rrrMediaPlayer.start();
+
+    }
 
     public void showRubies(){
         ArrayList<MyMap.MapCell> CR = map.getCellsRubies();
@@ -284,6 +320,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void moveImageView(int positionY, int positionX) {
+        if  (isEvacuation) return;
         //Клик по карте.
         //проверяем, можно ли  в эту ячейку поехать.
         MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
@@ -463,27 +500,41 @@ public class MapActivity extends AppCompatActivity {
         MyMap.MapCell NextCell = map.mRoute.get(0);
         if (NextCell.y * map.scale < currentY && trend !=2){
             trend =2;
-            car.setImageDrawable(getDrawable(R.drawable.caranimationup));
+            if (isEvacuation)
+                car.setImageDrawable(getDrawable(R.drawable.truckanimationup));
+            else
+                car.setImageDrawable(getDrawable(R.drawable.caranimationup));
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
 
         if (NextCell.x * map.scale < currentX && trend !=1){
             trend =1;
-            car.setImageDrawable(getDrawable(R.drawable.caranimationleft));
+            if (isEvacuation)
+                car.setImageDrawable(getDrawable(R.drawable.truckanimationleft));
+            else
+                car.setImageDrawable(getDrawable(R.drawable.caranimationleft));
+
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
 
         if (NextCell.x * map.scale > currentX && trend !=0){
             trend =0;
-            car.setImageDrawable(getDrawable(R.drawable.caranimation));
+            if (isEvacuation)
+                car.setImageDrawable(getDrawable(R.drawable.truckanimation));
+            else
+                car.setImageDrawable(getDrawable(R.drawable.caranimation));
+
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
         if (NextCell.y * map.scale > currentY && trend !=3) {
             trend =3;
-            car.setImageDrawable(getDrawable(R.drawable.caranimationdown));
+            if (isEvacuation)
+                car.setImageDrawable(getDrawable(R.drawable.truckanimationdown));
+            else
+                car.setImageDrawable(getDrawable(R.drawable.caranimationdown));
             isAnimation = (AnimationDrawable)car.getDrawable();
             isAnimation.start();
         }
@@ -512,7 +563,7 @@ public class MapActivity extends AppCompatActivity {
             runOnUiThread(new Runnable(){
                 @Override
                 public void run() {
-                    if (Constants.DATAGAME.getFuel() <=0) {
+                    if (Constants.DATAGAME.getFuel() <=0 && !isEvacuation) {
                         if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
                         rrrMediaPlayer.pause();
                         return;
@@ -520,7 +571,7 @@ public class MapActivity extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     //ConstraintLayout.LayoutParams newparams = new Constraints.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    int stepPix = (int)(map.scale *3/Constants.DATAGAME.SCALE);
+                    int stepPix = (int)(map.scale *4/Constants.DATAGAME.SCALE);
                     int metr = 6;//(int)(1600/map.scale);
                     //Получили координаты машинки, теперь сравниваем их с координатами следующей ячейки и решаем, что делать дальше
                     if (params.topMargin!= currentY || params.leftMargin!= currentX){
@@ -534,12 +585,13 @@ public class MapActivity extends AppCompatActivity {
 
                         params.setMargins(newX,newY,0,0);
                         car.setLayoutParams(params);
-                        Constants.DATAGAME.setFuel(Constants.DATAGAME.getFuel()  -metr +(int)((100-Constants.DATAGAME.getTire())/100*metr));
+                        if (!isEvacuation)
+                            Constants.DATAGAME.setFuel(Constants.DATAGAME.getFuel()  -metr +(int)((100-Constants.DATAGAME.getTire())/100*metr));
                         updateBar();
                         scrollToCar(newX,newY);
                         carX=newX;
                         carY=newY;
-                        if (Constants.DATAGAME.getFuel() <5000){
+                        if (Constants.DATAGAME.getFuel() <5000 && !isEvacuation){
                             if (!fuelDanger) {
                                 DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, "ВНИМАНИЕ! Осталось мало топлива! Пора ехать на заправку", "Остаток: " + String.valueOf(Constants.DATAGAME.getFuel()  / 1000), MapActivity.this);
                                 if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
@@ -581,6 +633,13 @@ public class MapActivity extends AppCompatActivity {
 
                         //zoomMapToSCALE(Constants.DATAGAME.SCALE*2);
                         scrollToCar(currentX,currentY);
+                        if (isEvacuation){
+                            isEvacuation=false;
+                            trend=-1;
+                            car.setImageDrawable(getDrawable(R.drawable.caranimationup));
+                            isAnimation = (AnimationDrawable)car.getDrawable();
+                            isAnimation.start();
+                        }
                         return;
                     }
 

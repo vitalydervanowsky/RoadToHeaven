@@ -10,7 +10,9 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectHelpBoy;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectHunger;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectPilgrim;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSTO;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectTetris;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
 
 import java.util.ArrayList;
@@ -252,6 +254,23 @@ public class MyMap {
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
 
                 }
+                else if (mMapCells[x][y].type.equals("school")){
+                    mMapCells[x][y].object = new MapObjectSchool(x, y, MainActivity);;
+                    mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
+
+                }
+                else if (mMapCells[x][y].type.equals("building")){
+                    mMapCells[x][y].object = new MapObjectTetris(x, y, MainActivity);
+                    mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
+                }
 
                 else if (mMapCells[x][y].type.equals("helpboy")){
                     MapObjectHelpBoy P1 = new MapObjectHelpBoy(x, y, MainActivity);
@@ -262,6 +281,10 @@ public class MyMap {
                 }
                 else if (mMapCells[x][y].type.equals("hospital")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("church")) {
                     mMapCells[x][y].object = new MapObjectChurch(x, y, MainActivity);
@@ -269,18 +292,22 @@ public class MyMap {
 
                     mMapCells[x+1][y].type = "church1";
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
-                    //mMapCells[x+1][y].object = new MapObjectChurch(x+1, y, MainActivity);
-                    //mMapCells[x+1][y].object.loadAttributes(mMapCells[x][y].attributes);
+                    mMapCells[x+2][y].type = "church1";
+                    mMapCells[x+2][y].object= mMapCells[x][y].object;
 
                     mMapCells[x][y+1].type = "church1";
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
-                    //mMapCells[x][y+1].object = new MapObjectChurch(x, y+1, MainActivity);
-                    //mMapCells[x][y+1].object.loadAttributes(mMapCells[x][y].attributes);
-
                     mMapCells[x+1][y+1].type = "church1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
-                    //mMapCells[x+1][y+1].object = new MapObjectChurch(x+1, y+1, MainActivity);
-                    //mMapCells[x+1][y+1].object.loadAttributes(mMapCells[x][y].attributes);
+                    mMapCells[x+2][y+1].type = "church1";
+                    mMapCells[x+2][y+1].object= mMapCells[x][y].object;
+
+                    mMapCells[x][y+2].type = "church1";
+                    mMapCells[x][y+2].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+2].type = "church1";
+                    mMapCells[x+1][y+2].object= mMapCells[x][y].object;
+                    mMapCells[x+2][y+2].type = "church1";
+                    mMapCells[x+2][y+2].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("zoo")) {
                     mMapCells[x][y].object = new MapObjectZOO(x, y, MainActivity);
@@ -295,9 +322,7 @@ public class MyMap {
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
-
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
-
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("bridge")) {
@@ -308,6 +333,10 @@ public class MyMap {
                     mMapCells[x][y].object = new MapObjectBooks(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                     mMapCells[x][y].object.type = "RM";
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("hunger")) {
                     mMapCells[x][y].object = new MapObjectHunger(x, y, MainActivity);
@@ -316,19 +345,34 @@ public class MyMap {
                 else if (mMapCells[x][y].type.equals("burger")) {
                     mMapCells[x][y].object = new MapObjectBurgerJoint(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("books")) {
                     mMapCells[x][y].object = new MapObjectBooks(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("build")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("market")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
                 }
                 else if (mMapCells[x][y].type.equals("cafe")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
+
+                    mMapCells[x+1][y].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
             }
 

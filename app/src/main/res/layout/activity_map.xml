@@ -123,8 +123,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/stonesanimation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones3"
@@ -332,7 +331,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
     <ImageView
-        android:id="@+id/imageView15"
+        android:id="@+id/imageViewtruck"
         android:layout_width="45dp"
         android:layout_height="39dp"
         android:layout_marginTop="5dp"

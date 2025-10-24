@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
 public class MapObject {
@@ -20,7 +21,7 @@ public class MapObject {
         this.x = x;
         this.y = y;
         mapActivity = activity;
-        dialog = new Dialog(mapActivity);
+        dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
         dialog.setOnDismissListener(dialog -> {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();

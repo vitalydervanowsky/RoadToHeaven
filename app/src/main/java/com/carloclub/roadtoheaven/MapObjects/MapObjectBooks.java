@@ -1,6 +1,9 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.app.Dialog;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import android.os.Vibrator;
+import android.os.VibrationEffect;
 
 public class MapObjectBooks extends MapObject {
     private TextView TextMoney;
@@ -30,7 +35,7 @@ public class MapObjectBooks extends MapObject {
     private TextView TextFuel;
     String targetWord="ХЛЕБА";
     Date lastSuccess;
-
+    public Vibrator vibrator;
     public ArrayList<TextView> moveView;
     public MapObjectBooks(int X, int Y, MapActivity mActivity){
         super(X, Y, mActivity);
@@ -40,6 +45,7 @@ public class MapObjectBooks extends MapObject {
         imageViews = new TextView[36];
 
         moveView = new ArrayList<TextView>();
+        vibrator = (Vibrator) mActivity.getSystemService(mActivity.VIBRATOR_SERVICE);
 
         imageViews[0]=dialog.findViewById(R.id.textLetter1);
         imageViews[1]=dialog.findViewById(R.id.textLetter2);
@@ -127,7 +133,18 @@ public class MapObjectBooks extends MapObject {
                                 break;
                             }
                         }
-                        if (!added) moveView.add(imageViews[vievLetter]);
+                        if (!added) {
+
+                            moveView.add(imageViews[vievLetter]);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    // Вибрация на 30 мс с дефолтной амплитудой
+                                    VibrationEffect effect = VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE);
+                                    vibrator.vibrate(effect);
+                                } else {
+                                    // Для старых версий API
+                                    vibrator.vibrate(30);
+                                }
+                        }
                     }
                 }
                 return false;
