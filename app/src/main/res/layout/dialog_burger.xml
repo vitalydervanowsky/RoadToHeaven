@@ -20,12 +20,12 @@
 
     <Button
         android:id="@+id/close"
-        android:layout_width="183dp"
+        android:layout_width="153dp"
         android:layout_height="35dp"
         android:layout_marginStart="150dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/blue_button"
+        android:background="@drawable/romb"
         android:gravity="center"
         android:text="выход"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,24 +47,26 @@
 
     <Button
         android:id="@+id/buttonPay"
-        android:layout_width="153dp"
+        android:layout_width="190dp"
         android:layout_height="35dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginStart="150dp"
         android:layout_marginEnd="150dp"
-        android:background="@color/green_button"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/rombgood"
         android:gravity="center"
         android:text="Купить бургер"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="33dp"
         android:layout_height="32dp"
-        app:layout_constraintStart_toEndOf="@+id/buttonPay"
-        app:layout_constraintTop_toTopOf="@+id/buttonPay"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPay"
+        app:layout_constraintStart_toStartOf="@+id/buttonPay"
         app:srcCompat="@drawable/icon_money" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

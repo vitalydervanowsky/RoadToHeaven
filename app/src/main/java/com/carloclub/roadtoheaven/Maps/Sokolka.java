@@ -85,7 +85,7 @@ public class Sokolka {
         Map.mMapCells[10][9].type = "river";
         Map.mMapCells[11][0].type = "build";
         Map.mMapCells[11][2].type = "Road";
-        Map.mMapCells[11][3].type = "forest";
+        Map.mMapCells[11][3].type = "hunger";
         Map.mMapCells[11][4].type = "RM";
         Map.mMapCells[11][6].type = "Road";
         Map.mMapCells[11][7].type = "forest";
@@ -102,7 +102,7 @@ public class Sokolka {
         Map.mMapCells[13][3].type = "books";
         Map.mMapCells[13][5].type = "Road";
         Map.mMapCells[13][6].type = "Road";
-        Map.mMapCells[13][7].type = "forest";
+        Map.mMapCells[13][7].type = "helpboy";
         Map.mMapCells[13][8].type = "Road";
         Map.mMapCells[13][9].type = "river";
         Map.mMapCells[14][2].type = "Road";
@@ -149,8 +149,8 @@ public class Sokolka {
         Map.mMapCells[6][2].attributes[0] = "Костёл Св. Антония";  	//-2 146 826 246
         Map.mMapCells[6][2].attributes[2] = "churchsokolka2";  	//-2 146 826 246
         Map.mMapCells[0][3].attributes[0] = "Пол";  	//Имя
-        Map.mMapCells[0][3].attributes[1] = "7";  	//Таргет X:
-        Map.mMapCells[0][3].attributes[2] = "3";  	//Таргет Y:
+        Map.mMapCells[0][3].attributes[1] = "9";  	//Таргет X:
+        Map.mMapCells[0][3].attributes[2] = "4";  	//Таргет Y:
         Map.mMapCells[0][3].attributes[3] = "Привет! Я Пол. Я иду в церковь св. Антония. Можешь меня подвезти?";  	//Приветствие:
         Map.mMapCells[0][3].attributes[4] = "1 000";  	//Награда:
         Map.mMapCells[17][3].attributes[0] = "Пол";  	//-2 146 826 246
@@ -228,4 +228,5 @@ public class Sokolka {
         Map.addWordsForRM(6, "ДРУЖА","Анёле Божы,","мой, Ты заўсёды будзь са мной.\nРана, увечар і ўначы Будзь ласкаў мне памагчы\nЗмагаць духа злога, Верна служыць Богу.\nДушу, цела сцеражы, Да жыцця вечнага давядзі. Амэн.");
         Map.addWordsForRM(7, "ЗМАГАЦЬ","Анёле Божы, дружа мой, Ты заўсёды будзь са мной.\nРана, увечар і ўначы Будзь ласкаў мне памагчы","духа злога, Верна служыць Богу.\nДушу, цела сцеражы, Да жыцця вечнага давядзі. Амэн.");
     }
+
 }

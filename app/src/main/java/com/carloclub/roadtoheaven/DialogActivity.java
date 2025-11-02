@@ -9,15 +9,21 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class DialogActivity extends AppCompatActivity {
+    Timer timer;
+    TimerStart timerDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dialog);
         getSupportActionBar().hide();
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        setContentView(R.layout.activity_dialog);
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -39,4 +45,16 @@ public class DialogActivity extends AppCompatActivity {
 
     }
 
+    class TimerStart extends TimerTask {
+        //int Orientation =0; // 0 вниз 1- влево  2-вправо
+        @Override
+        public void run() {
+            runOnUiThread(() -> {
+                timerDown.cancel();
+                timerDown = null;
+
+
+            });
+        }
+    }
 }

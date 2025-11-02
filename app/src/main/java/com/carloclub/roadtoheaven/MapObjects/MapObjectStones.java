@@ -19,6 +19,7 @@ import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.Victorina;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -41,6 +42,7 @@ public class MapObjectStones extends MapObject {
     String [] answers;
 
     boolean isEnterAnswer;
+    Victorina victorina;
 
     public MapObjectStones(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
@@ -68,79 +70,10 @@ public class MapObjectStones extends MapObject {
             triumfMediaPlayer = MediaPlayer.create(mapActivity, R.raw.triumf);
         }
 
-        buttonAnswer1.setOnClickListener(v -> {
-            if (isEnterAnswer){
-                enterAnswer(1);
-            }
-            else {
-                showAnswers();
-            }
-        });
 
-        buttonAnswer2.setOnClickListener(v -> {
-            if (isEnterAnswer){
-                enterAnswer(2);
-            }
-            else {
-                startHelp();
-            }
-        });
-
-        buttonAnswer3.setOnClickListener(v -> {
-                enterAnswer(3);
-        });
-
-        buttonAnswer4.setOnClickListener(v -> {
-            enterAnswer(4);
-        });
-
+        victorina = new Victorina(this, dialog.getWindow().getDecorView());
     }
-    private void enterAnswer(int userAnswer) {
-        if (trueAnswer == 1) {
-            buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
-        }
-        if (trueAnswer == 2) {
-            buttonAnswer2.setBackgroundResource(R.drawable.rombgood);
-        }
-        if (trueAnswer == 3) {
-            buttonAnswer3.setBackgroundResource(R.drawable.rombgood);
-        }
-        if (trueAnswer == 4) {
-            buttonAnswer4.setBackgroundResource(R.drawable.rombgood);
-        }
-
-        if (userAnswer == 1 && trueAnswer != 1) {
-            buttonAnswer1.setBackgroundResource(R.drawable.rombbad);
-        }
-        if (userAnswer == 2 && trueAnswer != 2) {
-            buttonAnswer2.setBackgroundResource(R.drawable.rombbad);
-        }
-        if (userAnswer == 4 && trueAnswer != 4) {
-            buttonAnswer4.setBackgroundResource(R.drawable.rombbad);
-        }
-        if (userAnswer == 3 && trueAnswer != 3) {
-            buttonAnswer3.setBackgroundResource(R.drawable.rombbad);
-        }
-        boolean isGameOver = userAnswer != trueAnswer;
-        if (isGameOver) {
-            incorrectMediaPlayer.start();
-        } else {
-            triumfMediaPlayer.start();
-            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
-                mapActivity.updateBar();
-                ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
-                if (Constants.DATAGAME.getStones() == 7) {
-                    DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-                } else {
-                    DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-                }
-                lastSuccess = Calendar.getInstance().getTime();
-                mapActivity.showRubies();
-        }
-        dialog.hide();
-
-    }
-    public void startHelp() {
+     public void startHelp() {
         buttonAnswer1.setVisibility(View.INVISIBLE);
         buttonAnswer2.setVisibility(View.INVISIBLE);
         buttonAnswer3.setVisibility(View.INVISIBLE);
@@ -163,21 +96,30 @@ public class MapObjectStones extends MapObject {
         answers[i] = puzzle.stone.answer;
         trueAnswer=i+1;
 
-        buttonAnswer1.setVisibility(View.VISIBLE);
-        buttonAnswer2.setVisibility(View.VISIBLE);
-        buttonAnswer3.setVisibility(View.VISIBLE);
-        buttonAnswer4.setVisibility(View.VISIBLE);
-        buttonAnswer1.setText(answers[0]);
-        buttonAnswer2.setText(answers[1]);
-        buttonAnswer3.setText(answers[2]);
-        buttonAnswer4.setText(answers[3]);
-
-        buttonAnswer1.setBackgroundResource(R.drawable.romb);
-        buttonAnswer2.setBackgroundResource(R.drawable.romb);
-        buttonAnswer3.setBackgroundResource(R.drawable.romb);
-        buttonAnswer4.setBackgroundResource(R.drawable.romb);
+        victorina.loadQuestion(answers[0], answers[1], answers[2], answers[3],trueAnswer);
+        victorina.showAnswers();
 
         isEnterAnswer=true;
+    }
+    @Override
+    public void endVictorina(boolean isOK) {
+        if (!isOK) {
+            //incorrectMediaPlayer.start();
+        } else {
+            triumfMediaPlayer.start();
+            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+            mapActivity.updateBar();
+            ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
+            if (Constants.DATAGAME.getStones() == 7) {
+                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            } else {
+                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            }
+            lastSuccess = Calendar.getInstance().getTime();
+            mapActivity.showRubies();
+        }
+        dialog.hide();
+
     }
 
     public void endFill() {

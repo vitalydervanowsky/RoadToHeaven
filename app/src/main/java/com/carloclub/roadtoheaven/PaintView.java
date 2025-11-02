@@ -20,7 +20,7 @@ public class PaintView extends View {
 
     public int [][] Cells;
     public int pixels1Cell=38;
-    public int FieldWidth=15;
+    public int FieldWidth=12;
     public int FieldHeight=18;
     Canvas mcanvas;
     public Figure ActualFigure;
@@ -39,7 +39,7 @@ public class PaintView extends View {
         //сразу инициируем нижние ряды
 
         Random random = new Random();
-        for (int i=FieldHeight-5;i<FieldHeight;i++){
+        for (int i=FieldHeight-4;i<FieldHeight;i++){
             int empt= random.nextInt(FieldWidth);
             for (int j=0;j<FieldWidth;j++){
                 if (j!=empt) Cells [i][j]=Figure.colors[1];
@@ -193,7 +193,7 @@ public class PaintView extends View {
                 for (j=0;j<FieldWidth;j++){
                     if (Cells [i][j]!=0) {
                         p.setColor(Cells [i][j]);
-                        canvas.drawRect(3 + pixels1Cell * j, 3 + pixels1Cell * i, pixels1Cell * (j + 1)-4, pixels1Cell * (i + 1)-4, p);
+                        canvas.drawRect(2 + pixels1Cell * j, 2 + pixels1Cell * i, pixels1Cell * (j + 1)-3, pixels1Cell * (i + 1)-3, p);
 
                     }
                 }

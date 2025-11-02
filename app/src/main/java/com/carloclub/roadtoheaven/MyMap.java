@@ -69,7 +69,7 @@ public class MyMap {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("books")|| mMapCells[x][y].type.equals("stones")|| mMapCells[x][y].type.equals("RM")){
+                if (mMapCells[x][y].type.equals("books")|| mMapCells[x][y].type.equals("stones")|| mMapCells[x][y].type.equals("RM")|| mMapCells[x][y].type.equals("tetris")){
                     if (mMapCells[x][y].object.isActual())
                         CR.add(mMapCells[x][y]);
                 }
@@ -281,9 +281,15 @@ public class MyMap {
                 }
                 else if (mMapCells[x][y].type.equals("hospital")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
+                    mMapCells[x][y].type = "hospital_";
 
+                    mMapCells[x+1][y].type = "hospital_";
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
+
+                    mMapCells[x][y+1].type = "hospital_";
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+
+                    mMapCells[x+1][y+1].type = "hospital_";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("church")) {
@@ -476,12 +482,12 @@ public class MyMap {
 
     public static class Question {
 
-        String question;
-        String answer1;
-        String answer2;
-        String answer3;
-        String answer4;
-        int trueAnswer;
+        public String question;
+        public String answer1;
+        public String answer2;
+        public String answer3;
+        public String answer4;
+        public int trueAnswer;
         int id;
 
         boolean used = false;
@@ -493,6 +499,26 @@ public class MyMap {
                 String answer3,
                 String answer4,
                 int trueAnswer,
+                int id
+        ) {
+            this.question = question;
+            this.answer1 = answer1;
+            this.answer2 = answer2;
+            this.answer3 = answer3;
+            this.answer4 = answer4;
+            this.trueAnswer = trueAnswer;
+            this.id = id;
+        }
+
+        public Question(
+                String question,
+                String answer1,
+                String answer2,
+                String answer3,
+                String answer4,
+                int trueAnswer,
+                String help1,
+                String help2,
                 int id
         ) {
             this.question = question;

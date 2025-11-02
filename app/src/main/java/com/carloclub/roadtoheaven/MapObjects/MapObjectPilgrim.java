@@ -34,8 +34,11 @@ public class MapObjectPilgrim extends MapObject {
 
     @Override
     public void runAction(){
-        if (!task.isStarted)
-            DialogMessage.showMessage(0,0,"Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.","Спасибо",mapActivity,R.drawable.karalina);
+        if (!task.isStarted) {
+            DialogMessage.showMessage(0, 0, "Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.", "Спасибо", mapActivity, R.drawable.karalina);
+            mapActivity.myTasks.add(task);
+            task.startTask();
+        }
     }
 
     @Override

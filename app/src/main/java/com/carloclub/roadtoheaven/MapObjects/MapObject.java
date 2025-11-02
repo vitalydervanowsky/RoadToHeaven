@@ -40,6 +40,14 @@ public class MapObject {
 
     }
 
+    public void endVictorina(boolean isOK){
+
+    }
+
+    public void beforeEndVictorina(boolean isOK){
+
+    }
+
     public void loadAttributes(String[] attributes) {
 
     }
@@ -47,5 +55,6 @@ public class MapObject {
     public boolean isActual(){
         return true;
     }
+
 
 }

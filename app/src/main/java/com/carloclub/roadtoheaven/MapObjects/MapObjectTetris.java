@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
 
 import com.carloclub.roadtoheaven.Constants;
@@ -18,7 +20,9 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.PaintView;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
+import com.carloclub.roadtoheaven.Victorina;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,6 +32,7 @@ public class MapObjectTetris extends MapObject {
     TextView ViewSpeed;
     TextView ViewScores;
     TextView ViewBest;
+    ImageView imageViewPlay;
     Figure ActualFigure;
     Figure NextFigure;
     Figure VirtualFigure;
@@ -43,6 +48,9 @@ public class MapObjectTetris extends MapObject {
     int Best = 0;
 
     boolean GameOver=false;
+    Victorina victorina;
+
+
     //public database DB;
 
     public MapObjectTetris(int X, int Y, MapActivity mActivity) {
@@ -50,10 +58,30 @@ public class MapObjectTetris extends MapObject {
         type = "tetris";
         task = new Task(this);
 
+     }
 
+
+    @Override
+    public void endVictorina(boolean isOK) {
+        if (!isOK) {
+            //incorrectMediaPlayer.start();
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, "Нажаль, гэта неправільны адказ. Паспрабуй яшчэ", "", mapActivity);
+
+        } else {
+            //triumfMediaPlayer.start();
+            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+            mapActivity.updateBar();
+
+            if (Constants.DATAGAME.getStones() == 7) {
+                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            } else {
+                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            }
+            mapActivity.showRubies();
+        }
+        dialog.dismiss();
 
     }
-
     public void StartFill(){
         dialog.hide();
         mapActivity.myTasks.add(task);
@@ -74,6 +102,7 @@ public class MapObjectTetris extends MapObject {
         NextFigure.Clean();
         dialog.setContentView(R.layout.dialog_tetris);
         dialog.show();
+        GameOver=true;
         Window window = dialog.getWindow();
         if (window != null) {
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -89,25 +118,31 @@ public class MapObjectTetris extends MapObject {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        ViewSpeed = (TextView) dialog.findViewById(R.id.textViewSpeed);
-        ViewScores = (TextView) dialog.findViewById(R.id.textViewScores);
-        ViewBest = (TextView) dialog.findViewById(R.id.textViewBest);
+        //ViewSpeed = (TextView) dialog.findViewById(R.id.textViewSpeed);
+        //ViewScores = (TextView) dialog.findViewById(R.id.textViewScores);
+        //ViewBest = (TextView) dialog.findViewById(R.id.textViewBest);
         //ViewBest.setText(Integer.toString(Best));
 
         TetrisView = (PaintView) dialog.findViewById(R.id.viewDraw);
         TetrisView.invalidate();
+        TetrisView.setOnClickListener(v -> {
+            pause();
+        });
 
         float level = mapActivity.displayDensity; //.getApplicationContext().getResources().getDisplayMetrics().density;
         int H = Math.round(TetrisView.FieldHeight*TetrisView.pixels1Cell);
         int W = Math.round(TetrisView.FieldWidth*TetrisView.pixels1Cell);
-        dialog.findViewById(R.id.LL).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,H));
-        TetrisView.setLayoutParams(new LinearLayout.LayoutParams(W, LinearLayout.LayoutParams.MATCH_PARENT));
+        //dialog.findViewById(R.id.LL).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,H));
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) TetrisView.getLayoutParams();
+        params.width = W;
+        params.height = H;
+        TetrisView.setLayoutParams(params);
         NextView = (PaintView) dialog.findViewById(R.id.viewNext);
         NextView.FieldWidth = 4;
         NextView.FieldHeight = 4;
         NextView.invalidate();
         W = Math.round(NextView.FieldWidth*NextView.pixels1Cell);
-        NextView.setLayoutParams(new LinearLayout.LayoutParams(W,W));
+        //NextView.setLayoutParams(new ConstraintLayout.LayoutParams(W,W));
         timer = new Timer();
 
         ImageButton buttonStart = (ImageButton) dialog.findViewById(R.id.buttonStart);
@@ -225,22 +260,42 @@ public class MapObjectTetris extends MapObject {
             }
         });
 
-        ImageButton buttonPause = (ImageButton) dialog.findViewById(R.id.imageButtonPause);
-        buttonPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ActualFigure==null) return;
-                if (mTimerTask==null) {
-                    mTimerTask = new MyTimerTask();
-                    timer.schedule(mTimerTask, 100, temp);
-
-                }else {
-                    mTimerTask.cancel();
-                    mTimerTask=null;
-                }
-
-            }
+        imageViewPlay = (ImageView) dialog.findViewById(R.id.imageViewPlay);
+        imageViewPlay.setOnClickListener(v -> {
+            pause();
         });
+
+        ImageButton buttonPause = (ImageButton) dialog.findViewById(R.id.imageButtonPause);
+        buttonPause.setOnClickListener(v -> {
+            pause();
+        });
+
+        dialog.findViewById(R.id.buttonAnswer1).setOnClickListener(v -> {
+            pause();
+            victorina = new Victorina(this, dialog.getWindow().getDecorView());
+            victorina.loadQuestion("Убогія духам", "Справядлівыя", "Міласэрныя", "Міратворцы",3);
+            victorina.showAnswers();
+        });;
+
+        buttonStart.setVisibility(View.INVISIBLE);
+        buttonPause.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void pause(){
+        if (ActualFigure==null || GameOver==true) {
+            StartGeme();
+            return;
+        }
+        if (mTimerTask==null) {
+            mTimerTask = new MyTimerTask();
+            timer.schedule(mTimerTask, 100, temp);
+            imageViewPlay.setVisibility(View.INVISIBLE);
+        }else {
+            mTimerTask.cancel();
+            mTimerTask=null;
+            imageViewPlay.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -272,7 +327,7 @@ public class MapObjectTetris extends MapObject {
         if (GameOver==true){
             GameOver=false;
             Scores=0;
-            ViewScores.setText(Integer.toString(Scores));
+            //ViewScores.setText(Integer.toString(Scores));
         }
 
         if (mTimerTask==null){}
@@ -283,26 +338,29 @@ public class MapObjectTetris extends MapObject {
         mTimerTask = new MyTimerTask();
         timer.schedule(mTimerTask, temp, temp);
 
+        imageViewPlay.setVisibility(View.INVISIBLE);
     }
 
     void StoptGeme() {
-        TetrisView.cleanALL();
-        TetrisView.ActualFigure=null;
-        TetrisView.invalidate();
-        NextView.ActualFigure = new Figure();
-        NextView.ActualFigure.Clean();
-        NextView.invalidate();
-        Speed = 0;
-        temp = 600 - 30 * Speed; //700- Speed*(100-Speed*10);
-        ViewSpeed.setText(Integer.toString(Speed));
-        mTimerTask.cancel();
-        mTimerTask=null;
+        dialog.dismiss();
 
-        if(Scores>Best) {
-            Best=Scores;
-            ViewBest.setText(Integer.toString(Best));
-        }
-        GameOver=true;
+//        TetrisView.cleanALL();
+//        TetrisView.ActualFigure=null;
+//        TetrisView.invalidate();
+//        NextView.ActualFigure = new Figure();
+//        NextView.ActualFigure.Clean();
+//        NextView.invalidate();
+//        Speed = 0;
+//        temp = 600 - 30 * Speed; //700- Speed*(100-Speed*10);
+//        //ViewSpeed.setText(Integer.toString(Speed));
+//        mTimerTask.cancel();
+//        mTimerTask=null;
+//
+//        if(Scores>Best) {
+//            Best=Scores;
+//            //ViewBest.setText(Integer.toString(Best));
+//        }
+//        GameOver=true;
     }
 
     class MyTimerTask extends TimerTask {
@@ -334,7 +392,7 @@ public class MapObjectTetris extends MapObject {
                             newSpeed=-5;
                             Scores=Scores+1000;
                         }
-                        ViewScores.setText(Integer.toString(Scores));
+                        //ViewScores.setText(Integer.toString(Scores));
 
 
                         ActualFigure.CopyFrom(NextFigure);
@@ -359,7 +417,7 @@ public class MapObjectTetris extends MapObject {
                             if (temp < 200) return;
                             mTimerTask = new MyTimerTask();
                             timer.schedule(mTimerTask, 100, temp);
-                            ViewSpeed.setText(Integer.toString(Speed));
+                            //ViewSpeed.setText(Integer.toString(Speed));
                         }
                         TetrisView.invalidate();
                         NextView.invalidate();

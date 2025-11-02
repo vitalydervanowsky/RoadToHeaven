@@ -11,7 +11,6 @@
         android:id="@+id/scrollViewV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="47dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,8 +60,8 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/rubyanimation"></ImageView>
+
                 <ImageView
                     android:id="@+id/ruby2"
                     android:layout_width="60dp"
@@ -73,8 +72,8 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/rubyanimation"></ImageView>
+
                 <ImageView
                     android:id="@+id/ruby3"
                     android:layout_width="60dp"
@@ -85,8 +84,8 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/rubyanimation"></ImageView>
+
                 <ImageView
                     android:id="@+id/ruby4"
                     android:layout_width="60dp"
@@ -97,8 +96,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/rubyanimation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones1"
@@ -110,8 +108,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/stonesanimation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones2"
@@ -135,8 +132,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/stonesanimation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones4"
@@ -148,8 +144,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation">
-                </ImageView>
+                    app:srcCompat="@drawable/stonesanimation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones7"
@@ -238,7 +233,6 @@
         android:id="@+id/textFuel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
         android:text="8 км"
         android:textColor="#5C1B07"
         android:textSize="16sp"
@@ -246,24 +240,81 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewStone1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewStone1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone3"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewStone2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone4"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewStone3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone5"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStone1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone6"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStone5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
+    <ImageView
+        android:id="@+id/imageViewStone7"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStone6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/no_stone" />
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="141dp"
-        android:layout_height="145dp"
+        android:layout_height="34dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/city_sokolka" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="40dp"
+    <com.carloclub.roadtoheaven.FuelView
+        android:id="@+id/fuelView"
+        android:layout_width="140dp"
         android:layout_height="27dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_fuel" />
+        app:srcCompat="@drawable/fuel" />
 
     <TextView
         android:id="@+id/textMoney"
@@ -274,6 +325,7 @@
         android:textColor="#E1921E"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
@@ -282,6 +334,7 @@
         android:layout_width="48dp"
         android:layout_height="31dp"
         android:layout_marginTop="5dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textMoney"
         app:srcCompat="@drawable/icon_stone" />
@@ -292,6 +345,7 @@
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFuel"
         app:srcCompat="@drawable/icon_money" />
@@ -305,6 +359,7 @@
         android:textColor="#434132"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -312,10 +367,10 @@
         android:id="@+id/imageView13"
         android:layout_width="35dp"
         android:layout_height="25dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStones"
+        app:layout_constraintTop_toTopOf="@+id/fuelView"
         app:srcCompat="@drawable/icon_ruby" />
 
     <TextView
@@ -331,13 +386,23 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
     <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView25"
+        app:srcCompat="@drawable/empty_button" />
+
+    <ImageView
         android:id="@+id/imageViewtruck"
         android:layout_width="45dp"
         android:layout_height="39dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRubi"
+        app:layout_constraintTop_toTopOf="@+id/imageView24"
         app:srcCompat="@drawable/icon_tow" />
 
     <ImageView
@@ -351,5 +416,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cloud" />
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:srcCompat="@drawable/empty_button" />
+
+    <ImageView
+        android:id="@+id/imageViewTasks"
+        android:layout_width="45dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMoney"
+        app:srcCompat="@drawable/chek_task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

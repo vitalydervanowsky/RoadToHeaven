@@ -47,7 +47,7 @@ public class Task {
             }
 
             //Проверяем задания, которые направлены на конкретный объект какого-то типа (в них НЕ заполнен тип (targetType), но заполнена ячейка (targetCell))
-            if (Task.targetCell !=null && Task.targetCell.x ==Cell.x && Task.targetCell.y ==Cell.y && !Task.isFinished) {
+            if (Task.targetCell !=null && !Task.isFinished && ((Task.targetCell.x ==Cell.x && Task.targetCell.y ==Cell.y) || (Task.targetCell.object ==Cell.object && Cell.object!=null))) {
                 Task.finishTask();
                 return Task;
             }

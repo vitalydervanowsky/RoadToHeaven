@@ -33,6 +33,8 @@ public class MapObjectBurgerJoint extends MapObject {
         Constants.DATAGAME.setMoney(m - 5);
 
         Constants.DATAGAME.setBurgers(Constants.DATAGAME.getBurgers() + 1);
+        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_burger, "Теперь у тебя есть перекус в дорогу или...  ", "+1", mapActivity);
+        dialog.dismiss();
     }
 
     public void endFill() {

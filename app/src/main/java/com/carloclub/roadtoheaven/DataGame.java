@@ -1,5 +1,7 @@
 package com.carloclub.roadtoheaven;
 
+import java.util.ArrayList;
+
 public class DataGame {
     private int speed = 60;
     private int tank=40;
@@ -8,13 +10,14 @@ public class DataGame {
     private int currentY = 0;
     private int fuel =15000;
     private int money =3000;
-    private int stones=0;
-    private int rubies=0;
+    private int stones=4;
+    private int rubies=3;
     private int burgers=0;
 
     private MapActivity mapActivity;
     public MyMap map;
     public String currentMap="";
+    public ArrayList<Lesson> myLessons;
 
     public int SCALE = 100;
 
