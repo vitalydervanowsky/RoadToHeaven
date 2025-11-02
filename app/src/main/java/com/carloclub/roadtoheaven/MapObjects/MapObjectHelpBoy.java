@@ -49,9 +49,10 @@ public class MapObjectHelpBoy extends MapObject {
     @Override
     public void loadAttributes(String[] attributes) {
         //textHello = attributes[3];
-        int targetX = Integer.valueOf(attributes[1]) - 1;
-        int targetY = Integer.valueOf(attributes[2]) - 1;
-        task.targetCell = mapActivity.map.mMapCells[targetX][targetY];
+        //int targetX = Integer.valueOf(attributes[1]) - 1;
+        //int targetY = Integer.valueOf(attributes[2]) - 1;
+        //task.targetCell = mapActivity.map.mMapCells[targetX][targetY];
+        task.targetType = "hospital_";
     }
 
     @Override
