@@ -36,13 +36,16 @@ public class FuelView extends ImageView {
         super.onDraw(canvas);
         //if (!isCurrent) return;
 
-        int left = 0;
-        int top = 0;
-        int right = getWidth();
-        int bottom = getHeight();
+        int w = getWidth();
+        int h = getHeight();
+        int left = (int)(140*w/640);
+        int right = (int)(30*w/640);
+        int top = (int)(31*h/117);
 
         float prc = (float) Constants.DATAGAME.getFuel()/Constants.DATAGAME.getTank()/1000;
-        canvas.drawRect(left+(int)(140*right/640), top+(int)(31*bottom/117), (int)((right-(int)(30*right/640))*prc), bottom-(int)(32*bottom/117), paint); // Рисуем квадрат
+
+        int widthOfBar = w-left-right;
+        canvas.drawRect(left, top, left+(int)(widthOfBar*prc), h-top-2, paint); // Рисуем квадрат
     }
 }
 

@@ -146,8 +146,10 @@ public class Victorina {
                 buttonAnswer2.setBackgroundResource(R.drawable.romb);
                 buttonAnswer3.setBackgroundResource(R.drawable.romb);
                 buttonAnswer4.setBackgroundResource(R.drawable.romb);
-                timerDown.cancel();
-                timerDown = null;
+                if (timerDown!=null) {
+                    timerDown.cancel();
+                    timerDown = null;
+                }
                 pause = false;
 
                 buttonAnswer1.setVisibility(View.VISIBLE);

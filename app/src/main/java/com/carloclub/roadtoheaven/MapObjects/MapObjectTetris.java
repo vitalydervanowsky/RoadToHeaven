@@ -276,6 +276,9 @@ public class MapObjectTetris extends MapObject {
             victorina.loadQuestion("Убогія духам", "Справядлівыя", "Міласэрныя", "Міратворцы",3);
             victorina.showAnswers();
         });;
+        dialog.findViewById(R.id.buttonAnswer2).setVisibility(View.INVISIBLE);
+        dialog.findViewById(R.id.buttonAnswer3).setVisibility(View.INVISIBLE);
+        dialog.findViewById(R.id.buttonAnswer4).setVisibility(View.INVISIBLE);
 
         buttonStart.setVisibility(View.INVISIBLE);
         buttonPause.setVisibility(View.INVISIBLE);
