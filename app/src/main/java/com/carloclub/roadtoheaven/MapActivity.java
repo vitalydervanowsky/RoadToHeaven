@@ -5,18 +5,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -67,8 +62,6 @@ public class MapActivity extends AppCompatActivity {
     ScaleGestureDetector scaleDetector;
 
     boolean isEvacuation=false;
-
-    FuelView fuelView;
 
 
     @SuppressLint("MissingInflatedId")
@@ -131,11 +124,6 @@ public class MapActivity extends AppCompatActivity {
         textMoney = findViewById(R.id.textMoney);
         textStones = findViewById(R.id.textStones);
         textRubi = findViewById(R.id.textRubi);
-        fuelView = findViewById(R.id.fuelView);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        fuelView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.fuel , options));
-        fuelView.invalidate();
 
         rrrMediaPlayer = MediaPlayer.create(this, R.raw.rr);
         Constants.DATAGAME.setActivity(MapActivity.this);
@@ -246,9 +234,6 @@ public class MapActivity extends AppCompatActivity {
         findViewById(R.id.imageViewtruck).setOnClickListener(v -> {
             startEvacuation();
         });
-        findViewById(R.id.imageViewTasks).setOnClickListener(v -> {
-            showTasks();
-        });
 
         //включаем анимацию текущего положения машины (картинки)
         isAnimation = (AnimationDrawable)car.getDrawable();
@@ -266,12 +251,6 @@ public class MapActivity extends AppCompatActivity {
         timer.schedule(moveWalpaper, 700, 20);
     }
 
-    private void showTasks() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_tasks);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
 
 
     public void startEvacuation(){
@@ -328,7 +307,7 @@ public class MapActivity extends AppCompatActivity {
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) IV.getLayoutParams();
             int x = CR.get(numCell-1).x * map.scale;
             int y = CR.get(numCell-1).y * map.scale;
-            params.setMargins(x,y,0,0);
+            params.setMargins(x,y+ map.scale /2,0,0);
             params.width = (int)(map.scale *0.6);
             params.height = params.width;
             IV.setLayoutParams(params);
@@ -514,7 +493,6 @@ public class MapActivity extends AppCompatActivity {
         textMoney.setText(String.valueOf(Constants.DATAGAME.getMoney())+" p.");
         textStones.setText(String.valueOf(Constants.DATAGAME.getStones()));
         textRubi.setText(String.valueOf(Constants.DATAGAME.getRubies()));
-        fuelView.invalidate();
     }
 
     public void twistCar(){
