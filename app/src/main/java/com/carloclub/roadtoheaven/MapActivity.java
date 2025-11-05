@@ -6,6 +6,7 @@ import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class MapActivity extends AppCompatActivity {
     ScaleGestureDetector scaleDetector;
 
     boolean isEvacuation=false;
+    FuelView fuelView;
 
 
     @SuppressLint("MissingInflatedId")
@@ -124,6 +126,13 @@ public class MapActivity extends AppCompatActivity {
         textMoney = findViewById(R.id.textMoney);
         textStones = findViewById(R.id.textStones);
         textRubi = findViewById(R.id.textRubi);
+
+        fuelView = findViewById(R.id.fuelView);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        fuelView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.fuel , options));
+        fuelView.invalidate();
+
 
         rrrMediaPlayer = MediaPlayer.create(this, R.raw.rr);
         Constants.DATAGAME.setActivity(MapActivity.this);
@@ -493,6 +502,7 @@ public class MapActivity extends AppCompatActivity {
         textMoney.setText(String.valueOf(Constants.DATAGAME.getMoney())+" p.");
         textStones.setText(String.valueOf(Constants.DATAGAME.getStones()));
         textRubi.setText(String.valueOf(Constants.DATAGAME.getRubies()));
+        fuelView.invalidate();
     }
 
     public void twistCar(){
