@@ -1,15 +1,15 @@
 @file:Suppress("DEPRECATION")
 
-package com.carloclub.roadtoheaven.story
+package com.carloclub.roadtoheaven.gallery
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.story.model.StoryData
+import com.carloclub.roadtoheaven.gallery.model.GalleryData
 
-class StoryActivity : AppCompatActivity() {
+class GalleryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +22,13 @@ class StoryActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-        val storyData = if (intent.extras != null) {
-            intent.extras?.getSerializable(StoryFragment.STORY_DATA_ARG) as? StoryData
+        val galleryData = if (intent.extras != null) {
+            (intent.extras?.getSerializable(GalleryFragment.GALLERY_IMAGES_ARG) as? GalleryData?)
         } else {
-            null
+            GalleryHelper.getGalleryData()
         }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, StoryFragment.newInstance(storyData))
+            .replace(R.id.fragmentContainerView, GalleryFragment.newInstance(galleryData))
             .commit()
     }
 }

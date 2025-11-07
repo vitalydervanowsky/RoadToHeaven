@@ -40,6 +40,9 @@
             android:name=".story.StoryActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
+        <activity android:name=".gallery.GalleryActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
 
     </application>
 

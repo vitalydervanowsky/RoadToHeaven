@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.story.StoryHelper;
 
 public class MapObjectChurch extends MapObject {
     String title;
@@ -22,7 +23,7 @@ public class MapObjectChurch extends MapObject {
         dialog.setContentView(R.layout.dialog_church);
         dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
             dialog.dismiss();
-            com.carloclub.roadtoheaven.story.Helper.INSTANCE.showStoryActivity(mapActivity);
+            StoryHelper.INSTANCE.showStoryActivity(mapActivity);
         });
         dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
     }

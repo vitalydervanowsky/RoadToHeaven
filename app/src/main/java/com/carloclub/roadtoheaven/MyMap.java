@@ -6,6 +6,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectBridge;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectBurgerJoint;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectFuel;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectGallery;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectHelpBoy;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectHunger;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectPilgrim;
@@ -322,6 +323,13 @@ public class MyMap {
                 else if (mMapCells[x][y].type.equals("sto")) {
                     mMapCells[x][y].object = new MapObjectSTO(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+                }
+                else if (mMapCells[x][y].type.equals("gallery")) {
+                    mMapCells[x][y].object = new MapObjectGallery(x, y, MainActivity);
+                    mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
+                    mMapCells[x + 1][y].object = mMapCells[x][y].object;
+                    mMapCells[x][y + 1].object = mMapCells[x][y].object;
+                    mMapCells[x + 1][y + 1].object = mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("stones")) {
                     mMapCells[x][y].object = new MapObjectStones(x, y, MainActivity);

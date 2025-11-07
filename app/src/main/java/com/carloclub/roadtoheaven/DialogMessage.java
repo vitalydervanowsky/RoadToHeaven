@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,14 +9,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carloclub.roadtoheaven.gallery.GalleryActivity;
+
 public class DialogMessage {
-    public static Dialog dialog;
-    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, MapActivity activity){
+    public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity) {
         showMessage(imageBig, imageSmall, text, bonus, activity, 0);
     }
 
-    public final static void showMessage(int imageBig, int imageSmall, String text, String bonus, MapActivity activity, int idSourcePersona){
-        dialog = new Dialog(activity);
+    public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity, int idSourcePersona) {
+        Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_message);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (imageBig!=0)
@@ -38,7 +40,15 @@ public class DialogMessage {
         Button buttonClose3= dialog.findViewById(R.id.OK);
         buttonClose3.setOnClickListener(v -> {
             dialog.dismiss();
-            Task.startNextTask(activity);
+        });
+        dialog.setOnDismissListener(thisDialog -> {
+            // выполнится при закрытии диалога
+            if (activity instanceof MapActivity) {
+                Task.startNextTask((MapActivity) activity);
+            }
+            if (activity instanceof GalleryActivity) {
+                activity.finish();
+            }
         });
 
         dialog.show();

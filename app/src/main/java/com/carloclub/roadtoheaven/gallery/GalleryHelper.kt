@@ -1,0 +1,30 @@
+package com.carloclub.roadtoheaven.gallery
+
+import android.app.Activity
+import android.content.Intent
+import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.gallery.model.GalleryData
+import com.carloclub.roadtoheaven.gallery.model.Side
+import com.carloclub.roadtoheaven.gallery.model.GalleryImage
+
+object GalleryHelper {
+    fun showGalleryActivity(activity: Activity) {
+        activity.startActivity(
+            Intent(activity, GalleryActivity::class.java).apply {
+                putExtra(GalleryFragment.GALLERY_IMAGES_ARG, getGalleryData())
+            }
+        )
+    }
+
+    fun getGalleryData(): GalleryData =
+        GalleryData(
+            title = "В какой зал поместить эту картину?",
+            images = listOf(// здесь пишем картинки в прямом порядке, как они будут идти одна одной
+                GalleryImage(1, R.drawable.galery1_1, "1 Настаўляць грэшнікаў", Side.RIGHT),
+                GalleryImage(2, R.drawable.galery1_2, "2 Вучыць тых, хто не ведае", Side.LEFT),
+                GalleryImage(3, R.drawable.galery1_3, "3 Раіць тым, хто сумняваецца", Side.RIGHT),
+                GalleryImage(4, R.drawable.galery1_4, "4 Суцяшаць засмучаных", Side.RIGHT),
+                GalleryImage(5, R.drawable.galery1_5, "5 Зносіць цярпліва знявагу", Side.RIGHT),
+            ).reversed()// в обратном порядке, т.к. в контейнер картинки добавляются последовательно, и сверху будет лежать последняя добавленная
+        )
+}
