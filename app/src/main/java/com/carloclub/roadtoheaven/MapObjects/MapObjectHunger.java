@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.widget.Button;
 
 import com.carloclub.roadtoheaven.Constants;
@@ -15,13 +16,7 @@ public class MapObjectHunger extends MapObject {
         super(x, y, activity);
         type = "hunger";
         task = new Task(this);
-        dialog.setContentView(R.layout.dialog_hunger);
 
-        Button buttonStart = dialog.findViewById(R.id.starthelp);
-        buttonStart.setOnClickListener(v -> startFill());
-
-        Button buttonClose = dialog.findViewById(R.id.close);
-        buttonClose.setOnClickListener(v -> endFill());
     }
 
     private void startFill() {
@@ -47,8 +42,19 @@ public class MapObjectHunger extends MapObject {
     }
     @Override
     public void runAction() {
-        if (!task.isStarted)
-            dialog.show();
+        if (task.isStarted) return;
+
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_hunger);
+
+            Button buttonStart = dialog.findViewById(R.id.starthelp);
+            buttonStart.setOnClickListener(v -> startFill());
+
+            Button buttonClose = dialog.findViewById(R.id.close);
+            buttonClose.setOnClickListener(v -> endFill());
+        }
+        dialog.show();
     }
 
     @Override

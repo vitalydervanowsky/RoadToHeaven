@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.Window;
@@ -16,27 +17,29 @@ public class MapObjectGallery extends MapObject {
     public MapObjectGallery(int x, int y, MapActivity activity) {
         super(x, y, activity);
         type = "gallery";
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setGravity(Gravity.BOTTOM | Gravity.START);
-        }
-        dialog.setContentView(R.layout.dialog_church);
-        dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
-            dialog.dismiss();
-            GalleryHelper.INSTANCE.showGalleryActivity(activity);
-        });
-        dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
+
     }
 
     @Override
     public void runAction() {
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_church);
+            dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
+                dialog.dismiss();
+                GalleryHelper.INSTANCE.showGalleryActivity(mapActivity);
+            });
+            dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
+
+        }
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setGravity(Gravity.BOTTOM | Gravity.START);
+        }
         ((TextView) dialog.findViewById(R.id.textView)).setText(title);
         dialog.show();
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-        }
-        mediaPlayer = MediaPlayer.create(mapActivity, R.raw.organ);
-        mediaPlayer.start();
+
     }
 
     @Override

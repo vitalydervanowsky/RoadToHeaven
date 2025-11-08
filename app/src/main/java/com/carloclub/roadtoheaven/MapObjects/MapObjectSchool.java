@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,10 +23,7 @@ public class MapObjectSchool extends MapObject {
         super(x, y, activity);
         type = "helpboy";
         task = new Task(this);
-        dialog.setContentView(R.layout.dialog_school);
 
-        ImageView back = dialog.findViewById(R.id.imageBack);
-        back.setOnClickListener(v -> startFill());
 //
 //        Button buttonClose = dialog.findViewById(R.id.close);
 //        buttonClose.setOnClickListener(v -> endFill());
@@ -47,7 +45,14 @@ public class MapObjectSchool extends MapObject {
     @Override
     public void runAction() {
         if (!task.isStarted) {
-            dialog.setContentView(R.layout.dialog_school);
+            if (dialog==null) {
+                dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+                dialog.setContentView(R.layout.dialog_school);
+
+                ImageView back = dialog.findViewById(R.id.imageBack);
+                back.setOnClickListener(v -> startFill());
+            }
+
             dialog.show();
             Window window = dialog.getWindow();
             if (window != null) {

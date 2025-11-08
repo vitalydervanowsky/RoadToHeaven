@@ -87,7 +87,7 @@ public class MapActivity extends AppCompatActivity {
 
         myTasks =new ArrayList <Task>();
         String CityName = getIntent().getStringExtra("CityName");
-        map = Constants.getMap(CityName);
+        map = MyMap.getMap(CityName);
         displayDensity = getApplicationContext().getResources().getDisplayMetrics().density;
         map.scale = (int) (Constants.DATAGAME.SCALE*displayDensity); //
         map.createObjects(MapActivity.this);
@@ -343,13 +343,7 @@ public class MapActivity extends AppCompatActivity {
         map.mRoute = Rote;
 
         if (NewCell.x ==navX && NewCell.y ==navY ){
-            //начинаем ехать
-            if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
-            mMoveCar = new MoveCar();
-            twistCar();
-            timer.schedule(mMoveCar, 20, 27-(Constants.DATAGAME.getSpeed()-60)/10);
-            //rrrMediaPlayer.reset();
-            rrrMediaPlayer.start();
+
         }
         else {
             Task.startNextTask(MapActivity.this);
@@ -369,6 +363,13 @@ public class MapActivity extends AppCompatActivity {
 
         }
 
+        //сразу начинаем ехать
+        if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
+        mMoveCar = new MoveCar();
+        twistCar();
+        timer.schedule(mMoveCar, 20, 27-(Constants.DATAGAME.getSpeed()-60)/10);
+        //rrrMediaPlayer.reset();
+        rrrMediaPlayer.start();
         //zoomMapToSCALE(Constants.DATAGAME.SCALE*5);
 
 
@@ -581,8 +582,8 @@ public class MapActivity extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     //ConstraintLayout.LayoutParams newparams = new Constraints.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    int stepPix = (int)(map.scale *4/Constants.DATAGAME.SCALE);
-                    int metr = 6;//(int)(1600/map.scale);
+                    int stepPix = (int)(map.scale *6/Constants.DATAGAME.SCALE);
+                    int metr = 10;//(int)(1600/map.scale);
                     //Получили координаты машинки, теперь сравниваем их с координатами следующей ячейки и решаем, что делать дальше
                     if (params.topMargin!= currentY || params.leftMargin!= currentX){
                         //Не доехали до следующей ячейки продолжаем двигать

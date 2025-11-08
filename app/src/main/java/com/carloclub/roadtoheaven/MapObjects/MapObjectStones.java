@@ -47,19 +47,23 @@ public class MapObjectStones extends MapObject {
 
     public MapObjectStones(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
-        dialog = new Dialog(activity, R.style.FullScreenDialog);
+
         random = new Random();
         type = "stones";
-        dialog.setContentView(R.layout.dialog_puzzle);
-        Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> endFill());
         answers = new String[4];
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_puzzle);
+            Button buttonStop = dialog.findViewById(R.id.close);
+            buttonStop.setOnClickListener(v -> endFill());
+
+            buttonAnswer1 = dialog.findViewById(R.id.buttonAnswer1);
+            buttonAnswer2 = dialog.findViewById(R.id.buttonAnswer2);
+            buttonAnswer3 = dialog.findViewById(R.id.buttonAnswer3);
+            buttonAnswer4 = dialog.findViewById(R.id.buttonAnswer4);
+        }
         //ObjectMediaPlayer = MediaPlayer.create(activity, R.raw.organ);
         puzzle = new Puzzle(this);
-        buttonAnswer1 = dialog.findViewById(R.id.buttonAnswer1);
-        buttonAnswer2 = dialog.findViewById(R.id.buttonAnswer2);
-        buttonAnswer3 = dialog.findViewById(R.id.buttonAnswer3);
-        buttonAnswer4 = dialog.findViewById(R.id.buttonAnswer4);
 
         if (correctMediaPlayer == null) {
             correctMediaPlayer = MediaPlayer.create(mapActivity, R.raw.ok);

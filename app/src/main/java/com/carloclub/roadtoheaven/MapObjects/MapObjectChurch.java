@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.Window;
@@ -16,20 +17,26 @@ public class MapObjectChurch extends MapObject {
     public MapObjectChurch(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "church";
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setGravity(Gravity.BOTTOM | Gravity.START);
-        }
-        dialog.setContentView(R.layout.dialog_church);
-        dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
-            dialog.dismiss();
-            StoryHelper.INSTANCE.showStoryActivity(mapActivity);
-        });
-        dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
+
     }
 
     @Override
     public void runAction() {
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_church);
+            dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
+                dialog.dismiss();
+                StoryHelper.INSTANCE.showStoryActivity(mapActivity);
+            });
+            dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
+        }
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setGravity(Gravity.BOTTOM | Gravity.START);
+        }
+
         ((TextView) dialog.findViewById(R.id.textView)).setText(title);
         dialog.show();
         if (mediaPlayer != null) {
