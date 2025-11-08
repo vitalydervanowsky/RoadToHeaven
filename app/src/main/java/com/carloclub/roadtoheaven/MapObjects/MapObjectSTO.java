@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 
 public class MapObjectSTO extends MapObject {
@@ -30,7 +31,7 @@ public class MapObjectSTO extends MapObject {
     public void payTank() {
         int cost = (int) ((Constants.DATAGAME.getTank() - 20) * 2.5);
         if (Constants.DATAGAME.getMoney() < cost) {
-            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, "У Вас недостаточно монет", "Остаток: " + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
+            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, Messages.getMessageNotEnoughMoney(), Messages.getMessageGetBalance() + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
             return;
         }
         Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() - cost);
@@ -41,7 +42,7 @@ public class MapObjectSTO extends MapObject {
     public void paySpeed() {
         int cost = (int) ((Constants.DATAGAME.getSpeed() - 40) * 2.5);
         if (Constants.DATAGAME.getMoney() < cost) {
-            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, "У Вас недостаточно монет", "Остаток: " + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
+            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, Messages.getMessageNotEnoughMoney(), Messages.getMessageGetBalance() + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
             return;
         }
         Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() - cost);
@@ -52,7 +53,7 @@ public class MapObjectSTO extends MapObject {
     public void payTire() {
         int cost = (110 - Constants.DATAGAME.getTire()) * 10;
         if (Constants.DATAGAME.getMoney() < cost) {
-            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, "У Вас недостаточно монет", "Остаток: " + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
+            DialogMessage.showMessage(R.drawable.icon_money, R.drawable.icon_money, Messages.getMessageNotEnoughMoney(), Messages.getMessageGetBalance() + String.valueOf(Constants.DATAGAME.getMoney()), mapActivity);
             return;
         }
         Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() - cost);

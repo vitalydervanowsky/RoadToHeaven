@@ -20,6 +20,7 @@ public class DataGame {
     public ArrayList<Lesson> myLessons;
 
     public int SCALE = 100;
+    public String currentLang="BY";
 
     public DataGame(){
         loadData("AutoSave");

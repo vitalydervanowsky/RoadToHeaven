@@ -17,6 +17,7 @@ import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.Figure;
 import com.carloclub.roadtoheaven.FuelView;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.OldQuestions;
 import com.carloclub.roadtoheaven.R;
@@ -108,7 +109,7 @@ public class MapObjectFuel extends MapObject {
             Constants.DATAGAME.setFuel(Constants.DATAGAME.getFuel()+4000);
             if (Constants.DATAGAME.getFuel()>=(Constants.DATAGAME.getTank()*1000)){
                 Constants.DATAGAME.setFuel(Constants.DATAGAME.getTank()*1000);
-                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, "Бак напоўнены. Можна ехаць!", "", mapActivity);
+                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, Messages.getMessageTankIsFull(), "", mapActivity);
                 dialog.dismiss();
             }
             fuelView.invalidate();

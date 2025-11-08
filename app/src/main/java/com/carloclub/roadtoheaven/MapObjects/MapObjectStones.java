@@ -17,6 +17,7 @@ import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.CustomImageView;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Victorina;
@@ -109,11 +110,11 @@ public class MapObjectStones extends MapObject {
             triumfMediaPlayer.start();
             Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
             mapActivity.updateBar();
-            ((TextView) dialog.findViewById(R.id.textView3)).setText("Поздравляем! Вы добыли 1 камень");
+            ((TextView) dialog.findViewById(R.id.textView3)).setText(Messages.getMessageGotStone());
             if (Constants.DATAGAME.getStones() == 7) {
-                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, "Поздравляем! Все камни собраны. Можно ехать строить мост.", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, Messages.getMessageGotAllStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             } else {
-                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, "Поздравляем! Вы добыли 1 камень", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, Messages.getMessageGotStone(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             }
             lastSuccess = Calendar.getInstance().getTime();
             mapActivity.showRubies();
@@ -130,15 +131,15 @@ public class MapObjectStones extends MapObject {
     @Override
     public void runAction() {
         if (lastSuccess != null && (Calendar.getInstance().getTime().getTime() - lastSuccess.getTime()) < 180000) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, "В галерее технический перерыв: 5 минут", "", mapActivity);
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
             return;
         }
 
 
         showPuzzle();
 
-        buttonAnswer1.setText("Знаю ответ");
-        buttonAnswer2.setText("Разгадать подсказку");
+        buttonAnswer1.setText(Messages.getMessageKnowAnswer());
+        buttonAnswer2.setText(Messages.getMessageGetHint());
         buttonAnswer3.setVisibility(View.INVISIBLE);
         buttonAnswer4.setVisibility(View.INVISIBLE);
         startHelp();
@@ -283,7 +284,7 @@ public class MapObjectStones extends MapObject {
 
             } else if (attempts == 0) {
                 //((TextView)dialog.findViewById(R.id.textView3)).setText("Не получилось((( Попробуйте ещё раз");
-                DialogMessage.showMessage(R.drawable.gratulation, 0, "Не получилось((( Попробуйте ещё раз", "", mapActivity);
+                DialogMessage.showMessage(R.drawable.gratulation, 0, Messages.getMessageFail(), "", mapActivity);
                 dialog.dismiss();
             }
 
@@ -300,7 +301,7 @@ public class MapObjectStones extends MapObject {
         public void startPuzzle(MyMap.Stone stone) {
             this.stone = stone;
             attempts = 1000;
-            ((TextView) dialog.findViewById(R.id.textView3)).setText("Соберите мозайку, передвинув фрагменты не более 14 раз");
+            ((TextView) dialog.findViewById(R.id.textView3)).setText(Messages.getMessageDoMosaic());
             //Разрезаем изображение и по-очереди вкладываем в каждый Вью
             ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(stone.question);
             //идентификатор картинки 400х400

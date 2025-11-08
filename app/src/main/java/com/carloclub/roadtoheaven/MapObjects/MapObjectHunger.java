@@ -5,6 +5,7 @@ import android.widget.Button;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
@@ -25,7 +26,7 @@ public class MapObjectHunger extends MapObject {
 
     private void startFill() {
         if (Constants.DATAGAME.getBurgers() < 1) {
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.burger, "В рюкзаке нет бургеров. Но их можно купить в бургерной", "0", mapActivity);
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.burger, Messages.getMessageYouHaveNoBurgers(), "0", mapActivity);
             return;
         }
 
@@ -63,7 +64,7 @@ public class MapObjectHunger extends MapObject {
 
         task.isFinished = true;
 
-        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_ruby, "За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи", "+1", mapActivity);
+        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
     }
 
 }

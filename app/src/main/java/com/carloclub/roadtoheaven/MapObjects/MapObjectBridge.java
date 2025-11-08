@@ -16,6 +16,7 @@ import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogActivity;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Victorina;
@@ -49,7 +50,7 @@ public class MapObjectBridge extends MapObject {
     @Override
     public void runAction(){
         if ((Constants.DATAGAME.getStones()+Constants.DATAGAME.getRubies())<7) {
-            DialogMessage.showMessage(R.drawable.icon_stones, R.drawable.icon_stones, "Недостаточно камней! Чтобы начать строить мост, нужно собрать 7 камней", "Собрано: " + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            DialogMessage.showMessage(R.drawable.icon_stones, R.drawable.icon_stones, Messages.getMessageNotEnoughStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             return;
         }
 //        //запускаем строительство моста
@@ -157,12 +158,12 @@ public class MapObjectBridge extends MapObject {
     public void endVictorina(boolean isOK) {
         if (!isOK){
             if(isGameOver){
-                DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_ruby, "Нажаль, ты памыліўся(( паспрабуй яшчэ раз", "", mapActivity);
+                DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_ruby, Messages.getMessageMistake(), "", mapActivity);
                 dialog.dismiss();
                 return;
             }
             else {
-                DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_ruby, "Нажаль, ты памыліўся, але рубін дапамогі цябе ўратаваў", "", mapActivity);
+                DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_ruby, Messages.getMessageMistakeWithRuby(), "", mapActivity);
             }
         }
 

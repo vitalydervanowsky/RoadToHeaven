@@ -5,6 +5,7 @@ import android.widget.Button;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
@@ -27,13 +28,13 @@ public class MapObjectBurgerJoint extends MapObject {
     private void pay() {
         int m = Constants.DATAGAME.getMoney();
         if (m < 5) {
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_money, "Недостаточно средств для покупки бургера", String.valueOf(m) + "p.", mapActivity);
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.icon_money, Messages.getMessageNotEnoughMoneyForBurger(), String.valueOf(m) + "p.", mapActivity);
             return;
         }
         Constants.DATAGAME.setMoney(m - 5);
 
         Constants.DATAGAME.setBurgers(Constants.DATAGAME.getBurgers() + 1);
-        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_burger, "Теперь у тебя есть перекус в дорогу или...  ", "+1", mapActivity);
+        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_burger, Messages.getMessageYouHaveSnack(), "+1", mapActivity);
         dialog.dismiss();
     }
 
@@ -59,7 +60,7 @@ public class MapObjectBurgerJoint extends MapObject {
 
         task.isFinished = true;
 
-        DialogMessage.showMessage(R.drawable.happyboy, R.drawable.icon_ruby, "За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи", "+1", mapActivity);
+        DialogMessage.showMessage(R.drawable.happyboy, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
     }
 
 }

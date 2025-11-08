@@ -18,6 +18,7 @@ import androidx.core.view.WindowCompat;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 
@@ -159,7 +160,7 @@ public class MapObjectBooks extends MapObject {
                     dialog.hide();
                     lastSuccess = Calendar.getInstance().getTime();
                     Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()+1);
-                    DialogMessage.showMessage(R.drawable.gratulation,R.drawable.stones1,"Поздравляем! Вы добыли 1 камень","Собрано: "+String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+                    DialogMessage.showMessage(R.drawable.gratulation,R.drawable.stones1, Messages.getMessageGotStone(),Messages.getMessageHowManyStonesGot() +String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
                 }
                 touchFinish();
                 return true;
@@ -187,7 +188,7 @@ public class MapObjectBooks extends MapObject {
     @Override
     public void runAction(){
         if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,"Технический перерыв: 5 минут","", mapActivity);
+            DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,Messages.getMessageTechnicalBreak(),"", mapActivity);
             return;
         }
 

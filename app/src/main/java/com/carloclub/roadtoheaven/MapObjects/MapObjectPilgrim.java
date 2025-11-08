@@ -5,6 +5,7 @@ import android.app.Dialog;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
@@ -35,7 +36,7 @@ public class MapObjectPilgrim extends MapObject {
     @Override
     public void runAction(){
         if (!task.isStarted) {
-            DialogMessage.showMessage(0, 0, "Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.", "Спасибо", mapActivity, R.drawable.karalina);
+            DialogMessage.showMessage(0, 0, Messages.getMessageFromPilgrim(), Messages.getMessageThanks(), mapActivity, R.drawable.karalina);
             mapActivity.myTasks.add(task);
             task.startTask();
         }

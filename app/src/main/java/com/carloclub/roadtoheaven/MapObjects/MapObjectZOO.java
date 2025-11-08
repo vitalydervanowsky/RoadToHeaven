@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.Constraints;
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
@@ -42,10 +43,10 @@ public class MapObjectZOO extends MapObject {
         timer = new Timer();
         task = new Task((MapObject)this);
         task.bonus = 0;
-        task.text = "Словите розового кота";
+        task.text = Messages.getMessageCatchPinkCat();
         Task2 = new Task((MapObject)this);
         Task2.bonus = 1000;
-        Task2.text = "Отвезите кота в ЗОО магазин";
+        Task2.text = Messages.getMessageCarryCatInZoo();
         Task2.targetCell = MainActivity.map.mMapCells[X][Y]; //Во втором задании сразу известна ячейка: нужо вернуть кота назад сюда
 
         cat = MainActivity.findViewById(R.id.cat);
