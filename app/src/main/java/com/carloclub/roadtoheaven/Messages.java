@@ -246,4 +246,14 @@ public class Messages{
         return "";
     }
 
+    public static String getMessageThanksGoodManGetPrise() {
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_BY)) {
+            return "Дзякуй, добры чалавек! Атрымай сваю заслужанаю ўзнагароду: 1 000 манет.";
+        }
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_RU)) {
+            return "Спасибо, добрый человек! Получи же свою заслуженную награду: 1 000 монет.";
+        }
+        return "";
+    }
+
 }
