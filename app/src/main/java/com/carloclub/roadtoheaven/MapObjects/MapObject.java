@@ -21,12 +21,11 @@ public class MapObject {
         this.x = x;
         this.y = y;
         mapActivity = activity;
-        dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
-        dialog.setOnDismissListener(dialog -> {
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-            }
-        });
+//        dialog.setOnDismissListener(dialog -> {
+//            if (mediaPlayer != null) {
+//                mediaPlayer.stop();
+//            }
+//        });
     }
 
 

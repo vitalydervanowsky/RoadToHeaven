@@ -227,6 +227,10 @@ public class MapObjectBooks extends MapObject {
 
 
         //показываем диалог и растягиваем почти на веь экран
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+        }
+
         dialog.show();
         Window window = dialog.getWindow();
         if (window != null) {

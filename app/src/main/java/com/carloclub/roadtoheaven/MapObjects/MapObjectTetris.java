@@ -96,6 +96,10 @@ public class MapObjectTetris extends MapObject {
 
     @Override
     public void runAction(){
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+
+        }
         ActualFigure = new Figure();
         ActualFigure.GenerateFigure();
         VirtualFigure = new Figure();

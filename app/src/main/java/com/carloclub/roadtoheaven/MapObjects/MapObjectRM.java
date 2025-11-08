@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.media.MediaPlayer;
 
 import com.carloclub.roadtoheaven.MapActivity;
@@ -16,20 +17,8 @@ public class MapObjectRM extends MapObject {
     public MapObjectRM(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "RM";
-        dialog.setContentView(R.layout.dialog_rm);
-        dialog.setOnDismissListener(dialog1 -> {
-            if (playerAveMaria != null) {
-                playerAveMaria.stop();
-            }
-            if (playerPaterNoster != null) {
-                playerPaterNoster.stop();
-            }
-        });
-        dialog.findViewById(R.id.close).setOnClickListener(v -> dialog.dismiss());
         playerPaterNoster = MediaPlayer.create(activity, R.raw.organ);
         playerAveMaria = MediaPlayer.create(activity, R.raw.organ);
-        dialog.findViewById(R.id.buttotPaterNoster).setOnClickListener(v -> paterNoster());
-        dialog.findViewById(R.id.buttonAveMaria).setOnClickListener(v -> aveMaria());
     }
 
     public void endFill() {
@@ -69,6 +58,23 @@ public class MapObjectRM extends MapObject {
     }
     @Override
     public void runAction() {
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_rm);
+            dialog.setOnDismissListener(dialog1 -> {
+                if (playerAveMaria != null) {
+                    playerAveMaria.stop();
+                }
+                if (playerPaterNoster != null) {
+                    playerPaterNoster.stop();
+                }
+            });
+            dialog.findViewById(R.id.close).setOnClickListener(v -> dialog.dismiss());
+
+            dialog.findViewById(R.id.buttotPaterNoster).setOnClickListener(v -> paterNoster());
+            dialog.findViewById(R.id.buttonAveMaria).setOnClickListener(v -> aveMaria());
+        }
+
         dialog.show();
         //ObjectMediaPlayer.start();
     }

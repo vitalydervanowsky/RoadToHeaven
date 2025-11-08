@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,12 +19,7 @@ public class MapObjectSTO extends MapObject {
     public MapObjectSTO(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "sto";
-        dialog.setContentView(R.layout.dialog_sto);
-        Button buttonStop = dialog.findViewById(R.id.close);
-        buttonStop.setOnClickListener(v -> endFill());
-        dialog.findViewById(R.id.payTank).setOnClickListener(v -> payTank());
-        dialog.findViewById(R.id.paySpeed).setOnClickListener(v -> paySpeed());
-        dialog.findViewById(R.id.PayTire).setOnClickListener(v -> payTire());
+
 
         updateViews();
     }
@@ -103,6 +99,16 @@ public class MapObjectSTO extends MapObject {
 
     @Override
     public void runAction() {
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_sto);
+            Button buttonStop = dialog.findViewById(R.id.close);
+            buttonStop.setOnClickListener(v -> endFill());
+            dialog.findViewById(R.id.payTank).setOnClickListener(v -> payTank());
+            dialog.findViewById(R.id.paySpeed).setOnClickListener(v -> paySpeed());
+            dialog.findViewById(R.id.PayTire).setOnClickListener(v -> payTire());
+        }
+
         updateViews();
         dialog.show();
         //ObjectMediaPlayer.start();
