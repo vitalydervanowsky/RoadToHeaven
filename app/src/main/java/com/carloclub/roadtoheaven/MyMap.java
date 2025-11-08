@@ -324,7 +324,7 @@ public class MyMap {
                     mMapCells[x][y].object = new MapObjectSTO(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                 }
-                else if (mMapCells[x][y].type.equals("gallery")) {
+                else if (mMapCells[x][y].type.equals("stones")) {
                     mMapCells[x][y].object = new MapObjectGallery(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                     mMapCells[x + 1][y].object = mMapCells[x][y].object;
