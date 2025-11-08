@@ -118,7 +118,7 @@ public class MapObjectZOO extends MapObject {
             Task2.isFinished = true;
             mapActivity.updateBar();
 
-            DialogMessage.showMessage(R.drawable.dialog_back_zoo,R.drawable.icon_money,"Спасибо, добрый человек! Получи же свою заслуженную награду: 1 000 монет.","+1 000",mapActivity);
+            DialogMessage.showMessage(R.drawable.dialog_back_zoo,R.drawable.icon_money,Messages.getMessageThanksGoodManGetPrise(),"+1 000",mapActivity);
         } else {
             Constants.DATAGAME.setMoney(Constants.DATAGAME.getMoney() + task.bonus);
             dialog2.show();
