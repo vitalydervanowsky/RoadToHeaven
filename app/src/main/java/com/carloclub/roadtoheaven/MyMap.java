@@ -331,7 +331,7 @@ public class MyMap {
                     mMapCells[x][y + 1].object = mMapCells[x][y].object;
                     mMapCells[x + 1][y + 1].object = mMapCells[x][y].object;
                 }
-                else if (mMapCells[x][y].type.equals("stones")) {
+                else if (mMapCells[x][y].type.equals("cinema")) {
                     mMapCells[x][y].object = new MapObjectStones(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
 
