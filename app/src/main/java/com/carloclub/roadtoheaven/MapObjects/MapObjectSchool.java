@@ -1,12 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-
-import androidx.core.view.WindowCompat;
+import android.content.Intent;
 
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.DialogMessage;
@@ -14,21 +8,15 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
+import com.carloclub.roadtoheaven.school.SchoolActivity;
 
 public class MapObjectSchool extends MapObject {
     public Task task;
 
     public MapObjectSchool(int x, int y, MapActivity activity) {
         super(x, y, activity);
-        type = "helpboy";
+        type = "school";
         task = new Task(this);
-        dialog.setContentView(R.layout.dialog_school);
-
-        ImageView back = dialog.findViewById(R.id.imageBack);
-        back.setOnClickListener(v -> startFill());
-//
-//        Button buttonClose = dialog.findViewById(R.id.close);
-//        buttonClose.setOnClickListener(v -> endFill());
     }
 
     private void startFill() {
@@ -47,22 +35,8 @@ public class MapObjectSchool extends MapObject {
     @Override
     public void runAction() {
         if (!task.isStarted) {
-            dialog.setContentView(R.layout.dialog_school);
-            dialog.show();
-            Window window = dialog.getWindow();
-            if (window != null) {
-                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-            WindowCompat.setDecorFitsSystemWindows(window, false);
-            View decorView = window.getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
+            Intent intent = new Intent(mapActivity, SchoolActivity.class);
+            mapActivity.startActivity(intent);
         }
     }
 

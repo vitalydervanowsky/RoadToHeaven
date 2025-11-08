@@ -80,22 +80,4 @@ public class Task {
         return null;
     }
 
-    public static Task startNextTask(MapActivity mapActivity){
-        //Если есть незавершенные, то новый не запускаем
-        for (int i = 1; i<= mapActivity.myTasks.size(); i++) {
-            Task Task = mapActivity.myTasks.get(i - 1);
-            if (Task.isStarted && !Task.isFinished) return null;
-        }
-
-        //Если нет незвавершенных, то запускаем очередное неначатое
-        for (int i = 1; i<= mapActivity.myTasks.size(); i++){
-            Task Task = mapActivity.myTasks.get(i-1);
-            if (!Task.isStarted){
-                Task.startTask();
-                return Task;
-            }
-        }
-        return null;
-    }
-
 }

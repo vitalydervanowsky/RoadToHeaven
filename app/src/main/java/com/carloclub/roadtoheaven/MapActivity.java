@@ -352,7 +352,7 @@ public class MapActivity extends AppCompatActivity {
             rrrMediaPlayer.start();
         }
         else {
-            Task.startNextTask(MapActivity.this);
+            startNextTask();
 
             //Устанавливаем навигационную ссылку
             if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
@@ -423,6 +423,23 @@ public class MapActivity extends AppCompatActivity {
 
         //подгоним размер машинки
         //car.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength*map.scale, map.mHeight*map.scale));
+    }
+
+    public void startNextTask() {
+        //Если есть незавершенные, то новый не запускаем
+        for (int i = 1; i <= myTasks.size(); i++) {
+            Task task = myTasks.get(i - 1);
+            if (task.isStarted && !task.isFinished) return;
+        }
+
+        //Если нет незвавершенных, то запускаем очередное неначатое
+        for (int i = 1; i <= myTasks.size(); i++) {
+            Task task = myTasks.get(i - 1);
+            if (!task.isStarted) {
+                task.startTask();
+                return;
+            }
+        }
     }
 
     private MyMap.MapCell whyCellInCenter(){
@@ -682,7 +699,7 @@ public class MapActivity extends AppCompatActivity {
                         moveWalpaper.cancel();
                         moveWalpaper = null;
 
-                        Task.startNextTask(MapActivity.this);
+                        startNextTask();
                         return;
 
                     }

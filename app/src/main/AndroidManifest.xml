@@ -43,6 +43,9 @@
         <activity android:name=".gallery.GalleryActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
+        <activity android:name=".school.SchoolActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
 
     </application>
 
