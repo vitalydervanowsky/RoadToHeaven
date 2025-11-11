@@ -36,6 +36,10 @@ public class MyMap {
     public int mHeight;
     public ArrayList<Lesson> myLessons;
 
+    public ArrayList<Question> tetrisQuestion;
+
+    public ArrayList<Question> cinemaQuestion;
+
     int mBackgroundId;
 
 
@@ -498,7 +502,10 @@ public class MyMap {
         public String answer3;
         public String answer4;
         public int trueAnswer;
+
+        public int imageID;
         int id;
+
 
         boolean used = false;
 
@@ -520,6 +527,25 @@ public class MyMap {
             this.id = id;
         }
 
+        public Question(
+                String question,
+                String answer1,
+                String answer2,
+                String answer3,
+                String answer4,
+                int trueAnswer,
+                int id,
+                int imageID
+        ) {
+            this.question = question;
+            this.answer1 = answer1;
+            this.answer2 = answer2;
+            this.answer3 = answer3;
+            this.answer4 = answer4;
+            this.trueAnswer = trueAnswer;
+            this.id = id;
+            this.imageID = imageID;
+        }
         public Question(
                 String question,
                 String answer1,
@@ -565,5 +591,6 @@ public class MyMap {
         }
         return null;
     }
+
 
 }
