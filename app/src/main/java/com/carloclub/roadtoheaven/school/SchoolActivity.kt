@@ -22,7 +22,8 @@ class SchoolActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SchoolStartFragment())
+            .replace(R.id.fragmentContainerView, SchoolHallFragment())
+            .addToBackStack(SchoolHallFragment::class.java.simpleName)
             .commit()
     }
 }

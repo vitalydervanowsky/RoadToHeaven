@@ -110,6 +110,10 @@ public class Victorina {
 
     }
 
+    public void loadQuestion(MyMap.Question question) {
+        loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
+    }
+
     public void loadQuestion(String answer1, String answer2, String answer3, String answer4, int trueAnswer){
         answers = new String[4];
         answers[0]=answer1;

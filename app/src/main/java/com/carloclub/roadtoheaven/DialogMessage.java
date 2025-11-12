@@ -14,14 +14,15 @@ import android.widget.TextView;
 import androidx.core.view.WindowCompat;
 
 import com.carloclub.roadtoheaven.gallery.GalleryActivity;
+import com.carloclub.roadtoheaven.model.DialogButton;
 
 public class DialogMessage {
     public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity) {
-        showMessage(imageBig, imageSmall, text, bonus, activity, 0, null);
+        showMessage(imageBig, imageSmall, text, bonus, activity, 0, null, null);
     }
 
     public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity, int idSourcePersona) {
-        showMessage(imageBig, imageSmall, text, bonus, activity, idSourcePersona, null);
+        showMessage(imageBig, imageSmall, text, bonus, activity, idSourcePersona, null, null);
     }
 
     public static void showMessage(
@@ -31,7 +32,8 @@ public class DialogMessage {
             String bonus,
             Activity activity,
             int idSourcePersona,
-            View.OnClickListener onCancelClickListener
+            DialogButton yesDialogButton,
+            DialogButton noDialogButton
     ) {
         Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_message);
@@ -71,15 +73,22 @@ public class DialogMessage {
             bonusView.setVisibility(View.VISIBLE);
         }
 
-        Button buttonClose3= dialog.findViewById(R.id.OK);
-        buttonClose3.setOnClickListener(v -> {
+        Button yesButton = dialog.findViewById(R.id.yesButton);
+        yesButton.setText(yesDialogButton != null ? yesDialogButton.getTitle() : "OK");
+        yesButton.setOnClickListener(v -> {
+            if (yesDialogButton != null) {
+                yesDialogButton.getAction().invoke();
+            }
             dialog.dismiss();
         });
 
-        if (onCancelClickListener != null) {
-            Button cancelButton = dialog.findViewById(R.id.cancelButton);
-            cancelButton.setVisibility(View.VISIBLE);
-            cancelButton.setOnClickListener(onCancelClickListener);
+        if (noDialogButton != null) {
+            Button noButton = dialog.findViewById(R.id.noButton);
+            noButton.setText(noDialogButton.getTitle());
+            noButton.setVisibility(View.VISIBLE);
+            noButton.setOnClickListener(v -> {
+                noDialogButton.getAction().invoke();
+            });
         }
 
         dialog.setOnDismissListener(thisDialog -> {

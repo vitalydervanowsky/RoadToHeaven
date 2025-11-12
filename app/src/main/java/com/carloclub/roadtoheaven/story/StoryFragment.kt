@@ -4,12 +4,15 @@ package com.carloclub.roadtoheaven.story
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.story.model.StoryData
 
@@ -17,9 +20,10 @@ class StoryFragment : Fragment() {
 
     private var textView: TextView? = null
     private var imageView: ImageView? = null
-    private var backImageView: ImageView? = null
+    private var prevImageView: ImageView? = null
     private var nextImageView: ImageView? = null
     private var muteImageView: ImageView? = null
+    private var closeImageView: ImageView? = null
 
     private var storyData: StoryData? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -50,13 +54,18 @@ class StoryFragment : Fragment() {
     private fun initViews(view: View) {
         textView = view.findViewById(R.id.textView)
         imageView = view.findViewById(R.id.imageView)
-        backImageView = view.findViewById(R.id.backImageView)
+        prevImageView = view.findViewById(R.id.prevImageView)
         nextImageView = view.findViewById(R.id.nextImageView)
         muteImageView = view.findViewById(R.id.muteImageView)
+        closeImageView = view.findViewById(R.id.closeImageView)
+
+        prevImageView?.setImageResource(R.drawable.ic_media_prev)
+        nextImageView?.setImageResource(R.drawable.ic_media_next)
 
         nextImageView?.setOnClickListener { goNext() }
-        backImageView?.setOnClickListener { goBack() }
+        prevImageView?.setOnClickListener { goBack() }
         muteImageView?.setOnClickListener { mute() }
+        closeImageView?.setOnClickListener { closeStory() }
         mute()
     }
 
@@ -68,50 +77,36 @@ class StoryFragment : Fragment() {
                 mediaPlayer?.stop()
                 mediaPlayer = MediaPlayer.create(activity, pageData.audioRes)
                 if (isMuted) {
-                    muteImageView?.setImageResource(android.R.drawable.ic_media_play)
+                    muteImageView?.setImageResource(R.drawable.ic_media_play)
                 } else {
                     mediaPlayer?.start()
-                    muteImageView?.setImageResource(android.R.drawable.ic_media_pause)
+                    muteImageView?.setImageResource(R.drawable.ic_media_pause)
                 }
             }
         }
-        backImageView?.setImageResource(
-            if (storyData?.position == 0) {
-                android.R.drawable.ic_menu_close_clear_cancel
-            } else {
-                android.R.drawable.ic_media_rew
-            }
-        )
-        nextImageView?.setImageResource(
-            if (((storyData?.position ?: 0) + 1) == storyData?.pages?.size) {
-                android.R.drawable.ic_menu_close_clear_cancel
-            } else {
-                android.R.drawable.ic_media_ff
-            }
-        )
+        prevImageView?.visibility = if (storyData?.position == 0) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
+        nextImageView?.visibility = if (((storyData?.position ?: 0) + 1) == storyData?.pages?.size) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
     }
 
     private fun goBack() {
-        if (storyData?.position == 0) {
-            requireActivity().finish()
-            return
-        } else {
             storyData?.let {
                 it.position--
                 updateViews()
-            }
         }
     }
 
     private fun goNext() {
-        if (((storyData?.position ?: 0) + 1) == storyData?.pages?.size) {
-            requireActivity().finish()
-            return
-        } else {
             storyData?.let {
                 it.position++
                 updateViews()
-            }
         }
     }
 
@@ -119,10 +114,37 @@ class StoryFragment : Fragment() {
         isMuted = !isMuted
         if (isMuted) {
             mediaPlayer?.pause()
-            muteImageView?.setImageResource(android.R.drawable.ic_media_play)
+            muteImageView?.setImageResource(R.drawable.ic_media_play)
         } else {
             mediaPlayer?.start()
-            muteImageView?.setImageResource(android.R.drawable.ic_media_pause)
+            muteImageView?.setImageResource(R.drawable.ic_media_pause)
+        }
+    }
+
+    private fun closeStory() {
+        storyData?.let {
+            if (it.position == it.pages.size - 1) {
+                setFragmentResult(STORY_RESULT_REQUEST_KEY, bundleOf(IS_DONE to true))
+            }
+        }
+        requireActivity().onBackPressed()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setOnBackPressedListener()
+    }
+
+    private fun setOnBackPressedListener() {
+        val view = requireView()
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { _: View?, keyCode: Int, event: KeyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                closeStory()
+                return@setOnKeyListener true
+            }
+            false
         }
     }
 
@@ -133,6 +155,8 @@ class StoryFragment : Fragment() {
 
     companion object {
         const val STORY_DATA_ARG = "STORY_DATA_ARG"
+        const val STORY_RESULT_REQUEST_KEY = "STORY_RESULT_REQUEST_KEY"
+        const val IS_DONE = "IS_DONE"
 
         @JvmStatic
         fun newInstance(storyData: StoryData?): StoryFragment =

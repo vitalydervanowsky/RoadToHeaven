@@ -111,7 +111,7 @@ public class MapObjectBridge extends MapObject {
         MyMap.Question currentQuestion = questions[step - 1];
         questionTextView.setVisibility(View.VISIBLE);
         questionTextView.setText(currentQuestion.question);
-        victorina.loadQuestion(currentQuestion.answer1, currentQuestion.answer2, currentQuestion.answer3, currentQuestion.answer4,currentQuestion.trueAnswer);
+        victorina.loadQuestion(currentQuestion);
         victorina.showAnswers();
     }
 
