@@ -266,8 +266,19 @@ public class MapActivity extends AppCompatActivity {
         navX = 2;
         navY = 2;
 
+
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
+        currentX = 0* map.scale;
+        currentY = 1 * map.scale;
+        carX = currentX;
+        carY = currentY;
+        params.setMargins(currentX, currentY, 0, 0);
+            params.width = (int) (map.scale * 0.9);
+            params.height = params.width;
+            car.setLayoutParams(params);
+
         //moveImageView(navY*map.scale, navX*map.scale);
-        MyMap.MapCell CurrentCell = map.mMapCells[0][0];
+        MyMap.MapCell CurrentCell = map.mMapCells[0][1];
         MyMap.MapCell NewCell = map.mMapCells[navX][navY];;
         if (NewCell.object==null && !NewCell.type.equals("Road"))
             return;
@@ -279,7 +290,7 @@ public class MapActivity extends AppCompatActivity {
         //сразу начинаем ехать
         mMoveCar = new MoveCar();
         twistCar();
-        timer.schedule(mMoveCar, 1000, 35);
+        timer.schedule(mMoveCar, 1000, 40);
         rrrMediaPlayer.start();
     }
 

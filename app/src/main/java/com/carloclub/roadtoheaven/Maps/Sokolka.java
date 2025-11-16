@@ -92,6 +92,7 @@ public class Sokolka {
     }
 
 
+
     public static void loadTextsBY(MyMap Map) {
         Map.mStones = new MyMap.Stone[14];
         Map.addStone(0, "Дела милосердия для тела1: ","Накормить голодного","Мозайка","galery1_1");
@@ -180,11 +181,14 @@ public class Sokolka {
         String dataQuestion;
         dataQuestion = "Разбяры цаглінкі і ўбачыш: Хто шчаслівы, бо спазнае міласэрнасць?";
         Map.tetrisQuestion.add(new MyMap.Question(dataQuestion,"Справядлівыя","Чыстыя сэрцам","Міласэрныя","Міратворцы",3,0, R.drawable.back_tetris));
+        Map.cinemaQuestion = new ArrayList<MyMap.Question>();
+        dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым кадры фільма \"Паліяна\"";
+        Map.cinemaQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.polianna));
     }
 
+
     public static void LoadMap(MyMap Map) {
-        Map.mMapCells[0][0].type = "Road";
-        Map.mMapCells[0][1].type = "forest";
+        Map.mMapCells[0][1].type = "Road";
         Map.mMapCells[0][2].type = "fuel";
         Map.mMapCells[0][3].type = "pilgrim";
         Map.mMapCells[0][4].type = "forest";
@@ -324,17 +328,13 @@ public class Sokolka {
         Map.mMapCells[19][7].type = "fuel";
         Map.mMapCells[19][8].type = "forest";
         Map.mMapCells[19][9].type = "river";
-        Map.mMapCells[6][2].attributes[0] = "Костёл Св. Антония";  	//-2 146 826 246
-        Map.mMapCells[6][2].attributes[2] = "churchsokolka2";  	//-2 146 826 246
+        Map.mMapCells[8][3].attributes[0] = "Костёл Св. Антония";  	//Титул:
+        Map.mMapCells[8][3].attributes[2] = "churchsokolka2";  	//Интерьер:
         Map.mMapCells[0][3].attributes[0] = "Пол";  	//Имя
         Map.mMapCells[0][3].attributes[1] = "9";  	//Таргет X:
         Map.mMapCells[0][3].attributes[2] = "4";  	//Таргет Y:
-        Map.mMapCells[0][3].attributes[3] = "Привет! Я Пол. Я иду в церковь св. Антония. Можешь меня подвезти?";  	//Приветствие:
+        Map.mMapCells[0][3].attributes[3] = "Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.";  	//Приветствие:
         Map.mMapCells[0][3].attributes[4] = "1 000";  	//Награда:
-        Map.mMapCells[17][3].attributes[0] = "Пол";  	//-2 146 826 246
-        Map.mMapCells[17][3].attributes[1] = "4";  	//-2 146 826 246
-        Map.mMapCells[17][3].attributes[2] = "7";  	//-2 146 826 246
-
     }
 
 }
