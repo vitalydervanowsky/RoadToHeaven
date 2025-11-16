@@ -232,11 +232,11 @@ public class MapObjectStones extends MapObject {
                 currentView = v;
                 currentView.isCurrent = true;
                 currentView.invalidate();
-                v.setAlpha((float) 0.4);
+                //v.setAlpha((float) 0.4);
                 return;
             }
 
-            currentView.setAlpha((float) 0.9);
+            //currentView.setAlpha((float) 0.9);
             if (v == currentView) {
                 currentView.isCurrent = false;
                 currentView.invalidate();

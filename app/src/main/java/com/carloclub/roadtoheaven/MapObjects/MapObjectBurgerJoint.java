@@ -42,6 +42,7 @@ public class MapObjectBurgerJoint extends MapObject {
     public void runAction() {
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_burger);
 
             Button buttonStart = dialog.findViewById(R.id.buttonPay);
             buttonStart.setOnClickListener(v -> pay());
@@ -49,7 +50,6 @@ public class MapObjectBurgerJoint extends MapObject {
             Button buttonClose = dialog.findViewById(R.id.close);
             buttonClose.setOnClickListener(v -> endFill());
         }
-        dialog.setContentView(R.layout.dialog_burger);
         dialog.show();
     }
 

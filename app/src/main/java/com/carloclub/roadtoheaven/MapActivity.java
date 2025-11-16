@@ -65,6 +65,8 @@ public class MapActivity extends AppCompatActivity {
     boolean isEvacuation=false;
     FuelView fuelView;
 
+    boolean unlock = false;
+    boolean followToCar=true;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -134,7 +136,7 @@ public class MapActivity extends AppCompatActivity {
         fuelView.invalidate();
 
 
-        rrrMediaPlayer = MediaPlayer.create(this, R.raw.rr);
+        rrrMediaPlayer = MediaPlayer.create(this, R.raw.rrr);
         Constants.DATAGAME.setActivity(MapActivity.this);
         Constants.DATAGAME.setFuel(15000);
 
@@ -159,6 +161,7 @@ public class MapActivity extends AppCompatActivity {
                         //lastX = (int) event.getX();
                         return false;
                     case MotionEvent.ACTION_MOVE:
+                        followToCar=false;
                         int newX = (int) event.getX();
                         if (lastX==-1){  //Первый піксель теряем, чтобы начать считать при начале ведения пальцем, а не раньше. Иначе ерунда получалась
                             lastX=newX;
@@ -194,6 +197,7 @@ public class MapActivity extends AppCompatActivity {
                         //lastX = (int) event.getX();
                         return false;
                     case MotionEvent.ACTION_MOVE:
+                        followToCar=false;
                         int newY = (int) event.getY();
                         if (lastY==-1){
                             lastY=newY;
@@ -258,11 +262,31 @@ public class MapActivity extends AppCompatActivity {
         findViewById(R.id.cloudView).setVisibility(View.VISIBLE);
         moveWalpaper = new MoveWalpaper();
         timer.schedule(moveWalpaper, 700, 20);
+
+        navX = 2;
+        navY = 2;
+
+        //moveImageView(navY*map.scale, navX*map.scale);
+        MyMap.MapCell CurrentCell = map.mMapCells[0][0];
+        MyMap.MapCell NewCell = map.mMapCells[navX][navY];;
+        if (NewCell.object==null && !NewCell.type.equals("Road"))
+            return;
+
+        //Строим маршрут и запускаем движение машины
+        ArrayList<MyMap.MapCell> Rote = map.buildRoute(CurrentCell,NewCell);
+        if (Rote==null) return;
+        map.mRoute = Rote;
+        //сразу начинаем ехать
+        mMoveCar = new MoveCar();
+        twistCar();
+        timer.schedule(mMoveCar, 1000, 35);
+        rrrMediaPlayer.start();
     }
 
 
 
     public void startEvacuation(){
+        MyMap.MapCell NewCell = null;
         MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
 
         ArrayList<MyMap.MapCell> Rote = new ArrayList<MyMap.MapCell>();
@@ -273,12 +297,16 @@ public class MapActivity extends AppCompatActivity {
                     if (Rote==null) continue;
                     if (Rote.size()==0 || currentRote.size()<Rote.size()){
                         Rote=currentRote;
+                        NewCell = map.mMapCells[x][y];
                     }
                 }
             }
         }
         if (Rote.size()==0) return;
         isEvacuation=true;
+        navX=NewCell.x;
+        navY=NewCell.y;
+        unlock = false;
         map.mRoute = Rote;
 //        navX=NewCell.x;
 //        navY=NewCell.y;
@@ -289,7 +317,8 @@ public class MapActivity extends AppCompatActivity {
         timer.schedule(mMoveCar, 20, 20-(Constants.DATAGAME.getSpeed()-60)/10);
         //rrrMediaPlayer.reset();
         rrrMediaPlayer.start();
-
+        followToCar=true;
+        
     }
 
     public void showRubies(){
@@ -299,6 +328,11 @@ public class MapActivity extends AppCompatActivity {
         showAnimateViev(findViewById(R.id.ruby3), CR, 3);
         showAnimateViev(findViewById(R.id.ruby4), CR, 4);
 
+        CR = map.getCellsEndRubies();
+        showAnimateViev(findViewById(R.id.endruby1), CR, 1, false);
+        showAnimateViev(findViewById(R.id.endruby2), CR, 2, false);
+        showAnimateViev(findViewById(R.id.endruby3), CR, 3, false);
+        showAnimateViev(findViewById(R.id.endruby4), CR, 4, false);
 
         CR = map.getCellsStones();
         showAnimateViev(findViewById(R.id.stones1), CR, 1);
@@ -310,26 +344,42 @@ public class MapActivity extends AppCompatActivity {
         showAnimateViev(findViewById(R.id.stones7), CR, 7);
     }
 
-    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell){
+    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell,boolean animate){
         if (CR.size()>=numCell){
             IV.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) IV.getLayoutParams();
             int x = CR.get(numCell-1).x * map.scale;
             int y = CR.get(numCell-1).y * map.scale;
-            params.setMargins(x,y+ map.scale /2,0,0);
-            params.width = (int)(map.scale *0.6);
-            params.height = params.width;
-            IV.setLayoutParams(params);
+
+            if (animate){
+                params.setMargins(x,y+ map.scale /2,0,0);
+                params.width = (int)(map.scale *0.6);
+                params.height = params.width;
+                IV.setLayoutParams(params);
             AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
             IVAnimation.start();
+            }
+            else {
+                params.setMargins(x,y,0,0);
+                params.width = (map.scale);
+                params.height = params.width;
+                IV.setLayoutParams(params);
+
+
+            }
         }
         else IV.setVisibility(View.INVISIBLE);
 
 
     }
+    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell){
+        showAnimateViev(IV, CR, numCell, true);
+    }
 
     private void moveImageView(int positionY, int positionX) {
         if  (isEvacuation) return;
+        if (!unlock) return;
+        followToCar=true;
         //Клик по карте.
         //проверяем, можно ли  в эту ячейку поехать.
         MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
@@ -390,17 +440,29 @@ public class MapActivity extends AppCompatActivity {
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
         MyMap.MapCell CurrentCell = map.findCellByXY(currentX, currentY);
 
+        int oldScale = map.scale;
         map.scale = newSCALE;
         ImageView imageBack = findViewById(R.id.imageView);
         imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength * map.scale, map.mHeight * map.scale));
 
-        currentX=CurrentCell.x * map.scale;
-        currentY=CurrentCell.y * map.scale;
-
-        params.setMargins(currentX,currentY,0,0);
-        params.width = (int)(map.scale *0.9);
-        params.height = params.width;
-        car.setLayoutParams(params);
+        currentX = CurrentCell.x * map.scale;
+        currentY = CurrentCell.y * map.scale;
+        if (mMoveCar!=null){
+            carX = carX*map.scale/oldScale;
+            carY = carY*map.scale/oldScale;
+            params.setMargins(carX, carY, 0, 0);
+            params.width = (int) (map.scale * 0.9);
+            params.height = params.width;
+            car.setLayoutParams(params);
+        }
+        else {
+            params.setMargins(currentX, currentY, 0, 0);
+            params.width = (int) (map.scale * 0.9);
+            params.height = params.width;
+            car.setLayoutParams(params);
+            carX = currentX;
+            carY = currentY;
+        }
 
         params = (ConstraintLayout.LayoutParams) nav.getLayoutParams();
         int startX = (navX)* map.scale;
@@ -410,8 +472,6 @@ public class MapActivity extends AppCompatActivity {
         params.height = map.scale;
         nav.setLayoutParams(params);
 
-        carX=currentX;
-        carY=currentY;
 
         showRubies();
 
@@ -481,6 +541,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void scrollToCar(int CurrentX, int CurrenrY) {
+        if (!followToCar) return;
         //метод "ведёт" экран за машинкой, чтобы она не уезжала за границы окна
 
         int scrollY = sv.getScrollY();
@@ -591,12 +652,20 @@ public class MapActivity extends AppCompatActivity {
             runOnUiThread(new Runnable(){
                 @Override
                 public void run() {
+//                    if (map.mRoute.size()>0) {
+//                        //на всякій случай обновім, еслі сбілась прі зуммірованіі
+//                        MyMap.MapCell NextCell = map.mRoute.get(0);
+//                        currentX = NextCell.x * map.scale;
+//                        currentY = NextCell.y * map.scale;
+//                    }
+                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     if (Constants.DATAGAME.getFuel() <=0 && !isEvacuation) {
                         if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
                         rrrMediaPlayer.pause();
+                        followToCar=true;
+                        scrollToCar(carX,carY);
                         return;
                     }
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     //ConstraintLayout.LayoutParams newparams = new Constraints.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
                     int stepPix = (int)(map.scale *6/Constants.DATAGAME.SCALE);
@@ -622,7 +691,12 @@ public class MapActivity extends AppCompatActivity {
                         if (Constants.DATAGAME.getFuel() <5000 && !isEvacuation){
                             if (!fuelDanger) {
                                 DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, "ВНИМАНИЕ! Осталось мало топлива! Пора ехать на заправку", "Остаток: " + String.valueOf(Constants.DATAGAME.getFuel()  / 1000), MapActivity.this);
-                                if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
+                                if (mMoveCar!=null) {
+                                    mMoveCar.cancel();
+                                    mMoveCar=null;
+                                    followToCar=true;
+                                    scrollToCar(carX,carY);
+                                }
                                 rrrMediaPlayer.pause();
                             }
                             fuelDanger=true;
@@ -633,8 +707,9 @@ public class MapActivity extends AppCompatActivity {
 
                     //Проехали очередной шаг. Решаем дальше
                     boolean isEnd=false;
-                    if (map.mRoute.size()==0)
+                    if (map.mRoute.size()==0){
                         isEnd=true;
+                        startNextTask();}
                     else {
                         MyMap.MapCell NextCell = map.mRoute.get(0);
                         if (NextCell.x ==navX && NextCell.y ==navY && ! NextCell.type.equals("Road"))
@@ -644,7 +719,12 @@ public class MapActivity extends AppCompatActivity {
                         //Если больше шагов не осталось, То цель достугнута.
                         //ОСТАНАВЛИВАЕМСЯ:
                         //Останавливаем движение
-                        if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
+                        if (mMoveCar!=null) {
+                            mMoveCar.cancel();
+                            mMoveCar=null;
+                            followToCar=true;
+                            scrollToCar(carX,carY);
+                        }
                         rrrMediaPlayer.pause();
                         nav.setVisibility(View.INVISIBLE);
 
@@ -667,6 +747,7 @@ public class MapActivity extends AppCompatActivity {
                             car.setImageDrawable(getDrawable(R.drawable.caranimationup));
                             isAnimation = (AnimationDrawable)car.getDrawable();
                             isAnimation.start();
+                            unlock = true;
                         }
                         return;
                     }
@@ -699,8 +780,9 @@ public class MapActivity extends AppCompatActivity {
                     if (map.scale >=Constants.DATAGAME.SCALE*displayDensity) {
                         moveWalpaper.cancel();
                         moveWalpaper = null;
+                        unlock = true;
 
-                        startNextTask();
+                        //startNextTask();
                         return;
 
                     }

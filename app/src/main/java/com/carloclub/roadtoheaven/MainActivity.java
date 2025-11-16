@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_start);
-        rrrMediaPlayer = MediaPlayer.create(this, R.raw.rr);
+        rrrMediaPlayer = MediaPlayer.create(this, R.raw.rrr);
         bipMediaPlayer = MediaPlayer.create(this, R.raw.bip);
 
         getSupportActionBar().hide();
@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
                 rrrMediaPlayer.pause();
 
-                Intent start = new Intent(MainActivity.this, DialogActivity.class);
-                start.putExtra("videoPath", "android.resource://" + getPackageName() + "/" + R.raw.hello);
-                //i.putExtra("CityName", "Sokolka");
-                startActivityForResult(start,0);
+//                Intent start = new Intent(MainActivity.this, DialogActivity.class);
+//                start.putExtra("videoPath", "android.resource://" + getPackageName() + "/" + R.raw.hello);
+//                //i.putExtra("CityName", "Sokolka");
+//                startActivityForResult(start,0);
 
                 setContentView(R.layout.activity_main);
 

@@ -30,7 +30,7 @@ public class MapObjectPilgrim extends MapObject {
 
     @Override
     public boolean isActual(){
-        return !task.isStarted;
+        return !task.isStarted && !task.isFinished;
     }
 
     @Override
@@ -39,6 +39,7 @@ public class MapObjectPilgrim extends MapObject {
             DialogMessage.showMessage(0, 0, Messages.getMessageFromPilgrim(), Messages.getMessageThanks(), mapActivity, R.drawable.karalina);
             mapActivity.myTasks.add(task);
             task.startTask();
+            mapActivity.showRubies();
         }
     }
 

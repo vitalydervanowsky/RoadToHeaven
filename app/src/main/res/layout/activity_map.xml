@@ -29,19 +29,19 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="1440dp"
+                    android:layout_width="1970dp"
                     android:layout_height="1008dp"
                     android:clickable="true"
                     android:focusable="auto"
                     android:focusableInTouchMode="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/back" />
+                    app:srcCompat="@drawable/map_sokolka" />
 
                 <ImageView
                     android:id="@+id/car"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:fillAfter="true"
                     android:fillEnabled="true"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -97,6 +97,55 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/rubyanimation"></ImageView>
+
+                <ImageView
+                    android:id="@+id/endruby1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="96dp"
+                    android:fillAfter="true"
+                    android:fillEnabled="true"
+                    android:visibility="invisible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/emptycell"></ImageView>
+
+                <ImageView
+                    android:id="@+id/endruby2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="96dp"
+                    android:fillAfter="true"
+                    android:fillEnabled="true"
+                    android:visibility="invisible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/emptycell"></ImageView>
+
+                <ImageView
+                    android:id="@+id/endruby3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="96dp"
+                    android:fillAfter="true"
+                    android:fillEnabled="true"
+                    android:visibility="invisible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/emptycell"></ImageView>
+
+                <ImageView
+                    android:id="@+id/endruby4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="96dp"
+                    android:fillAfter="true"
+                    android:fillEnabled="true"
+                    android:visibility="invisible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/emptycell"></ImageView>
+
 
                 <ImageView
                     android:id="@+id/stones1"

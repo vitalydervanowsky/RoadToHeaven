@@ -70,6 +70,7 @@ public class Victorina {
     }
 
     private void enterAnswer(int userAnswer) {
+        if (pause) return;
         if (trueAnswer == 1) {
             buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
         }
