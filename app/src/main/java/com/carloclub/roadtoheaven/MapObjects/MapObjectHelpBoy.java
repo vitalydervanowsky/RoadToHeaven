@@ -26,6 +26,8 @@ public class MapObjectHelpBoy extends MapObject {
         dialog.dismiss();
         mapActivity.myTasks.add(task);
         task.startTask();
+
+        mapActivity.showRubies();
     }
 
     public void endFill() {
@@ -34,10 +36,11 @@ public class MapObjectHelpBoy extends MapObject {
 
     @Override
     public boolean isActual(){
-        return !task.isStarted;
+        return !task.isStarted && !task.isFinished;
     }
     @Override
     public void runAction() {
+        if(!isActual()) return;
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
             dialog.setContentView(R.layout.dialog_helpboy);

@@ -283,7 +283,7 @@ public class MapObjectTetris extends MapObject {
 
         dialog.findViewById(R.id.buttonAnswer1).setOnClickListener(v -> {
             pause();
-            victorina = new Victorina(this, dialog.getWindow().getDecorView());
+            victorina = new Victorina(this, dialog);
             victorina.loadQuestion(question);
             victorina.showAnswers();
         });;

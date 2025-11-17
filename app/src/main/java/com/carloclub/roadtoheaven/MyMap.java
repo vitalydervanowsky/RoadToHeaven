@@ -71,6 +71,19 @@ public class MyMap {
 
         return CR;
     }
+    public ArrayList<MapCell> getCellsEndRubies() {
+        ArrayList<MapCell> CR = new ArrayList<MapCell>();
+        for (int x = 0; x < this.mLength; x++)
+            for (int y = 0; y < this.mHeight; y++){
+                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+                    if (!mMapCells[x][y].object.isActual())
+                        CR.add(mMapCells[x][y]);
+                }
+
+            }
+
+        return CR;
+    }
     public ArrayList<MapCell> getCellsStones() {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
         for (int x = 0; x < this.mLength; x++)

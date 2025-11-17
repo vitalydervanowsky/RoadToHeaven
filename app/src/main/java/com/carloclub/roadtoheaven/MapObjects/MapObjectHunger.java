@@ -30,6 +30,7 @@ public class MapObjectHunger extends MapObject {
         dialog.dismiss();
         task.startTask();
         task.finishTask();
+        mapActivity.showRubies();
     }
 
     public void endFill() {
@@ -38,11 +39,11 @@ public class MapObjectHunger extends MapObject {
 
     @Override
     public boolean isActual(){
-        return !task.isStarted;
+        return !task.isStarted && !task.isFinished;
     }
     @Override
     public void runAction() {
-        if (task.isStarted) return;
+        if (!isActual()) return;
 
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
