@@ -34,6 +34,8 @@ public class Victorina {
 
     Dialog dialog;
 
+    private boolean shouldDismissDialogOnSuccess = false;
+
 
     public Victorina (MapObject forObject, Dialog dialog){
         object=forObject;
@@ -128,6 +130,10 @@ public class Victorina {
         this.trueAnswer = trueAnswer;
     }
 
+    public void showAnswers(boolean shouldDismissDialogOnSuccess) {
+        this.shouldDismissDialogOnSuccess = shouldDismissDialogOnSuccess;
+        showAnswers();
+    }
 
     public void showAnswers() {
         buttonAnswer1.setVisibility(View.VISIBLE);
@@ -167,7 +173,9 @@ public class Victorina {
                 buttonAnswer4.setVisibility(View.VISIBLE);
 
                 object.endVictorina(userAnswer == trueAnswer);
-                //dialog.dismiss();
+                if (shouldDismissDialogOnSuccess) {
+                    dialog.dismiss();
+                }
 
             });
         }

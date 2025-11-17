@@ -36,6 +36,8 @@ public class Puzzle {
     CustomImageView currentView;
     MyMap.Question question;
 
+    private boolean shouldDismissDialogOnSuccess = false;
+
     public Puzzle(MapObject mapObject, MyMap.Question question) {
         this.mapObject = mapObject;
         this.question = question;
@@ -144,7 +146,7 @@ public class Puzzle {
     public void showAnswers() {
 
         victorina.loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
-        victorina.showAnswers();
+        victorina.showAnswers(shouldDismissDialogOnSuccess);
 
     }
 
@@ -154,6 +156,11 @@ public class Puzzle {
             imageViews[i].setImageBitmap(fragments[indexes[i]]);
         }
         ((TextView) dialog.findViewById(R.id.textViewTrials)).setText(String.valueOf(attempts));
+    }
+
+    public void startPuzzle(boolean shouldDismissDialogOnSuccess) {
+        this.shouldDismissDialogOnSuccess = shouldDismissDialogOnSuccess;
+        startPuzzle();
     }
 
     public void startPuzzle() {

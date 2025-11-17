@@ -2,6 +2,7 @@
 
 package com.carloclub.roadtoheaven.school
 
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
-import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener
@@ -112,7 +113,7 @@ class SchoolClassFragment : Fragment() {
                 title = "Выканаць заданне",
                 listener = object : DialogButtonListener {
                     override fun onButtonClicked() {
-                        // todo open puzzle here
+                        startPuzzle()
                     }
                 }
             ),
@@ -148,6 +149,11 @@ class SchoolClassFragment : Fragment() {
             .replace(R.id.fragmentContainerView, fragment)
             .addToBackStack(StoryFragment::class.java.simpleName)
             .commit()
+    }
+
+    private fun startPuzzle() {
+        requireActivity().setResult(RESULT_OK)
+        requireActivity().finish()
     }
 
     companion object {

@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.carloclub.roadtoheaven.MapObjects.MapObject;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -651,7 +654,11 @@ public class MapActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            MapObject mapObject = new MapObjectSchool(currentX, currentY, this);
+            Puzzle puzzle = new Puzzle(mapObject, map.cinemaQuestion.get(0));
+            puzzle.startPuzzle( true);
+        } else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
             Intent i = new Intent(this, DialogActivity.class);
