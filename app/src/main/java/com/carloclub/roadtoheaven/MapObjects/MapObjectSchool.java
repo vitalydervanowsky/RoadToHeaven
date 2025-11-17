@@ -36,6 +36,7 @@ public class MapObjectSchool extends MapObject {
     public void runAction() {
         if (!task.isStarted) {
             Intent intent = new Intent(mapActivity, SchoolActivity.class);
+            intent.putExtra(Constants.CITY_ARG, mapActivity.city);
             mapActivity.startActivity(intent);
         }
     }

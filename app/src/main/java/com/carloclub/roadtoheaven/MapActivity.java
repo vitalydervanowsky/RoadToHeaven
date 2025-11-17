@@ -57,6 +57,7 @@ public class MapActivity extends AppCompatActivity {
     ScrollView sv;
     HorizontalScrollView sh;
     boolean fuelDanger= false;
+    public City city;
 
     public float displayDensity=0;
 
@@ -88,8 +89,13 @@ public class MapActivity extends AppCompatActivity {
 
 
         myTasks =new ArrayList <Task>();
-        String CityName = getIntent().getStringExtra("CityName");
-        map = MyMap.getMap(CityName);
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.CITY_ARG)) {
+            city = (City) getIntent().getSerializableExtra(Constants.CITY_ARG);
+            if (city == null) {
+                city = City.SOKULKA;
+            }
+            map = MyMap.getMap(city);
+        }
         displayDensity = getApplicationContext().getResources().getDisplayMetrics().density;
         map.scale = (int) (Constants.DATAGAME.SCALE*displayDensity); //
         map.createObjects(MapActivity.this);

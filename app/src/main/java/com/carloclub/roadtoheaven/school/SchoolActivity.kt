@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import com.carloclub.roadtoheaven.Constants
+import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.R
 
 class SchoolActivity : AppCompatActivity() {
@@ -21,8 +23,9 @@ class SchoolActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+        val city: City = intent.getSerializableExtra(Constants.CITY_ARG) as? City ?: City.SOKULKA
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SchoolHallFragment())
+            .replace(R.id.fragmentContainerView, SchoolHallFragment.newInstance(city))
             .addToBackStack(SchoolHallFragment::class.java.simpleName)
             .commit()
     }

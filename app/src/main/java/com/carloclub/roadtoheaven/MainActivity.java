@@ -105,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 ImageView sokolka = findViewById(R.id.imageSokolka);
                 sokolka.setOnClickListener(v ->{
                     Intent i = new Intent(MainActivity.this, MapActivity.class);
-                    i.putExtra("Head", "Сокулка");
-                    i.putExtra("CityName", "Sokolka");
+                    i.putExtra(Constants.CITY_ARG, City.SOKULKA);
                     startActivityForResult(i,0);
                 });
 
