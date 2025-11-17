@@ -1,7 +1,5 @@
 package com.carloclub.roadtoheaven;
 
-import com.carloclub.roadtoheaven.Maps.Sokolka;
-
 public class Constants {
 
     public final static String LANG_BY = "BY";
@@ -9,5 +7,6 @@ public class Constants {
     public final static int TANK_SIZE = 4000;
     public final static int SCALE = 60;
     public final static DataGame DATAGAME= new DataGame();
+    public final static String CITY_ARG = "CITY_ARG";
 
 }

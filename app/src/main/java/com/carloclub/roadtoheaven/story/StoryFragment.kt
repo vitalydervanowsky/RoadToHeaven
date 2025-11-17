@@ -77,36 +77,36 @@ class StoryFragment : Fragment() {
                 mediaPlayer?.stop()
                 mediaPlayer = MediaPlayer.create(activity, pageData.audioRes)
                 if (isMuted) {
-                    muteImageView?.setImageResource(R.drawable.ic_media_play)
+                    muteImageView?.setImageResource(R.drawable.ic_sound_off)
                 } else {
                     mediaPlayer?.start()
-                    muteImageView?.setImageResource(R.drawable.ic_media_pause)
+                    muteImageView?.setImageResource(R.drawable.ic_sound_on)
                 }
             }
         }
-        prevImageView?.visibility = if (storyData?.position == 0) {
-            View.INVISIBLE
-        } else {
-            View.VISIBLE
-        }
-        nextImageView?.visibility = if (((storyData?.position ?: 0) + 1) == storyData?.pages?.size) {
-            View.INVISIBLE
-        } else {
-            View.VISIBLE
-        }
+        prevImageView?.visibility = getButtonVisibility(storyData?.position == 0)
+        nextImageView?.visibility =
+            getButtonVisibility(((storyData?.position ?: 0) + 1) == storyData?.pages?.size)
     }
 
+    private fun getButtonVisibility(isInvisible: Boolean) =
+        if (isInvisible) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
+
     private fun goBack() {
-            storyData?.let {
-                it.position--
-                updateViews()
+        storyData?.let {
+            it.position--
+            updateViews()
         }
     }
 
     private fun goNext() {
-            storyData?.let {
-                it.position++
-                updateViews()
+        storyData?.let {
+            it.position++
+            updateViews()
         }
     }
 
@@ -114,17 +114,23 @@ class StoryFragment : Fragment() {
         isMuted = !isMuted
         if (isMuted) {
             mediaPlayer?.pause()
-            muteImageView?.setImageResource(R.drawable.ic_media_play)
+            muteImageView?.setImageResource(R.drawable.ic_sound_off)
         } else {
             mediaPlayer?.start()
-            muteImageView?.setImageResource(R.drawable.ic_media_pause)
+            muteImageView?.setImageResource(R.drawable.ic_sound_on)
         }
     }
 
     private fun closeStory() {
         storyData?.let {
+            // условие успешного прохождения урока - последний слайд
             if (it.position == it.pages.size - 1) {
-                setFragmentResult(STORY_RESULT_REQUEST_KEY, bundleOf(IS_DONE to true))
+                setFragmentResult(
+                    STORY_RESULT_REQUEST_KEY,
+                    bundleOf(
+                        IS_DONE to true
+                    )
+                )
             }
         }
         requireActivity().onBackPressed()

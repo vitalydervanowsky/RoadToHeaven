@@ -17,9 +17,9 @@
 
     <ImageView
         android:id="@+id/closeImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="4dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
         android:padding="8dp"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"

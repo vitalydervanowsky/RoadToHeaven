@@ -9,59 +9,68 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="24dp"
+        android:gravity="center"
+        android:padding="16dp"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/muteImageView"
+        app:layout_constraintBottom_toTopOf="@id/prevImageView"
         app:layout_constraintEnd_toStartOf="@id/imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/app_name" />
+        app:layout_constraintTop_toBottomOf="@id/muteImageView"
+        tools:text="1. Настаўляць грэшнікаў — гэта значыць з любові дапамагаць чалавеку ўбачыць зло і вярнуцца да Бога." />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="contentDescription"
-        tools:src="@drawable/galery1_1" />
+        tools:src="@drawable/galery1_8" />
 
     <ImageView
         android:id="@+id/prevImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="24dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/dialog_background"
+        android:padding="12dp"
         android:src="@drawable/ic_media_prev"
-        app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/nextImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="24dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/dialog_background"
+        android:padding="12dp"
         android:src="@drawable/ic_media_next"
-        app:layout_constraintStart_toEndOf="@+id/prevImageView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
         tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/muteImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_media_play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/textView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/dialog_background"
+        android:padding="12dp"
+        android:src="@drawable/ic_sound_off"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/closeImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="4dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
         android:padding="8dp"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
