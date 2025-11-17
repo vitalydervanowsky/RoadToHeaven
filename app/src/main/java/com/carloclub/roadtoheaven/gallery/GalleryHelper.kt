@@ -2,23 +2,32 @@ package com.carloclub.roadtoheaven.gallery
 
 import android.app.Activity
 import android.content.Intent
+import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.gallery.model.GalleryData
 import com.carloclub.roadtoheaven.gallery.model.Side
 import com.carloclub.roadtoheaven.gallery.model.GalleryImage
 
 object GalleryHelper {
-    fun showGalleryActivity(activity: Activity) {
+    fun showGalleryActivity(activity: Activity, city: City?) {
         activity.startActivity(
             Intent(activity, GalleryActivity::class.java).apply {
-                putExtra(GalleryFragment.GALLERY_IMAGES_ARG, getGalleryData())
+                putExtra(GalleryFragment.GALLERY_IMAGES_ARG, getGalleryData(city))
             }
         )
     }
 
-    fun getGalleryData(): GalleryData =
+    private fun getGalleryData(city: City?): GalleryData? =
+        when (city) {
+            City.SOKULKA -> getGalleryDataForSokulka()
+            null -> null
+        }
+
+    private fun getGalleryDataForSokulka(): GalleryData =
         GalleryData(
             title = "В какой зал поместить эту картину?",
+            leftSideDescription = "Учынкі міласэрнасці для цела бліжняга",
+            rightSideDescription = "Учынкі міласэрнасці для душы бліжняга",
             images = listOf(// здесь пишем картинки в прямом порядке, как они будут идти одна одной
                 GalleryImage(1, R.drawable.galery1_1, "1 Настаўляць грэшнікаў", Side.RIGHT),
                 GalleryImage(2, R.drawable.galery1_2, "2 Вучыць тых, хто не ведае", Side.LEFT),

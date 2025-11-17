@@ -25,7 +25,7 @@ class GalleryActivity : AppCompatActivity() {
         val galleryData = if (intent.extras != null) {
             (intent.extras?.getSerializable(GalleryFragment.GALLERY_IMAGES_ARG) as? GalleryData?)
         } else {
-            GalleryHelper.getGalleryData()
+            null
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, GalleryFragment.newInstance(galleryData))

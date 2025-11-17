@@ -27,7 +27,9 @@ class GalleryFragment : Fragment() {
 
     private var stackContainer: FrameLayout? = null
     private var leftDropArea: FrameLayout? = null
+    private var leftTextView: TextView? = null
     private var rightDropArea: FrameLayout? = null
+    private var rightTextView: TextView? = null
     private var questionRecyclerView: RecyclerView? = null
     private var titleTextView: TextView? = null
     private var pictureNameTextView: TextView? = null
@@ -58,7 +60,9 @@ class GalleryFragment : Fragment() {
     private fun initViews(view: View) {
         stackContainer = view.findViewById(R.id.stackContainer)
         leftDropArea = view.findViewById(R.id.leftDropArea)
+        leftTextView = view.findViewById(R.id.leftTextView)
         rightDropArea = view.findViewById(R.id.rightDropArea)
+        rightTextView = view.findViewById(R.id.rightTextView)
         questionRecyclerView = view.findViewById(R.id.questionRecyclerView)
         titleTextView = view.findViewById(R.id.titleTextView)
         pictureNameTextView = view.findViewById(R.id.pictureNameTextView)
@@ -119,6 +123,8 @@ class GalleryFragment : Fragment() {
 
     private fun setDataToViews() {
         titleTextView?.text = galleryData?.title
+        leftTextView?.text = galleryData?.leftSideDescription
+        rightTextView?.text = galleryData?.rightSideDescription
         galleryData?.images?.forEach { galleryImage ->
             val imageView = ImageView(requireContext()).apply {
                 tag = galleryImage.id
