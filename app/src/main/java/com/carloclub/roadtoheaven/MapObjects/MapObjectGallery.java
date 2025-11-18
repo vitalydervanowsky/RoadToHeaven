@@ -1,14 +1,13 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
-import android.app.Dialog;
-import android.media.MediaPlayer;
-import android.view.Gravity;
-import android.view.Window;
-import android.widget.TextView;
+import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
 
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.gallery.GalleryHelper;
+import com.carloclub.roadtoheaven.model.DialogButton;
+import com.carloclub.roadtoheaven.story.StoryHelper;
+import com.carloclub.roadtoheaven.story.model.StoryData;
 
 public class MapObjectGallery extends MapObject {
     String title;
@@ -22,24 +21,25 @@ public class MapObjectGallery extends MapObject {
 
     @Override
     public void runAction() {
-        if (dialog==null) {
-            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
-            dialog.setContentView(R.layout.dialog_church);
-            dialog.findViewById(R.id.yesButton).setOnClickListener(v -> {
-                dialog.dismiss();
-                GalleryHelper.INSTANCE.showGalleryActivity(mapActivity);
-            });
-            dialog.findViewById(R.id.noButton).setOnClickListener(v -> dialog.dismiss());
-
-        }
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setGravity(Gravity.BOTTOM | Gravity.START);
-        }
-        ((TextView) dialog.findViewById(R.id.textView)).setText(title);
-        dialog.show();
-
+        // todo добавить данные для диалога
+        StoryData storyData = StoryHelper.INSTANCE.getStoryData(mapActivity.city);
+        showMessage(
+                0,
+                0,
+                storyData.getDialogMessage(),
+                null,
+                mapActivity,
+                R.drawable.kseniya,
+                new DialogButton(
+                        "Хачу ведаць",
+                        () -> GalleryHelper.INSTANCE.showGalleryActivity(mapActivity, mapActivity.city)
+                ),
+                new DialogButton(
+                        "Выйсці",
+                        null
+                ),
+                storyData.getBackgroundImageRes()
+        );
     }
 
     @Override

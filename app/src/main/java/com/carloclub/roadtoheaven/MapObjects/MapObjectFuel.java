@@ -77,7 +77,7 @@ public class MapObjectFuel extends MapObject {
         fuelView.invalidate();
         questionTextView = dialog.findViewById(R.id.questionTextView);
 
-        victorina = new Victorina(this, dialog.getWindow().getDecorView());
+        victorina = new Victorina(this, dialog);
         showQuestion();
 
     }

@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -31,16 +32,21 @@ public class Victorina {
     Timer timer;
     TimerVictorina timerDown;
 
+    Dialog dialog;
 
-    public Victorina (MapObject forObject, View context){
+    private boolean shouldDismissDialogOnSuccess = false;
+
+
+    public Victorina (MapObject forObject, Dialog dialog){
         object=forObject;
+        this.dialog = dialog;
         this.context=context;
         timer = new Timer();
 
-        buttonAnswer1 = object.dialog.findViewById(R.id.buttonAnswer1);
-        buttonAnswer2 = object.dialog.findViewById(R.id.buttonAnswer2);
-        buttonAnswer3 = object.dialog.findViewById(R.id.buttonAnswer3);
-        buttonAnswer4 = object.dialog.findViewById(R.id.buttonAnswer4);
+        buttonAnswer1 = dialog.findViewById(R.id.buttonAnswer1);
+        buttonAnswer2 = dialog.findViewById(R.id.buttonAnswer2);
+        buttonAnswer3 = dialog.findViewById(R.id.buttonAnswer3);
+        buttonAnswer4 = dialog.findViewById(R.id.buttonAnswer4);
 
         if (correctMediaPlayer == null) {
             correctMediaPlayer = MediaPlayer.create(object.mapActivity, R.raw.ok);
@@ -124,6 +130,10 @@ public class Victorina {
         this.trueAnswer = trueAnswer;
     }
 
+    public void showAnswers(boolean shouldDismissDialogOnSuccess) {
+        this.shouldDismissDialogOnSuccess = shouldDismissDialogOnSuccess;
+        showAnswers();
+    }
 
     public void showAnswers() {
         buttonAnswer1.setVisibility(View.VISIBLE);
@@ -163,6 +173,9 @@ public class Victorina {
                 buttonAnswer4.setVisibility(View.VISIBLE);
 
                 object.endVictorina(userAnswer == trueAnswer);
+                if (shouldDismissDialogOnSuccess) {
+                    dialog.dismiss();
+                }
 
             });
         }

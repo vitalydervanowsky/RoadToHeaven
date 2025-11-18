@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/leftTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/leftDropArea"
+        app:layout_constraintEnd_toEndOf="@id/leftDropArea"
+        app:layout_constraintStart_toStartOf="@id/leftDropArea"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="Учынкі міласэрнасці для душы бліжняга" />
+
     <FrameLayout
         android:id="@+id/leftDropArea"
         android:layout_width="160dp"
@@ -67,6 +79,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:itemCount="5"
         tools:listitem="@layout/item_question_bar" />
+
+    <TextView
+        android:id="@+id/rightTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/rightDropArea"
+        app:layout_constraintEnd_toEndOf="@id/rightDropArea"
+        app:layout_constraintStart_toStartOf="@id/rightDropArea"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="Учынкі міласэрнасці для душы бліжняга" />
 
     <FrameLayout
         android:id="@+id/rightDropArea"

@@ -11,7 +11,6 @@ import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.school.SchoolActivity;
 
 public class MapObjectSchool extends MapObject {
-    public Task task;
 
     public MapObjectSchool(int x, int y, MapActivity activity) {
         super(x, y, activity);
@@ -19,24 +18,17 @@ public class MapObjectSchool extends MapObject {
         task = new Task(this);
     }
 
-    private void startFill() {
-        //dialog.dismiss();
-        dialog.setContentView(R.layout.dialog_class);
-    }
-
-    public void endFill() {
-        dialog.dismiss();
-    }
-
     @Override
-    public boolean isActual(){
+    public boolean isActual() {
         return !task.isStarted;
     }
+
     @Override
     public void runAction() {
         if (!task.isStarted) {
             Intent intent = new Intent(mapActivity, SchoolActivity.class);
-            mapActivity.startActivity(intent);
+            intent.putExtra(Constants.CITY_ARG, mapActivity.city);
+            mapActivity.startActivityForResult(intent, 111);
         }
     }
 
@@ -57,4 +49,19 @@ public class MapObjectSchool extends MapObject {
         DialogMessage.showMessage(R.drawable.happyboy, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
     }
 
+    @Override
+    public void endVictorina(boolean isOK) {
+        super.endVictorina(isOK);
+        if (isOK) {
+            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
+            mapActivity.updateBar();
+
+            if (Constants.DATAGAME.getStones() == 7) {
+                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, Messages.getMessageGotAllStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            } else {
+                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, Messages.getMessageGotStone(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            }
+            mapActivity.showRubies();
+        }
+    }
 }

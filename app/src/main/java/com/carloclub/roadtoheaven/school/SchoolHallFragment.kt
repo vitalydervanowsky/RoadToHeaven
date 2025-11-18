@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
+import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
+import com.carloclub.roadtoheaven.model.DialogButtonListener
+import com.carloclub.roadtoheaven.school.model.ClassType
 
 class SchoolHallFragment : Fragment() {
 
@@ -44,29 +49,48 @@ class SchoolHallFragment : Fragment() {
         showMessage(
             0,
             0,
-            "Текст поздравления или предупреждения или любого произвольного сообщения",
+            "Хвала Хрысту! Запрашаем на заняткi",
             null,
             requireActivity(),
             R.drawable.olga,
+            DialogButton(
+                title = "Добра",
+                listener = null
+            ),
+            DialogButton(
+                title = "Выйсцi",
+                listener = object : DialogButtonListener {
+                    override fun onButtonClicked() {
+                        requireActivity().finish()
+                    }
+                }
+            ),
             null,
-            DialogButton("NO") {
-                requireActivity().finish()
-            }
         )
     }
 
     private fun openClassA() {
-        openClass(SchoolClassFragment.A_CLASS)
+        openClass(ClassType.A)
     }
 
     private fun openClassB() {
-        openClass(SchoolClassFragment.B_CLASS)
+        openClass(ClassType.B)
     }
 
-    private fun openClass(type: String) {
+    private fun openClass(type: ClassType) {
+        val city = arguments?.getSerializable(Constants.CITY_ARG) as? City
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SchoolClassFragment.newInstance(type))
+            .replace(R.id.fragmentContainerView, SchoolClassFragment.newInstance(city, type))
             .addToBackStack(SchoolClassFragment::class.java.simpleName)
             .commit()
+    }
+
+    companion object {
+        fun newInstance(city: City): SchoolHallFragment =
+            SchoolHallFragment().apply {
+                arguments = bundleOf(
+                    Constants.CITY_ARG to city
+                )
+            }
     }
 }

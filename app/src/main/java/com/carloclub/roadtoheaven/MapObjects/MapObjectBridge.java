@@ -103,7 +103,7 @@ public class MapObjectBridge extends MapObject {
         }
         step = 1;
         isGameOver = false;
-        victorina = new Victorina(this, dialog.getWindow().getDecorView());
+        victorina = new Victorina(this, dialog);
         showQuestion();
     }
 
