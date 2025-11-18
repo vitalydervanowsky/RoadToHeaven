@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.widget.Button;
 
 import com.carloclub.roadtoheaven.Constants;
@@ -18,19 +19,15 @@ public class MapObjectHelpBoy extends MapObject {
         super(x, y, activity);
         type = "helpboy";
         task = new Task(this);
-        dialog.setContentView(R.layout.dialog_helpboy);
 
-        Button buttonStart = dialog.findViewById(R.id.starthelp);
-        buttonStart.setOnClickListener(v -> startFill());
-
-        Button buttonClose = dialog.findViewById(R.id.close);
-        buttonClose.setOnClickListener(v -> endFill());
     }
 
     private void startFill() {
         dialog.dismiss();
         mapActivity.myTasks.add(task);
         task.startTask();
+
+        mapActivity.showRubies();
     }
 
     public void endFill() {
@@ -39,10 +36,21 @@ public class MapObjectHelpBoy extends MapObject {
 
     @Override
     public boolean isActual(){
-        return !task.isStarted;
+        return !task.isStarted && !task.isFinished;
     }
     @Override
     public void runAction() {
+        if(!isActual()) return;
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_helpboy);
+
+            Button buttonStart = dialog.findViewById(R.id.starthelp);
+            buttonStart.setOnClickListener(v -> startFill());
+
+            Button buttonClose = dialog.findViewById(R.id.close);
+            buttonClose.setOnClickListener(v -> endFill());
+        }
         if (!task.isStarted)
             dialog.show();
     }

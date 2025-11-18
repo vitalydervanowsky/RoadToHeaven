@@ -603,7 +603,7 @@ public class MapActivity extends AppCompatActivity {
                         carY=newY;
                         if (Constants.DATAGAME.getFuel() <5000 && !isEvacuation){
                             if (!fuelDanger) {
-                                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, Messages.getMessageAttentionFewFuel(), Messages.getMessageGetBalance() + String.valueOf(Constants.DATAGAME.getFuel()  / 1000), MapActivity.this);
+                                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, "ВНИМАНИЕ! Осталось мало топлива! Пора ехать на заправку", "Остаток: " + String.valueOf(Constants.DATAGAME.getFuel()  / 1000), MapActivity.this);
                                 if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
                                 rrrMediaPlayer.pause();
                             }

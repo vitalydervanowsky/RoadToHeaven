@@ -18,6 +18,7 @@ import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.Figure;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
+import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.PaintView;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
@@ -42,6 +43,8 @@ public class MapObjectTetris extends MapObject {
     TimerDown mtimerDown;
     int GameFigurs=0;
     int OneColor=0;
+
+    MyMap.Question question;
 
     int Speed = 0;
     int temp = 700;
@@ -96,6 +99,10 @@ public class MapObjectTetris extends MapObject {
 
     @Override
     public void runAction(){
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+
+        }
         ActualFigure = new Figure();
         ActualFigure.GenerateFigure();
         VirtualFigure = new Figure();
@@ -123,6 +130,9 @@ public class MapObjectTetris extends MapObject {
         //ViewScores = (TextView) dialog.findViewById(R.id.textViewScores);
         //ViewBest = (TextView) dialog.findViewById(R.id.textViewBest);
         //ViewBest.setText(Integer.toString(Best));
+
+        question = mapActivity.map.tetrisQuestion.get(0);
+        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.question);
 
         TetrisView = (PaintView) dialog.findViewById(R.id.viewDraw);
         TetrisView.invalidate();
@@ -274,7 +284,7 @@ public class MapObjectTetris extends MapObject {
         dialog.findViewById(R.id.buttonAnswer1).setOnClickListener(v -> {
             pause();
             victorina = new Victorina(this, dialog.getWindow().getDecorView());
-            victorina.loadQuestion("Убогія духам", "Справядлівыя", "Міласэрныя", "Міратворцы",3);
+            victorina.loadQuestion(question);
             victorina.showAnswers();
         });;
         dialog.findViewById(R.id.buttonAnswer2).setVisibility(View.INVISIBLE);

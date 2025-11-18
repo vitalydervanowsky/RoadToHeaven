@@ -17,7 +17,6 @@ public class DataGame {
     private MapActivity mapActivity;
     public MyMap map;
     public String currentMap="";
-    public ArrayList<Lesson> myLessons;
 
     public int SCALE = 100;
     public String currentLang="BY";

@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.widget.Button;
 
 import com.carloclub.roadtoheaven.Constants;
@@ -16,13 +17,8 @@ public class MapObjectBurgerJoint extends MapObject {
         super(x, y, activity);
         type = "BurgerJoint";
         task = new Task(this);
-        dialog.setContentView(R.layout.dialog_burger);
+        //dialog.setContentView(R.layout.dialog_burger);
 
-        Button buttonStart = dialog.findViewById(R.id.buttonPay);
-        buttonStart.setOnClickListener(v -> pay());
-
-        Button buttonClose = dialog.findViewById(R.id.close);
-        buttonClose.setOnClickListener(v -> endFill());
     }
 
     private void pay() {
@@ -44,6 +40,16 @@ public class MapObjectBurgerJoint extends MapObject {
 
     @Override
     public void runAction() {
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_burger);
+
+            Button buttonStart = dialog.findViewById(R.id.buttonPay);
+            buttonStart.setOnClickListener(v -> pay());
+
+            Button buttonClose = dialog.findViewById(R.id.close);
+            buttonClose.setOnClickListener(v -> endFill());
+        }
         dialog.show();
     }
 

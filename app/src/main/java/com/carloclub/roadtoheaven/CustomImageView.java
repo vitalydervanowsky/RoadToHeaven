@@ -29,7 +29,7 @@ public class CustomImageView extends ImageView {
     private void init() {
         paint = new Paint();
         paint.setColor(Color.RED); // Цвет квадрата
-        paint.setStrokeWidth(8); // Толщина линии
+        paint.setStrokeWidth(20); // Толщина линии
         paint.setStyle(Paint.Style.STROKE); // Режим рисования (обводка)
     }
 

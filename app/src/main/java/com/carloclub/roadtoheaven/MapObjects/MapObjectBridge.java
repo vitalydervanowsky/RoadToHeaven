@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -49,6 +50,7 @@ public class MapObjectBridge extends MapObject {
 
     @Override
     public void runAction(){
+
         if ((Constants.DATAGAME.getStones()+Constants.DATAGAME.getRubies())<7) {
             DialogMessage.showMessage(R.drawable.icon_stones, R.drawable.icon_stones, Messages.getMessageNotEnoughStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             return;
@@ -57,7 +59,9 @@ public class MapObjectBridge extends MapObject {
 //        Intent i = new Intent(mapActivity, BridgeActivity.class);
 //        mapActivity.startActivityForResult(i,0);
 
-
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+        }
         dialog.setContentView(R.layout.activity_bridge);
         dialog.show();
         Window window = dialog.getWindow();
@@ -107,7 +111,7 @@ public class MapObjectBridge extends MapObject {
         MyMap.Question currentQuestion = questions[step - 1];
         questionTextView.setVisibility(View.VISIBLE);
         questionTextView.setText(currentQuestion.question);
-        victorina.loadQuestion(currentQuestion.answer1, currentQuestion.answer2, currentQuestion.answer3, currentQuestion.answer4,currentQuestion.trueAnswer);
+        victorina.loadQuestion(currentQuestion);
         victorina.showAnswers();
     }
 

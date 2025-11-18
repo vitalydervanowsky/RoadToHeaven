@@ -70,6 +70,7 @@ public class Victorina {
     }
 
     private void enterAnswer(int userAnswer) {
+        if (pause) return;
         if (trueAnswer == 1) {
             buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
         }
@@ -108,6 +109,10 @@ public class Victorina {
 
         object.beforeEndVictorina(userAnswer == trueAnswer);
 
+    }
+
+    public void loadQuestion(MyMap.Question question) {
+        loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
     }
 
     public void loadQuestion(String answer1, String answer2, String answer3, String answer4, int trueAnswer){

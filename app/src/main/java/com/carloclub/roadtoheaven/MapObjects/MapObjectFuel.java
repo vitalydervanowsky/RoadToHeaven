@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -45,6 +46,9 @@ public class MapObjectFuel extends MapObject {
 
     @Override
     public void runAction(){
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+        }
         dialog.setContentView(R.layout.dialog_fuel);
         dialog.show();
         Window window = dialog.getWindow();
@@ -82,7 +86,7 @@ public class MapObjectFuel extends MapObject {
         MyMap.Question currentQuestion = questions.getQuestion(level, Constants.LANG_BY);
         questionTextView.setVisibility(View.VISIBLE);
         questionTextView.setText(currentQuestion.question);
-        victorina.loadQuestion(currentQuestion.answer1, currentQuestion.answer2, currentQuestion.answer3, currentQuestion.answer4,currentQuestion.trueAnswer);
+        victorina.loadQuestion(currentQuestion);
         victorina.showAnswers();
     }
 

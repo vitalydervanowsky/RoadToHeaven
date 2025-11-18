@@ -15,6 +15,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectTetris;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
+import com.carloclub.roadtoheaven.Maps.Sokolka;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +34,11 @@ public class MyMap {
     public Words[] wordsForRM;
     public int mLength;
     public int mHeight;
+    public ArrayList<Lesson> myLessons;
+
+    public ArrayList<Question> tetrisQuestion;
+
+    public ArrayList<Question> cinemaQuestion;
 
     int mBackgroundId;
 
@@ -59,6 +65,19 @@ public class MyMap {
             for (int y = 0; y < this.mHeight; y++){
                 if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
                     if (mMapCells[x][y].object.isActual())
+                        CR.add(mMapCells[x][y]);
+                }
+
+            }
+
+        return CR;
+    }
+    public ArrayList<MapCell> getCellsEndRubies() {
+        ArrayList<MapCell> CR = new ArrayList<MapCell>();
+        for (int x = 0; x < this.mLength; x++)
+            for (int y = 0; y < this.mHeight; y++){
+                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+                    if (!mMapCells[x][y].object.isActual())
                         CR.add(mMapCells[x][y]);
                 }
 
@@ -496,7 +515,10 @@ public class MyMap {
         public String answer3;
         public String answer4;
         public int trueAnswer;
+
+        public int imageID;
         int id;
+
 
         boolean used = false;
 
@@ -518,6 +540,25 @@ public class MyMap {
             this.id = id;
         }
 
+        public Question(
+                String question,
+                String answer1,
+                String answer2,
+                String answer3,
+                String answer4,
+                int trueAnswer,
+                int id,
+                int imageID
+        ) {
+            this.question = question;
+            this.answer1 = answer1;
+            this.answer2 = answer2;
+            this.answer3 = answer3;
+            this.answer4 = answer4;
+            this.trueAnswer = trueAnswer;
+            this.id = id;
+            this.imageID = imageID;
+        }
         public Question(
                 String question,
                 String answer1,
@@ -551,5 +592,18 @@ public class MyMap {
 
         }
     }
+
+
+
+    public static MyMap getMap(String cityName){
+        if (cityName.equals("Sokolka")) {
+            MyMap sokolka = new MyMap(20, 10, R.drawable.map_sokolka);
+            Sokolka.LoadMap(sokolka);
+            Sokolka.loadTexts(sokolka);
+            return sokolka;
+        }
+        return null;
+    }
+
 
 }

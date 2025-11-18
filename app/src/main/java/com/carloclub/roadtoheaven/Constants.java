@@ -8,14 +8,7 @@ public class Constants {
     public final static String LANG_RU = "RU";
     public final static int TANK_SIZE = 4000;
     public final static int SCALE = 60;
+    public static boolean UNLOCK = false;
     public final static DataGame DATAGAME= new DataGame();
 
-    public static MyMap getMap(String cityName){
-        if (cityName.equals("Sokolka")) {
-            MyMap sokolka = new MyMap(20, 10, R.drawable.map_sokolka);
-            Sokolka.LoadMap(sokolka);
-            return sokolka;
-        }
-        return null;
-    }
 }
