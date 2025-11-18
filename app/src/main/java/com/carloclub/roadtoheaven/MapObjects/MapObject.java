@@ -15,6 +15,8 @@ public class MapObject {
     public Dialog dialog;
     public MapActivity mapActivity;
     public Task task;
+    public Task taskB;
+    public Task taskA;
     public MediaPlayer mediaPlayer;
 
     public MapObject(int x, int y, MapActivity activity) {

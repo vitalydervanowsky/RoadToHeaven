@@ -655,9 +655,12 @@ public class MapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 111 && resultCode == RESULT_OK) {
-            MapObject mapObject = new MapObjectSchool(currentX, currentY, this);
-            Puzzle puzzle = new Puzzle(mapObject, map.cinemaQuestion.get(0));
-            puzzle.startPuzzle( true);
+            if (map.currentObject.taskA.isStarted){
+                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(1));
+                puzzle.startPuzzle( true);}
+            else {
+                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(0));
+                puzzle.startPuzzle( true);}
         } else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
@@ -755,6 +758,7 @@ public class MapActivity extends AppCompatActivity {
                         //Активизируем объект, на который попали
                         MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
                         if (currentCell.object != null) {
+                            map.currentObject=currentCell.object;
                             currentCell.object.runAction();
                         }
 

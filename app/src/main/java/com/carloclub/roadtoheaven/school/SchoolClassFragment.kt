@@ -102,6 +102,23 @@ class SchoolClassFragment : Fragment() {
     }
 
     private fun showCongratsDialog() {
+        if (classType==ClassType.A){
+            if (Constants.DATAGAME.map.currentObject.taskA.isFinished){
+                requireActivity().onBackPressed()
+                return
+            }
+            Constants.DATAGAME.map.currentObject.taskA.isStarted=true;
+            Constants.DATAGAME.map.currentObject.taskB.isStarted=false;
+        }
+        if (classType==ClassType.B){
+            if (Constants.DATAGAME.map.currentObject.taskB.isFinished){
+                requireActivity().onBackPressed()
+                return
+            }
+            Constants.DATAGAME.map.currentObject.taskA.isStarted=false;
+            Constants.DATAGAME.map.currentObject.taskB.isStarted=true;
+        }
+
         showMessage(
             0,
             0,
