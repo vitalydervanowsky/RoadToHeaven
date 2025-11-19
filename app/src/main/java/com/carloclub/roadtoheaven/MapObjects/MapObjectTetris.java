@@ -140,6 +140,8 @@ public class MapObjectTetris extends MapObject {
             pause();
         });
 
+        int maxH = mapActivity.getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+        TetrisView.pixels1Cell=maxH/TetrisView.FieldHeight;
         float level = mapActivity.displayDensity; //.getApplicationContext().getResources().getDisplayMetrics().density;
         int H = Math.round(TetrisView.FieldHeight*TetrisView.pixels1Cell);
         int W = Math.round(TetrisView.FieldWidth*TetrisView.pixels1Cell);

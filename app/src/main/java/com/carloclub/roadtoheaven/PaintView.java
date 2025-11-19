@@ -13,6 +13,7 @@ import java.util.Random;
 public class PaintView extends View {
 
     Paint p;
+    Paint paintGRAY;
     Rect rect;
 
     int BackColor = Color.rgb(245,245,245);
@@ -31,6 +32,10 @@ public class PaintView extends View {
         super(context, attrs);
         p = new Paint();
         rect = new Rect();
+        paintGRAY = new Paint();
+        paintGRAY.setARGB(100,245,245,245); // Цвет квадрата
+        paintGRAY.setStrokeWidth(3); // Толщина линии
+        paintGRAY.setStyle(Paint.Style.STROKE); // Режим рисования (обводка)
 
         Cells = new int[FieldHeight][FieldWidth];
         ActualFigure = new Figure();
@@ -188,6 +193,8 @@ public class PaintView extends View {
 //            canvas.drawRect(3, 3, pixels1Cell*FieldWidth+3, pixels1Cell*FieldHeight+3, p);
 
             p.setColor(Color.GRAY);
+
+
             for (int i=0;i<FieldHeight;i++){
                 int j=0;
                 for (j=0;j<FieldWidth;j++){
@@ -195,6 +202,9 @@ public class PaintView extends View {
                         p.setColor(Cells [i][j]);
                         canvas.drawRect(2 + pixels1Cell * j, 2 + pixels1Cell * i, pixels1Cell * (j + 1)-3, pixels1Cell * (i + 1)-3, p);
 
+                    }
+                    else {
+                        canvas.drawRect(pixels1Cell * j, pixels1Cell * i, pixels1Cell * (j + 1), pixels1Cell * (i + 1), paintGRAY);
                     }
                 }
             }
