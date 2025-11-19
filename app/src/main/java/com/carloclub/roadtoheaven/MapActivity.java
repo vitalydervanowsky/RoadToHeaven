@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.carloclub.roadtoheaven.MapObjects.MapObject;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,6 +60,7 @@ public class MapActivity extends AppCompatActivity {
     ScrollView sv;
     HorizontalScrollView sh;
     boolean fuelDanger= false;
+    public City city;
 
     public float displayDensity=0;
 
@@ -88,8 +92,13 @@ public class MapActivity extends AppCompatActivity {
 
 
         myTasks =new ArrayList <Task>();
-        String CityName = getIntent().getStringExtra("CityName");
-        map = MyMap.getMap(CityName);
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.CITY_ARG)) {
+            city = (City) getIntent().getSerializableExtra(Constants.CITY_ARG);
+            if (city == null) {
+                city = City.SOKULKA;
+            }
+            map = MyMap.getMap(city);
+        }
         displayDensity = getApplicationContext().getResources().getDisplayMetrics().density;
         map.scale = (int) (Constants.DATAGAME.SCALE*displayDensity); //
         map.createObjects(MapActivity.this);
@@ -266,8 +275,19 @@ public class MapActivity extends AppCompatActivity {
         navX = 2;
         navY = 2;
 
+
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
+        currentX = 0* map.scale;
+        currentY = 1 * map.scale;
+        carX = currentX;
+        carY = currentY;
+        params.setMargins(currentX, currentY, 0, 0);
+            params.width = (int) (map.scale * 0.9);
+            params.height = params.width;
+            car.setLayoutParams(params);
+
         //moveImageView(navY*map.scale, navX*map.scale);
-        MyMap.MapCell CurrentCell = map.mMapCells[0][0];
+        MyMap.MapCell CurrentCell = map.mMapCells[0][1];
         MyMap.MapCell NewCell = map.mMapCells[navX][navY];;
         if (NewCell.object==null && !NewCell.type.equals("Road"))
             return;
@@ -279,7 +299,7 @@ public class MapActivity extends AppCompatActivity {
         //сразу начинаем ехать
         mMoveCar = new MoveCar();
         twistCar();
-        timer.schedule(mMoveCar, 1000, 35);
+        timer.schedule(mMoveCar, 1000, 40);
         rrrMediaPlayer.start();
     }
 
@@ -634,7 +654,11 @@ public class MapActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            MapObject mapObject = new MapObjectSchool(currentX, currentY, this);
+            Puzzle puzzle = new Puzzle(mapObject, map.cinemaQuestion.get(0));
+            puzzle.startPuzzle( true);
+        } else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
             Intent i = new Intent(this, DialogActivity.class);

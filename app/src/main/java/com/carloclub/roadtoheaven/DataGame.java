@@ -10,8 +10,8 @@ public class DataGame {
     private int currentY = 0;
     private int fuel =15000;
     private int money =3000;
-    private int stones=4;
-    private int rubies=3;
+    private int stones=2;
+    private int rubies=1;
     private int burgers=0;
 
     private MapActivity mapActivity;

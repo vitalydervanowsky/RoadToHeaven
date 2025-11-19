@@ -41,10 +41,24 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="В какой зал поместить эту картину?" />
 
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="-10dp"
+        android:layout_marginBottom="-10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stackContainer"
+        app:layout_constraintEnd_toEndOf="@+id/stackContainer"
+        app:layout_constraintStart_toStartOf="@+id/stackContainer"
+        app:layout_constraintTop_toTopOf="@+id/stackContainer"
+        app:srcCompat="@drawable/frame" />
+
     <FrameLayout
         android:id="@+id/stackContainer"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/pictureNameTextView"
@@ -62,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/questionRecyclerView"
         app:layout_constraintEnd_toStartOf="@id/rightDropArea"
         app:layout_constraintStart_toEndOf="@id/leftDropArea"

@@ -38,6 +38,9 @@ public class MyMap {
     public ArrayList<Question> tetrisQuestion;
 
     public ArrayList<Question> cinemaQuestion;
+    public ArrayList<Question> scoolQuestion;
+
+    public MapObject currentObject;
 
     int mBackgroundId;
 
@@ -591,8 +594,6 @@ public class MyMap {
 
         }
     }
-
-
 
     public static MyMap getMap(City city){
         MyMap myMap = null;

@@ -122,31 +122,37 @@ public class Sokolka {
         Map.addQuestion(9, "Если мы даём другим то, что им нужно, а не то, что им должны, то это","Справедливость","Милосердие","Слабость","Глупость",2,9);
         Map.addQuestion(10, "Моя соседка тётя Маша заболела и целый день не встаёт с кровати. Я хочу отнести ей горячего супа, чтобы она скорее поправилась. Что это со мной?","Это милосердие","Это гражданский долг","Это страх","Это глупость",1,10);
         Map.addQuestion(11, "Что из этого не является делом милосердия для тела ближнего?","Похоронить умершего","Посетить заключенного","Навестить больного","Посадить дерево",4,11);
-        Map.Missions = new MyMap.Mission[4];
+        Map.Missions = new MyMap.Mission[5];
         Map.addMission(0);
-        Map.Missions[0].messageText="Начнём наш путь. Едь на заправку и заправь полный бак бензина.";
+        Map.Missions[0].messageText="Пачнем наша падарожжа. Едзь на запраўку и здабудзь поўны бак бензіна.";
         Map.Missions[0].messageIconMap="AZS";
         Map.Missions[0].messageIconSource="icon_fuel";
         Map.Missions[0].missionType="count_fuel";
         Map.Missions[0].targetValue1=16000;
         Map.addMission(1);
-        Map.Missions[1].messageText="Отлично! Теперь найди человека, которому нужна помощь. Ищи на карте такой рубин.";
+        Map.Missions[1].messageText="Выдатна! Цяпер накіроўвайся ў школу, каб здабыць неабходныя веды.";
         Map.Missions[1].messageIconMap="";
         Map.Missions[1].messageIconSource="icon_ruby";
-        Map.Missions[1].missionType="count_ruby";
-        Map.Missions[1].targetValue1=1;
+        Map.Missions[1].missionType="school";
+        Map.Missions[1].targetValue1=0;
         Map.addMission(2);
-        Map.Missions[2].messageText="Отлично! Начнем собирать камни знаний. Найди на карте здания с такими камнями. ";
+        Map.Missions[2].messageText="Отлично! Теперь найди человека, которому нужна помощь. Ищи на карте такой рубин.";
         Map.Missions[2].messageIconMap="";
-        Map.Missions[2].messageIconSource="stones1";
-        Map.Missions[2].missionType="count_stones";
+        Map.Missions[2].messageIconSource="icon_ruby";
+        Map.Missions[2].missionType="count_ruby";
         Map.Missions[2].targetValue1=1;
         Map.addMission(3);
-        Map.Missions[3].messageText="Отлично! Теперь собери 7 камней или рубинов и построй из них разрушенный мост.";
-        Map.Missions[3].messageIconMap="icon_bridge";
+        Map.Missions[3].messageText="Отлично! Начнем собирать камни знаний. Найди на карте здания с такими камнями. ";
+        Map.Missions[3].messageIconMap="";
         Map.Missions[3].messageIconSource="stones1";
         Map.Missions[3].missionType="count_stones";
-        Map.Missions[3].targetValue1=7;
+        Map.Missions[3].targetValue1=1;
+        Map.addMission(4);
+        Map.Missions[4].messageText="Отлично! Теперь собери 7 камней или рубинов и построй из них разрушенный мост.";
+        Map.Missions[4].messageIconMap="icon_bridge";
+        Map.Missions[4].messageIconSource="stones1";
+        Map.Missions[4].missionType="count_stones";
+        Map.Missions[4].targetValue1=7;
         Map.wordsForBook = new MyMap.Words[8];
         Map.addWordsForBook(0, "ХЛЕБА","Ойча наш, каторы ёсць у небе, свяціся iмя Тваё, прыйдзi Валадарства Тваё, будзь воля Твая як у небе, так i на зямлi.","нашага штодзённага дай нам сёння, і адпусцi нам правіны нашы, як i мы адпускаем вiнаватым нашым, і не ўводзь нас у спакусу, але збаў нас ад злога. Амэн.");
         Map.addWordsForBook(1, "ВОЛЯ","Ойча наш, каторы ёсць у небе, свяціся iмя Тваё, прыйдзi Валадарства Тваё, будзь","Твая як у небе, так i на зямлi. Хлеба нашага штодзённага дай нам сёння, і адпусцi нам правіны нашы, як i мы адпускаем вiнаватым нашым, і не ўводзь нас у спакусу, але збаў нас ад злога. Амэн.");
@@ -184,6 +190,11 @@ public class Sokolka {
         Map.cinemaQuestion = new ArrayList<MyMap.Question>();
         dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым кадры фільма \"Паліяна\"";
         Map.cinemaQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.polianna));
+        Map.scoolQuestion = new ArrayList<MyMap.Question>();
+        dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтай выяве";
+        Map.scoolQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.galery1_6));
+        Map.scoolQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",3,0, R.drawable.galery1_14));
+
     }
 
 
@@ -334,7 +345,7 @@ public class Sokolka {
         Map.mMapCells[0][3].attributes[1] = "9";  	//Таргет X:
         Map.mMapCells[0][3].attributes[2] = "4";  	//Таргет Y:
         Map.mMapCells[0][3].attributes[3] = "Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.";  	//Приветствие:
-        Map.mMapCells[0][3].attributes[4] = "1 000";  	//Награда:
+        Map.mMapCells[0][3].attributes[4] = "1000";  	//Награда:
     }
 
 }

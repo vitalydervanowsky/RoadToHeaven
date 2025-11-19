@@ -29,6 +29,7 @@ class SchoolClassFragment : Fragment() {
 
     private var isLessonDone = false
 
+    private var classType: ClassType = ClassType.A
     private var classLessonData: ClassLessonData? = null
 
     override fun onCreateView(
@@ -48,8 +49,7 @@ class SchoolClassFragment : Fragment() {
 
     private fun initData() {
         val city = arguments?.getSerializable(Constants.CITY_ARG) as? City ?: City.SOKULKA
-        val classType: ClassType =
-            arguments?.getSerializable(CLASS_TYPE_ARG) as? ClassType ?: ClassType.A
+        classType = arguments?.getSerializable(CLASS_TYPE_ARG) as? ClassType ?: ClassType.A
         classLessonData = SchoolHelper.getLessonData(city, classType)
         isLessonDone = false
     }
@@ -102,6 +102,23 @@ class SchoolClassFragment : Fragment() {
     }
 
     private fun showCongratsDialog() {
+        if (classType==ClassType.A){
+            if (Constants.DATAGAME.map.currentObject.taskA.isFinished){
+                requireActivity().onBackPressed()
+                return
+            }
+            Constants.DATAGAME.map.currentObject.taskA.isStarted=true;
+            Constants.DATAGAME.map.currentObject.taskB.isStarted=false;
+        }
+        if (classType==ClassType.B){
+            if (Constants.DATAGAME.map.currentObject.taskB.isFinished){
+                requireActivity().onBackPressed()
+                return
+            }
+            Constants.DATAGAME.map.currentObject.taskA.isStarted=false;
+            Constants.DATAGAME.map.currentObject.taskB.isStarted=true;
+        }
+
         showMessage(
             0,
             0,

@@ -88,6 +88,39 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (progressCar==220){
+                    rrrMediaPlayer.stop();
+                    car.setVisibility(View.INVISIBLE);
+                }
+                if (progressCar<400){
+                    imageViewWallpaper.setImageResource(R.drawable.slide1);
+                    progressCar++;
+                    return;
+                }
+
+                if (progressCar<500){
+                    imageViewWallpaper.setImageResource(R.drawable.slide2);
+                    progressCar++;
+                    return;
+                }
+
+                if (progressCar<600){
+                    imageViewWallpaper.setImageResource(R.drawable.slide3);
+                    progressCar++;
+                    return;
+                }
+
+                if (progressCar<700){
+                    imageViewWallpaper.setImageResource(R.drawable.slide4);
+                    progressCar++;
+                    return;
+                }
+
+                if (progressCar<800){
+                    imageViewWallpaper.setImageResource(R.drawable.slide5);
+                    progressCar++;
+                    return;
+                }
 
                 timerDown.cancel();
                 timerDown = null;
