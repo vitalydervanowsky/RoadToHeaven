@@ -14,3 +14,8 @@ data class PageData(
     val imageRes: Int? = null,
     val audioRes: Int? = null,
 ) : Serializable
+
+fun List<PageData>.addFinalPage(text: String): List<PageData> =
+    this.plus(
+        PageData(text = text)
+    )

@@ -5,6 +5,7 @@ import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.school.model.ClassLessonData
 import com.carloclub.roadtoheaven.school.model.ClassType
 import com.carloclub.roadtoheaven.story.model.PageData
+import com.carloclub.roadtoheaven.story.model.addFinalPage
 
 object SchoolHelper {
 
@@ -60,8 +61,8 @@ object SchoolHelper {
                     imageRes = R.drawable.galery1_14,
                     audioRes = R.raw.organ
                 ),
-            )
-        ).addFinalPage()
+            ).addFinalPage("Вiншуем! Урок скончаны")
+        )
 
     private fun getBClassLessonDataForSokulka(): ClassLessonData =
         ClassLessonData(
@@ -103,13 +104,6 @@ object SchoolHelper {
                     imageRes = R.drawable.galery1_7,
                     audioRes = R.raw.organ
                 ),
-            )
-        ).addFinalPage()
-
-    private fun ClassLessonData.addFinalPage(): ClassLessonData =
-        this.copy(
-            pages = this.pages.plus(
-                PageData(text = "Вiншуем! Урок скончаны")
-            )
+            ).addFinalPage("Вiншуем! Урок скончаны")
         )
 }
