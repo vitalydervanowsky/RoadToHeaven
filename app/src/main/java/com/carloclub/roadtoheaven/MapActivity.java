@@ -655,12 +655,13 @@ public class MapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 111 && resultCode == RESULT_OK) {
-            if (map.currentObject.taskA.isStarted){
+            if (map.currentObject.task.isStarted) {
                 Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(1));
-                puzzle.startPuzzle( true);}
-            else {
+                puzzle.startPuzzle(true);
+            } else {
                 Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(0));
-                puzzle.startPuzzle( true);}
+                puzzle.startPuzzle(true);
+            }
         } else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 

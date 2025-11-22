@@ -76,7 +76,7 @@ class StoryFragment : Fragment() {
     private fun updateViews() {
         storyData?.position?.let { position ->
             storyData?.pages?.get(position)?.let { pageData ->
-                if (isLastPage()) {
+                if (isLastPage() && pageData.imageRes == null) {
                     imageView?.visibility = View.GONE
                     closeImageView?.visibility = View.GONE
                     thankButton?.visibility = View.VISIBLE

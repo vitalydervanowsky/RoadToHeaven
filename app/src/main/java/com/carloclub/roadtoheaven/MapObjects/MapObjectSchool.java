@@ -12,13 +12,13 @@ import com.carloclub.roadtoheaven.school.SchoolActivity;
 
 public class MapObjectSchool extends MapObject {
 
+    public Task taskB;
+
     public MapObjectSchool(int x, int y, MapActivity activity) {
         super(x, y, activity);
         type = "school";
         task = new Task(this);
-        taskA = new Task(this);
         taskB = new Task(this);
-
     }
 
     @Override
@@ -28,19 +28,17 @@ public class MapObjectSchool extends MapObject {
 
     @Override
     public void runAction() {
-        if (!task.isStarted) {
-            Intent intent = new Intent(mapActivity, SchoolActivity.class);
-            intent.putExtra(Constants.CITY_ARG, mapActivity.city);
-            mapActivity.startActivityForResult(intent, 111);
-        }
+        Intent intent = new Intent(mapActivity, SchoolActivity.class);
+        intent.putExtra(Constants.CITY_ARG, mapActivity.city);
+        mapActivity.startActivityForResult(intent, 111);
     }
 
     @Override
     public void endVictorina(boolean isOK) {
         super.endVictorina(isOK);
         if (isOK) {
-            if (taskA.isStarted) {
-                taskA.isFinished = true;
+            if (task.isStarted) {
+                task.isFinished = true;
             } else {
                 taskB.isFinished = true;
             }

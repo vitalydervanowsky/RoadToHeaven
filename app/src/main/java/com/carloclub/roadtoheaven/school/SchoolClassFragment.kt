@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener
@@ -59,7 +60,7 @@ class SchoolClassFragment : Fragment() {
         titleTextView = view.findViewById(R.id.titleTextView)
 
         titleTextView?.text = classLessonData?.title
-        closeImageView?.setOnClickListener { requireActivity().onBackPressed() }
+        closeImageView?.setOnClickListener { goBack() }
     }
 
     private fun initPersonaDialogs() {
@@ -93,7 +94,7 @@ class SchoolClassFragment : Fragment() {
                 title = "Выйсцi з класа",
                 listener = object : DialogButtonListener {
                     override fun onButtonClicked() {
-                        requireActivity().onBackPressed()
+                        goBack()
                     }
                 }
             ),
@@ -102,21 +103,23 @@ class SchoolClassFragment : Fragment() {
     }
 
     private fun showCongratsDialog() {
-        if (classType==ClassType.A){
-            if (Constants.DATAGAME.map.currentObject.taskA.isFinished){
-                requireActivity().onBackPressed()
+        val taskA = (Constants.DATAGAME.map.currentObject as MapObjectSchool).task
+        val taskB = (Constants.DATAGAME.map.currentObject as MapObjectSchool).taskB
+        if (classType == ClassType.A) {
+            if (taskA.isFinished) {
+                goBack()
                 return
             }
-            Constants.DATAGAME.map.currentObject.taskA.isStarted=true;
-            Constants.DATAGAME.map.currentObject.taskB.isStarted=false;
+            taskA.isStarted = true
+            taskB.isStarted = false
         }
-        if (classType==ClassType.B){
-            if (Constants.DATAGAME.map.currentObject.taskB.isFinished){
-                requireActivity().onBackPressed()
+        if (classType == ClassType.B) {
+            if (taskB.isFinished) {
+                goBack()
                 return
             }
-            Constants.DATAGAME.map.currentObject.taskA.isStarted=false;
-            Constants.DATAGAME.map.currentObject.taskB.isStarted=true;
+            taskA.isStarted = false
+            taskB.isStarted = true
         }
 
         showMessage(
@@ -138,7 +141,7 @@ class SchoolClassFragment : Fragment() {
                 title = "Выйсцi з класа",
                 listener = object : DialogButtonListener {
                     override fun onButtonClicked() {
-                        requireActivity().onBackPressed()
+                        goBack()
                     }
                 }
             ),
@@ -171,6 +174,10 @@ class SchoolClassFragment : Fragment() {
     private fun startPuzzle() {
         requireActivity().setResult(RESULT_OK)
         requireActivity().finish()
+    }
+
+    private fun goBack() {
+        requireActivity().onBackPressed()
     }
 
     companion object {
