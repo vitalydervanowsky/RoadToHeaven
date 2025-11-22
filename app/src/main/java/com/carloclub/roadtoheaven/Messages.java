@@ -256,4 +256,24 @@ public class Messages{
         return "";
     }
 
+    public static String getMessageGoodLuck() {
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_BY)) {
+            return "Удачы!";
+        }
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_RU)) {
+            return "Удачи!";
+        }
+        return "";
+    }
+
+    public static String getMessageAttentionFewFuel() {
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_BY)) {
+            return "Увага! засталося мала паліва! Час ехаць на запраўку";
+        }
+        if (Constants.DATAGAME.currentLang.equals(Constants.LANG_RU)) {
+            return "ВНИМАНИЕ! Осталось мало топлива! Пора ехать на заправку";
+        }
+        return "";
+    }
+
 }

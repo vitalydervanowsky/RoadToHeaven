@@ -11,6 +11,11 @@ data class StoryData(
 
 data class PageData(
     val text: String,
-    val imageRes: Int,
-    val audioRes: Int,
+    val imageRes: Int? = null,
+    val audioRes: Int? = null,
 ) : Serializable
+
+fun List<PageData>.addFinalPage(text: String): List<PageData> =
+    this.plus(
+        PageData(text = text)
+    )

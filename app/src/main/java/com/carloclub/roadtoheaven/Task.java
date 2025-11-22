@@ -22,12 +22,12 @@ public class Task {
     public Task(MapObject Object){
         fromObject =Object;
     }
-    public void startTask(){
+    public void startTask() {
         isStarted = true;
         isFinished = false;
         //fromObject.mapActivity.myTasks.add(this);
         if (!messageText.isEmpty()){
-            DialogMessage.showMessage(messageIconMap,messageIconSource,messageText,"Удачи!", fromObject.mapActivity);
+            DialogMessage.showMessage(messageIconMap,messageIconSource,messageText,Messages.getMessageGoodLuck(), fromObject.mapActivity);
         }
     }
 

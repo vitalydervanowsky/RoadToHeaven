@@ -34,8 +34,8 @@ object GalleryHelper {
                 GalleryImage(3, R.drawable.galery1_3, "адзець нагога", Side.LEFT),
                 GalleryImage(4, R.drawable.galery1_5, "Адведаць вязня", Side.LEFT),
                 GalleryImage(5, R.drawable.galery1_8, "Настаўляць грэшнікаў", Side.RIGHT),
-                    GalleryImage(6, R.drawable.galery1_6, "Наведаць хворых", Side.LEFT),
-                    GalleryImage(7, R.drawable.galery1_10, "Вучыць тых, хто не ведае", Side.RIGHT),
+                GalleryImage(6, R.drawable.galery1_6, "Наведаць хворых", Side.LEFT),
+                GalleryImage(7, R.drawable.galery1_10, "Вучыць тых, хто не ведае", Side.RIGHT),
             ).reversed()// в обратном порядке, т.к. в контейнер картинки добавляются последовательно, и сверху будет лежать последняя добавленная
         )
 }
