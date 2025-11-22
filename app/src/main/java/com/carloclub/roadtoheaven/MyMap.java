@@ -9,6 +9,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectFuel;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectGallery;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectHelpBoy;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectHunger;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectKids;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectPilgrim;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSTO;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
@@ -39,6 +40,7 @@ public class MyMap {
 
     public ArrayList<Question> cinemaQuestion;
     public ArrayList<Question> scoolQuestion;
+    public ArrayList<Question> kidsQuestion;
 
     public MapObject currentObject;
 
@@ -91,7 +93,8 @@ public class MyMap {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("books")|| mMapCells[x][y].type.equals("stones")|| mMapCells[x][y].type.equals("RM")|| mMapCells[x][y].type.equals("tetris")){
+                if (mMapCells[x][y].type.equals("books1")|| mMapCells[x][y].type.equals("stones1")|| mMapCells[x][y].type.equals("RM1")|| mMapCells[x][y].type.equals("tetris")
+                        || mMapCells[x][y].type.equals("building1")|| mMapCells[x][y].type.equals("cinema1")|| mMapCells[x][y].type.equals("kids")){
                     if (mMapCells[x][y].object.isActual())
                         CR.add(mMapCells[x][y]);
                 }
@@ -268,6 +271,9 @@ public class MyMap {
                     mMapCells[x][y].object = new MapObjectFuel(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                 }
+                if (mMapCells[x][y].type.equals("kids")){
+                    mMapCells[x][y].object = new MapObjectKids(x, y, MainActivity);
+                }
 
                 else if (mMapCells[x][y].type.equals("pilgrim")){
                     MapObjectPilgrim P1 = new MapObjectPilgrim(x, y, MainActivity);
@@ -282,7 +288,9 @@ public class MyMap {
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "school1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x+1][y+1].type = "school1";
 
                 }
                 else if (mMapCells[x][y].type.equals("building")){
@@ -291,6 +299,7 @@ public class MyMap {
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "building1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
 
@@ -350,6 +359,7 @@ public class MyMap {
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                     mMapCells[x + 1][y].object = mMapCells[x][y].object;
                     mMapCells[x][y + 1].object = mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "stones1";
                     mMapCells[x + 1][y + 1].object = mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("cinema")) {
@@ -358,6 +368,7 @@ public class MyMap {
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "cinema1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("bridge")) {
@@ -371,6 +382,7 @@ public class MyMap {
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "RM1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("hunger")) {
@@ -391,12 +403,14 @@ public class MyMap {
 
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "books1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("build")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
                     mMapCells[x+1][y].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
+                    mMapCells[x][y+1].type = "build1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
                 }
                 else if (mMapCells[x][y].type.equals("market")) {

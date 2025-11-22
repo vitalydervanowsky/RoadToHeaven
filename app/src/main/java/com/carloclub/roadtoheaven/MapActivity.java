@@ -372,8 +372,8 @@ public class MapActivity extends AppCompatActivity {
             int y = CR.get(numCell-1).y * map.scale;
 
             if (animate){
-                params.setMargins(x,y+ map.scale /2,0,0);
-                params.width = (int)(map.scale *0.6);
+                params.setMargins(x,y+ map.scale/2+map.scale/8,0,0);
+                params.width = (int)(map.scale *0.5);
                 params.height = params.width;
                 IV.setLayoutParams(params);
             AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();

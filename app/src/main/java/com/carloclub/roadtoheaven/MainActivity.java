@@ -142,15 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(i,0);
                 });
 
-                ImageView imageViewMinus = findViewById(R.id.imageViewMinus);
-                imageViewMinus.setOnClickListener(v ->{
-                    Constants.DATAGAME.SCALE = Constants.DATAGAME.SCALE-15;
-                });
 
-                ImageView imageViewPlus = findViewById(R.id.imageViewPlus);
-                imageViewPlus.setOnClickListener(v ->{
-                    Constants.DATAGAME.SCALE = Constants.DATAGAME.SCALE+15;
-                });
 
             });
         }

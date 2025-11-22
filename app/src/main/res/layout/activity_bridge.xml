@@ -124,7 +124,7 @@
         android:textColor="#2525C1"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/buttonAnswer1"
+        app:layout_constraintBottom_toTopOf="@+id/my_included_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView30"
         app:layout_constraintTop_toTopOf="parent" />
@@ -155,69 +155,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/buttonAnswer1"
+    <include
+        android:id="@+id/my_included_layout"
+        layout="@layout/fragment_victorina"
         android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="Завершить стройку"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView30"
-        app:layout_constraintTop_toBottomOf="@id/questionTextView"
-        app:layout_goneMarginLeft="3dp" />
-
-    <TextView
-        android:id="@+id/buttonAnswer2"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/rombgood"
-        android:gravity="center|center_horizontal"
-        android:text="1 Рубин Помощи"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/questionTextView"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1"
-        app:layout_goneMarginLeft="3dp" />
+        app:layout_constraintStart_toStartOf="@+id/questionTextView" />
 
     <ImageView
         android:id="@+id/imageViewRubi"
         android:layout_width="55dp"
         android:layout_height="27dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="43dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer2"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAnswer1"
+        app:layout_constraintStart_toStartOf="@+id/my_included_layout"
+        app:layout_constraintTop_toBottomOf="@+id/questionTextView"
         app:srcCompat="@drawable/icon_ruby" />
-
-    <TextView
-        android:id="@+id/buttonAnswer3"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="3"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer2"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2"
-        app:layout_goneMarginLeft="3dp" />
 
     <!--Button
         android:id="@+id/buttonAnswer4"
@@ -235,23 +192,6 @@
         app:layout_constraintStart_toEndOf="@id/lineLayout"
         app:layout_constraintTop_toBottomOf="@id/buttonAnswer3"
         app:layout_goneMarginLeft="3dp" /-->
-
-    <TextView
-        android:id="@+id/buttonAnswer4"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="-60dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="4"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer3"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_goneMarginLeft="3dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

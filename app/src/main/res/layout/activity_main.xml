@@ -8,103 +8,106 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Аўтастрада да Неба"
+        android:layout_width="350dp"
+        android:layout_height="170dp"
+        android:background="@drawable/wallpaper1"
         android:textColor="#EA5084"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView16"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
 
-    <ImageView
-        android:id="@+id/imageSokolka"
-        android:layout_width="260dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <HorizontalScrollView
+        android:id="@+id/scrollViewH"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/city_sokolka" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageBrugge"
-        android:layout_width="260dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="16dp"
-        android:alpha="0.2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSokolka"
-        app:srcCompat="@drawable/city_brugge" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageRome"
-        android:layout_width="260dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="16dp"
-        android:alpha="0.2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageBrugge"
-        app:srcCompat="@drawable/city_rome" />
+            <ImageView
+                android:id="@+id/imageSokolka"
+                android:layout_width="260dp"
+                android:layout_height="123dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/city_sokolka" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="87dp"
-        android:layout_height="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageBrugge"
-        app:layout_constraintEnd_toEndOf="@+id/imageBrugge"
-        app:layout_constraintStart_toStartOf="@+id/imageBrugge"
-        app:layout_constraintTop_toTopOf="@+id/imageBrugge"
-        app:srcCompat="@android:drawable/ic_lock_lock"
-        tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="87dp"
-        android:layout_height="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageRome"
-        app:layout_constraintEnd_toEndOf="@+id/imageRome"
-        app:layout_constraintStart_toStartOf="@+id/imageRome"
-        app:layout_constraintTop_toTopOf="@+id/imageRome"
-        app:srcCompat="@android:drawable/ic_lock_lock"
-        tools:ignore="MissingConstraints" />
+            <ImageView
+                android:id="@+id/imageBrugge"
+                android:layout_width="260dp"
+                android:layout_height="123dp"
+                android:layout_marginStart="15dp"
+                android:alpha="0.2"
+                app:layout_constraintStart_toEndOf="@+id/imageSokolka"
+                app:layout_constraintTop_toTopOf="@+id/imageSokolka"
+                app:srcCompat="@drawable/city_brugge" />
 
-    <ImageView
-        android:id="@+id/imageViewPlus"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageRome"
-        app:srcCompat="@android:drawable/ic_input_add" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="87dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageRome"
+                app:layout_constraintEnd_toEndOf="@+id/imageRome"
+                app:layout_constraintStart_toStartOf="@+id/imageRome"
+                app:layout_constraintTop_toTopOf="@+id/imageRome"
+                app:srcCompat="@android:drawable/ic_lock_lock"
+                tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageViewMinus"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageRome"
-        app:srcCompat="@android:drawable/button_onoff_indicator_on" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="87dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageBrugge"
+                app:layout_constraintEnd_toEndOf="@+id/imageBrugge"
+                app:layout_constraintStart_toStartOf="@+id/imageBrugge"
+                app:layout_constraintTop_toTopOf="@+id/imageBrugge"
+                app:srcCompat="@android:drawable/ic_lock_lock"
+                tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="30dp"
-        android:text="МАСШТАБ КАРТЫ"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageRome" />
+            <ImageView
+                android:id="@+id/imageRome"
+                android:layout_width="260dp"
+                android:layout_height="123dp"
+                android:layout_marginStart="15dp"
+                android:alpha="0.2"
+                app:layout_constraintStart_toEndOf="@+id/imageBrugge"
+                app:layout_constraintTop_toTopOf="@+id/imageBrugge"
+                app:srcCompat="@drawable/city_rome" />
+
+            <ImageView
+                android:id="@+id/imageParis"
+                android:layout_width="260dp"
+                android:layout_height="123dp"
+                android:layout_marginStart="15dp"
+                android:alpha="0.2"
+                app:layout_constraintStart_toEndOf="@+id/imageRome"
+                app:layout_constraintTop_toTopOf="@+id/imageRome"
+                app:srcCompat="@drawable/city_paris" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="87dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageParis"
+                app:layout_constraintEnd_toEndOf="@+id/imageParis"
+                app:layout_constraintStart_toStartOf="@+id/imageParis"
+                app:layout_constraintTop_toTopOf="@+id/imageParis"
+                app:srcCompat="@android:drawable/ic_lock_lock"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+
 
     <ImageView
         android:id="@+id/imageView16"
@@ -115,5 +118,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settings_icon" />
+
+    <ImageView
+        android:id="@+id/car3"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="5dp"
+        android:fillAfter="true"
+        android:fillEnabled="true"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollViewH"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/mainanimation">
+
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

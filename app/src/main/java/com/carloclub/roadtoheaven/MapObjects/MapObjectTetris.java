@@ -25,6 +25,7 @@ import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.Victorina;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,6 +44,7 @@ public class MapObjectTetris extends MapObject {
     TimerDown mtimerDown;
     int GameFigurs=0;
     int OneColor=0;
+    Date lastSuccess;
 
     MyMap.Question question;
 
@@ -81,6 +83,7 @@ public class MapObjectTetris extends MapObject {
             } else {
                 DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, Messages.getMessageGotStone(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             }
+            lastSuccess = Calendar.getInstance().getTime();
             mapActivity.showRubies();
         }
         dialog.dismiss();
@@ -99,6 +102,10 @@ public class MapObjectTetris extends MapObject {
 
     @Override
     public void runAction(){
+        if (lastSuccess != null && (Calendar.getInstance().getTime().getTime() - lastSuccess.getTime()) < 180000) { //чаще 3 минут не давать
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
+            return;
+        }
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
 
@@ -282,7 +289,7 @@ public class MapObjectTetris extends MapObject {
         buttonPause.setOnClickListener(v -> {
             pause();
         });
-
+        ((TextView)dialog.findViewById(R.id.buttonAnswer1)).setText("Бачу адказ");
         dialog.findViewById(R.id.buttonAnswer1).setOnClickListener(v -> {
             pause();
             victorina = new Victorina(this, dialog);

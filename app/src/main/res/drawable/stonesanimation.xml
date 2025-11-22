@@ -4,8 +4,14 @@
     <!-- creation of animation list-->
     <item
         android:drawable="@drawable/stones1"
-        android:duration="400" />
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/stones3"
+        android:duration="200" />
     <item
         android:drawable="@drawable/stones2"
-        android:duration="400" />
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/stones4"
+        android:duration="200" />
 </animation-list>

@@ -6,72 +6,15 @@
     android:layout_height="match_parent"
     android:background="#FFFEFA">
 
-    <TextView
-        android:id="@+id/buttonAnswer2"
+    <include
+        android:id="@+id/my_included_layout"
+        layout="@layout/fragment_victorina"
         android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="Разгадать подсказку"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer3"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
-
-    <TextView
-        android:id="@+id/buttonAnswer1"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="Знаю ответ"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer2"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
-
-    <TextView
-        android:id="@+id/buttonAnswer3"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="3"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer4"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
-
-    <TextView
-        android:id="@+id/buttonAnswer4"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="-60dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/romb"
-        android:gravity="center|center_horizontal"
-        android:text="4"
-        android:textColor="#F1F1ED"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_goneMarginLeft="3dp" />
-
+        app:layout_constraintStart_toStartOf="parent" />
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="330dp"
