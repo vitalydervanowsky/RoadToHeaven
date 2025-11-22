@@ -36,30 +36,14 @@ public class MapObjectSchool extends MapObject {
     }
 
     @Override
-    public void loadAttributes(String[] attributes) {
-        //textHello = attributes[3];
-
-    }
-
-    @Override
-    public void finishTask() {
-//
-//        Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies() + 1);
-//
-//
-//        task.isFinished = true;
-//
-//        DialogMessage.showMessage(R.drawable.happyboy, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
-    }
-
-    @Override
     public void endVictorina(boolean isOK) {
         super.endVictorina(isOK);
         if (isOK) {
-            if (taskA.isStarted)
-                taskA.isFinished=true;
-            else
-                taskB.isFinished=true;
+            if (taskA.isStarted) {
+                taskA.isFinished = true;
+            } else {
+                taskB.isFinished = true;
+            }
             Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
             mapActivity.updateBar();
 

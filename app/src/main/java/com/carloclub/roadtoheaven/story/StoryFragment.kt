@@ -8,6 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -24,6 +25,7 @@ class StoryFragment : Fragment() {
     private var nextImageView: ImageView? = null
     private var muteImageView: ImageView? = null
     private var closeImageView: ImageView? = null
+    private var thankButton: Button? = null
 
     private var storyData: StoryData? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -58,6 +60,7 @@ class StoryFragment : Fragment() {
         nextImageView = view.findViewById(R.id.nextImageView)
         muteImageView = view.findViewById(R.id.muteImageView)
         closeImageView = view.findViewById(R.id.closeImageView)
+        thankButton = view.findViewById(R.id.thankButton)
 
         prevImageView?.setImageResource(R.drawable.ic_media_prev)
         nextImageView?.setImageResource(R.drawable.ic_media_next)
@@ -66,16 +69,26 @@ class StoryFragment : Fragment() {
         prevImageView?.setOnClickListener { goBack() }
         muteImageView?.setOnClickListener { mute() }
         closeImageView?.setOnClickListener { closeStory() }
+        thankButton?.setOnClickListener { closeStory() }
         mute()
     }
 
     private fun updateViews() {
-        storyData?.position?.let {
-            storyData?.pages?.get(it)?.let { pageData ->
+        storyData?.position?.let { position ->
+            storyData?.pages?.get(position)?.let { pageData ->
+                if (isLastPage()) {
+                    imageView?.visibility = View.GONE
+                    closeImageView?.visibility = View.GONE
+                    thankButton?.visibility = View.VISIBLE
+                } else {
+                    imageView?.visibility = View.VISIBLE
+                    closeImageView?.visibility = View.VISIBLE
+                    thankButton?.visibility = View.GONE
+                }
                 textView?.text = pageData.text
-                imageView?.setImageResource(pageData.imageRes)
+                pageData.imageRes?.let { imageView?.setImageResource(it) }
                 mediaPlayer?.stop()
-                mediaPlayer = MediaPlayer.create(activity, pageData.audioRes)
+                mediaPlayer = pageData.audioRes?.let { MediaPlayer.create(activity, it) }
                 if (isMuted) {
                     muteImageView?.setImageResource(R.drawable.ic_sound_off)
                 } else {
@@ -85,9 +98,11 @@ class StoryFragment : Fragment() {
             }
         }
         prevImageView?.visibility = getButtonVisibility(storyData?.position == 0)
-        nextImageView?.visibility =
-            getButtonVisibility(((storyData?.position ?: 0) + 1) == storyData?.pages?.size)
+        nextImageView?.visibility = getButtonVisibility(isLastPage())
     }
+
+    private fun isLastPage(): Boolean =
+        ((storyData?.position ?: 0) + 1) == storyData?.pages?.size
 
     private fun getButtonVisibility(isInvisible: Boolean) =
         if (isInvisible) {

@@ -61,7 +61,7 @@ object SchoolHelper {
                     audioRes = R.raw.organ
                 ),
             )
-        )
+        ).addFinalPage()
 
     private fun getBClassLessonDataForSokulka(): ClassLessonData =
         ClassLessonData(
@@ -104,6 +104,12 @@ object SchoolHelper {
                     audioRes = R.raw.organ
                 ),
             )
-        )
+        ).addFinalPage()
 
+    private fun ClassLessonData.addFinalPage(): ClassLessonData =
+        this.copy(
+            pages = this.pages.plus(
+                PageData(text = "Вiншуем! Урок скончаны")
+            )
+        )
 }
