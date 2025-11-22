@@ -282,9 +282,9 @@ public class MapActivity extends AppCompatActivity {
         carX = currentX;
         carY = currentY;
         params.setMargins(currentX, currentY, 0, 0);
-            params.width = (int) (map.scale * 0.9);
-            params.height = params.width;
-            car.setLayoutParams(params);
+        params.width = (int) (map.scale * 0.9);
+        params.height = params.width;
+        car.setLayoutParams(params);
 
         //moveImageView(navY*map.scale, navX*map.scale);
         MyMap.MapCell CurrentCell = map.mMapCells[0][1];
@@ -338,7 +338,7 @@ public class MapActivity extends AppCompatActivity {
         //rrrMediaPlayer.reset();
         rrrMediaPlayer.start();
         followToCar=true;
-        
+
     }
 
     public void showRubies(){
@@ -376,8 +376,8 @@ public class MapActivity extends AppCompatActivity {
                 params.width = (int)(map.scale *0.5);
                 params.height = params.width;
                 IV.setLayoutParams(params);
-            AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
-            IVAnimation.start();
+                AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
+                IVAnimation.start();
             }
             else {
                 params.setMargins(x,y,0,0);
@@ -655,9 +655,12 @@ public class MapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 111 && resultCode == RESULT_OK) {
-            MapObject mapObject = new MapObjectSchool(currentX, currentY, this);
-            Puzzle puzzle = new Puzzle(mapObject, map.cinemaQuestion.get(0));
-            puzzle.startPuzzle( true);
+            if (map.currentObject.taskA.isStarted){
+                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(1));
+                puzzle.startPuzzle( true);}
+            else {
+                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(0));
+                puzzle.startPuzzle( true);}
         } else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
@@ -755,6 +758,7 @@ public class MapActivity extends AppCompatActivity {
                         //Активизируем объект, на который попали
                         MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
                         if (currentCell.object != null) {
+                            map.currentObject=currentCell.object;
                             currentCell.object.runAction();
                         }
 
