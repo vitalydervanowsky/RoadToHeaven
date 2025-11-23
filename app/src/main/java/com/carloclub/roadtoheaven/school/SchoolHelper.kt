@@ -23,7 +23,7 @@ object SchoolHelper {
     private fun getAClassLessonDataForSokulka(): ClassLessonData =
         ClassLessonData(
             title = "Учынкі міласэрнасці для душы бліжняга",
-            dialogMessage = "Сёння на занятку мы пазнаемiмся з учынкамi мiласэрнасцi для душы",
+            dialogMessage = "Сёння на занятку мы пазнаёмiмся з учынкамi мiласэрнасцi для душы",
             pages = listOf(
                 PageData(
                     text = "1. Настаўляць грэшнікаў — гэта значыць з любові дапамагаць чалавеку ўбачыць зло і вярнуцца да Бога.",
@@ -66,7 +66,7 @@ object SchoolHelper {
     private fun getBClassLessonDataForSokulka(): ClassLessonData =
         ClassLessonData(
             title = "Учынкі міласэрнасці для цела бліжняга",
-            dialogMessage = "Сёння на занятку мы пазнаемiмся з учынкамi мiласэрнасцi для цела",
+            dialogMessage = "Сёння на занятку мы пазнаёмiмся з учынкамi мiласэрнасцi для цела",
             pages = listOf(
                 PageData(
                     text = "1. Накарміць галодных — дзяліцца ежай і падтрымліваць тых, хто церпіць ад нястачы.",

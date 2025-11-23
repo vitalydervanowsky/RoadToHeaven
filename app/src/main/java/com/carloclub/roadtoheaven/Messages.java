@@ -258,7 +258,7 @@ public class Messages{
 
     public static String getMessageGoodLuck() {
         if (Constants.DATAGAME.currentLang.equals(Constants.LANG_BY)) {
-            return "Удачы!";
+            return "Поспехаў!";
         }
         if (Constants.DATAGAME.currentLang.equals(Constants.LANG_RU)) {
             return "Удачи!";
