@@ -7,10 +7,10 @@
 
     <TextView
         android:id="@+id/numberTextView"
+        style="@style/Text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/black"
         android:textSize="15sp"
         tools:text="1" />
 

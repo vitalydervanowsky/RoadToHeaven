@@ -76,15 +76,7 @@ class StoryFragment : Fragment() {
     private fun updateViews() {
         storyData?.position?.let { position ->
             storyData?.pages?.get(position)?.let { pageData ->
-                if (isLastPage() && pageData.imageRes == null) {
-                    imageView?.visibility = View.GONE
-                    closeImageView?.visibility = View.GONE
-                    thankButton?.visibility = View.VISIBLE
-                } else {
-                    imageView?.visibility = View.VISIBLE
-                    closeImageView?.visibility = View.VISIBLE
-                    thankButton?.visibility = View.GONE
-                }
+                thankButton?.visibility = getButtonVisibility(!isLastPage())
                 textView?.text = pageData.text
                 pageData.imageRes?.let { imageView?.setImageResource(it) }
                 mediaPlayer?.stop()
@@ -102,7 +94,7 @@ class StoryFragment : Fragment() {
     }
 
     private fun isLastPage(): Boolean =
-        ((storyData?.position ?: 0) + 1) == storyData?.pages?.size
+        storyData?.isLastPage() ?: false
 
     private fun getButtonVisibility(isInvisible: Boolean) =
         if (isInvisible) {
@@ -112,17 +104,13 @@ class StoryFragment : Fragment() {
         }
 
     private fun goBack() {
-        storyData?.let {
-            it.position--
-            updateViews()
-        }
+        storyData?.goBack()
+        updateViews()
     }
 
     private fun goNext() {
-        storyData?.let {
-            it.position++
-            updateViews()
-        }
+        storyData?.goNext()
+        updateViews()
     }
 
     private fun mute() {
@@ -137,16 +125,14 @@ class StoryFragment : Fragment() {
     }
 
     private fun closeStory() {
-        storyData?.let {
-            // условие успешного прохождения урока - последний слайд
-            if (it.position == it.pages.size - 1) {
-                setFragmentResult(
-                    STORY_RESULT_REQUEST_KEY,
-                    bundleOf(
-                        IS_DONE to true
-                    )
+        // условие успешного прохождения урока - последний слайд
+        if (isLastPage()) {
+            setFragmentResult(
+                STORY_RESULT_REQUEST_KEY,
+                bundleOf(
+                    IS_DONE to true
                 )
-            }
+            )
         }
         requireActivity().onBackPressed()
     }
