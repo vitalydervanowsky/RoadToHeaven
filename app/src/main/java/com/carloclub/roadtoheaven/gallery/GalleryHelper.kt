@@ -25,7 +25,7 @@ object GalleryHelper {
 
     private fun getGalleryDataForSokulka(): GalleryData =
         GalleryData(
-            title = "В какой зал поместить эту картину?",
+            title = "У які зал змесціш гэтую карціну?",
             leftSideDescription = "Учынкі міласэрнасці для цела бліжняга",
             rightSideDescription = "Учынкі міласэрнасці для душы бліжняга",
             images = listOf(// здесь пишем картинки в прямом порядке, как они будут идти одна одной

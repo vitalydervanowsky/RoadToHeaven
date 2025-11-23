@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage
+import com.carloclub.roadtoheaven.Messages
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.gallery.model.GalleryData
 import com.carloclub.roadtoheaven.gallery.model.GalleryImage
@@ -171,8 +172,8 @@ class GalleryFragment : Fragment() {
             DialogMessage.showMessage(
                 R.drawable.gratulation,
                 R.drawable.stones1,
-                "Поздравляем! Вы добыли 1 камень",
-                "Собрано: " + Constants.DATAGAME.stones.toString(),
+                Messages.getMessageGotStone(),
+                Messages.getMessageHowManyStonesGot() + Constants.DATAGAME.stones.toString(),
                 requireActivity()
             )
         } else {
