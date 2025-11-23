@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -42,6 +43,7 @@ public class MapActivity extends AppCompatActivity {
     int navY=0;
     MoveCar mMoveCar;
     MoveWalpaper moveWalpaper;
+    HideStoness hideStoness;
     private AnimationDrawable isAnimation;
     public MyMap map;// = new MyMap(28, 21);
     Timer timer;
@@ -80,6 +82,7 @@ public class MapActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -89,6 +92,7 @@ public class MapActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
+
 
 
         myTasks =new ArrayList <Task>();
@@ -372,8 +376,8 @@ public class MapActivity extends AppCompatActivity {
             int y = CR.get(numCell-1).y * map.scale;
 
             if (animate){
-                params.setMargins(x,y+ map.scale/2+map.scale/8,0,0);
-                params.width = (int)(map.scale *0.5);
+                params.setMargins(x,y+ map.scale/2-map.scale/8,0,0);
+                params.width = (int)(map.scale *0.7);
                 params.height = params.width;
                 IV.setLayoutParams(params);
                 AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
@@ -392,6 +396,7 @@ public class MapActivity extends AppCompatActivity {
 
 
     }
+
     private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell){
         showAnimateViev(IV, CR, numCell, true);
     }
@@ -602,6 +607,14 @@ public class MapActivity extends AppCompatActivity {
         textStones.setText(String.valueOf(Constants.DATAGAME.getStones()));
         textRubi.setText(String.valueOf(Constants.DATAGAME.getRubies()));
         fuelView.invalidate();
+
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.ConstraintStones).getLayoutParams();
+        params.setMargins(params.leftMargin, 0, 0, 0);
+        findViewById(R.id.ConstraintStones).setLayoutParams(params);
+
+        if (hideStoness!=null) {hideStoness.cancel(); hideStoness=null;}
+        hideStoness = new HideStoness();
+        timer.schedule(hideStoness, 1000, 50);
     }
 
     public void twistCar(){
@@ -806,6 +819,7 @@ public class MapActivity extends AppCompatActivity {
                     if (moveWalpaper==null)
                         return;
                     ImageView cloud = findViewById(R.id.cloudView);
+                    TextView textViewTheme = findViewById(R.id.textViewTheme);
                     if (map.scale >=Constants.DATAGAME.SCALE*displayDensity) {
                         moveWalpaper.cancel();
                         moveWalpaper = null;
@@ -823,14 +837,41 @@ public class MapActivity extends AppCompatActivity {
                         zoomMapToSCALE(map.scale +1);
                         sv.scrollTo(0, 0);
                         sh.scrollTo(0, 0);
+                        //textViewTheme.setAlpha((float)(alfaCloud-2)/100);
                     }
                     else {
                         cloud.setVisibility(View.INVISIBLE);
+                        textViewTheme.setVisibility(View.INVISIBLE);
                         zoomMapToSCALE(map.scale +1);
                         sv.scrollTo(0, 0);
                         sh.scrollTo(0, 0);
                     }
                     //nav.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    }
+
+
+    class HideStoness extends TimerTask {
+        ////////////int Orientation =0; // 0 вниз 1- влево  2-вправо
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    if (hideStoness==null)
+                        return;
+
+                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.ConstraintStones).getLayoutParams();
+                    if (params.topMargin<-100){
+                        hideStoness.cancel();
+                        hideStoness = null;
+                        return;
+                    }
+                    params.setMargins(params.leftMargin, params.topMargin-2, 0, 0);
+                    findViewById(R.id.ConstraintStones).setLayoutParams(params);
+
                 }
             });
         }

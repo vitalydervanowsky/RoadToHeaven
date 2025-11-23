@@ -157,7 +157,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones2"
@@ -166,10 +166,10 @@
                     android:layout_marginTop="96dp"
                     android:fillAfter="true"
                     android:fillEnabled="true"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones3"
@@ -181,7 +181,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones4"
@@ -193,7 +193,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones7"
@@ -205,7 +205,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones6"
@@ -217,7 +217,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones5"
@@ -229,7 +229,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stonesanimation"></ImageView>
+                    app:srcCompat="@drawable/persona2animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/nav"
@@ -348,116 +348,125 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="45dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="#F3EBA4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStones"
-        app:srcCompat="@drawable/icon_ruby" />
-
     <TextView
         android:id="@+id/textRubi"
         android:layout_width="36dp"
         android:layout_height="24dp"
-        android:layout_marginTop="5dp"
         android:text="0"
         android:textColor="#B62318"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+        tools:layout_editor_absoluteY="106dp" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewTasks"
+        app:srcCompat="@drawable/icon_bag" />
 
     <ImageView
         android:id="@+id/imageViewtruck"
         android:layout_width="45dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="5dp"
-        android:background="#F3EBA4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRubi"
+        app:layout_constraintTop_toBottomOf="@+id/imageView23"
         app:srcCompat="@drawable/icon_tow" />
 
     <ImageView
         android:id="@+id/imageViewTasks"
-        android:layout_width="45dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:background="#F3EBA4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewtruck"
-        app:srcCompat="@drawable/chek_task" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_tasks" />
 
-    <ImageView
-        android:id="@+id/imageViewStone4"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="5dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintStones"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageViewStone5"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewStone4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone4"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:alpha="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone" />
 
-    <ImageView
-        android:id="@+id/imageViewStone6"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewStone5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone5"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageViewStone4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone" />
 
-    <ImageView
-        android:id="@+id/imageViewStone7"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewStone6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone6"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageViewStone5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone" />
 
-    <ImageView
-        android:id="@+id/imageViewStone3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewStone4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone7"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageViewStone6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone" />
 
-    <ImageView
-        android:id="@+id/imageViewStone2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewStone3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone3"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewStone4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone" />
 
-    <ImageView
-        android:id="@+id/imageViewStone1"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewStone2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/no_stone" />
+        <ImageView
+            android:id="@+id/imageViewStone2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewStone3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone_ok" />
+
+        <ImageView
+            android:id="@+id/imageViewStone1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewStone2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stone_ok" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.carloclub.roadtoheaven.FuelView
         android:id="@+id/fuelView"
         android:layout_width="140dp"
         android:layout_height="27dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/scrollViewV"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fuel" />
 
@@ -472,5 +481,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cloud" />
+
+    <TextView
+        android:id="@+id/textViewTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="Тэма 1. Учынкі міласэрнасці і малітва."
+        android:textColor="#C50345"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
