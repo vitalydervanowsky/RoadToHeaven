@@ -118,7 +118,7 @@ public class Sokolka {
         Map.addQuestion(6, "Что из этого не является делом милосердия для тела ближнего?","Похоронить умершего","Посетить заключенного","Навестить больного","Посадить дерево",4,6);
         Map.Missions = new MyMap.Mission[5];
         Map.addMission(0);
-        Map.Missions[0].messageText="Пачнем наша падарожжа. Едзь на запраўку и здабудзь поўны бак бензіна.";
+        Map.Missions[0].messageText="Пачнем наша падарожжа. Едзь на запраўку i здабудзь поўны бак бензіна.";
         Map.Missions[0].messageIconMap="AZS";
         Map.Missions[0].messageIconSource="icon_fuel";
         Map.Missions[0].missionType="count_fuel";

@@ -46,6 +46,7 @@
     <ImageView
         android:id="@+id/prevImageView"
         style="@style/ButtonImage"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_media_prev"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +55,7 @@
     <ImageView
         android:id="@+id/nextImageView"
         style="@style/ButtonImage"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_media_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -62,6 +64,7 @@
     <ImageView
         android:id="@+id/muteImageView"
         style="@style/ButtonImage"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_sound_off"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"

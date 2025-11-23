@@ -29,7 +29,7 @@ class StoryFragment : Fragment() {
 
     private var storyData: StoryData? = null
     private var mediaPlayer: MediaPlayer? = null
-    private var isMuted = false
+    private var isMuted = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
