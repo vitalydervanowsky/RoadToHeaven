@@ -2,17 +2,19 @@
 
 package com.carloclub.roadtoheaven.gallery
 
-import android.content.ClipData
-import android.content.ClipDescription
+import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.os.Bundle
-import android.view.DragEvent
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.children
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.carloclub.roadtoheaven.Constants
@@ -23,10 +25,11 @@ import com.carloclub.roadtoheaven.gallery.model.GalleryData
 import com.carloclub.roadtoheaven.gallery.model.GalleryImage
 import com.carloclub.roadtoheaven.gallery.model.Side
 import com.carloclub.roadtoheaven.gallery.model.State
+import kotlin.math.roundToInt
 
 class GalleryFragment : Fragment() {
 
-    private var stackContainer: FrameLayout? = null
+    private var frameImageView: ImageView? = null
     private var leftDropArea: FrameLayout? = null
     private var leftTextView: TextView? = null
     private var rightDropArea: FrameLayout? = null
@@ -49,7 +52,6 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initData()
         initViews(view)
-        initListeners()
         initAdapter()
         setDataToViews()
     }
@@ -59,7 +61,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        stackContainer = view.findViewById(R.id.stackContainer)
+        frameImageView = view.findViewById(R.id.frameImageView)
         leftDropArea = view.findViewById(R.id.leftDropArea)
         leftTextView = view.findViewById(R.id.leftTextView)
         rightDropArea = view.findViewById(R.id.rightDropArea)
@@ -69,57 +71,10 @@ class GalleryFragment : Fragment() {
         pictureNameTextView = view.findViewById(R.id.pictureNameTextView)
     }
 
-    private fun initListeners() {
-        // Обработчик дропа для боковых зон
-        val dragListener = View.OnDragListener { v, event ->
-            when (event.action) {
-                DragEvent.ACTION_DRAG_STARTED -> {
-                    event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
-                }
-
-                DragEvent.ACTION_DRAG_ENTERED -> {
-                    v.alpha = 0.7f
-                    true
-                }
-
-                DragEvent.ACTION_DRAG_EXITED -> {
-                    v.alpha = 1.0f
-                    true
-                }
-
-                DragEvent.ACTION_DROP -> {
-                    v.alpha = 1.0f
-                    val side = if (v.id == R.id.leftDropArea) Side.LEFT else Side.RIGHT
-                    // Получаем данные из drag
-                    val id = event.clipData.getItemAt(0).text.toString().toInt()
-                    val galleryImage = galleryData?.images?.find { it.id == id }
-                    val isCorrectAnswer = side == galleryImage?.correctSide
-                    if (isCorrectAnswer) {
-                        galleryImage?.state = State.CORRECT
-                        updateItems(questionAdapter)
-                        stackContainer?.children?.find { it.tag == id }?.visibility = View.GONE
-                        checkIsFinished()
-                    }
-                    true
-                }
-
-                DragEvent.ACTION_DRAG_ENDED -> {
-                    v.alpha = 1.0f
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        leftDropArea?.setOnDragListener(dragListener)
-        rightDropArea?.setOnDragListener(dragListener)
-    }
-
     private fun initAdapter() {
         questionAdapter = QuestionAdapter()
         questionRecyclerView?.adapter = questionAdapter
-        updateItems(questionAdapter)
+        updateItems()
     }
 
     private fun setDataToViews() {
@@ -127,38 +82,136 @@ class GalleryFragment : Fragment() {
         leftTextView?.text = galleryData?.leftSideDescription
         rightTextView?.text = galleryData?.rightSideDescription
         galleryData?.images?.forEach { galleryImage ->
-            val imageView = ImageView(requireContext()).apply {
-                tag = galleryImage.id
-                setImageResource(galleryImage.imageRes)
-                layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT
-                )
-                // Начало drag по долгому нажатию
-                setOnLongClickListener { v ->
-                    val item = ClipData.Item(galleryImage.id.toString())
-                    val dragData = ClipData(
-                        "image_id",
-                        arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN),
-                        item
+            val imageView = createDraggableImageView(galleryImage)
+            val rootView = view as? ConstraintLayout ?: return@forEach
+
+            frameImageView?.let { frameImageView ->
+                frameImageView.post {
+                    imageView.id = View.generateViewId()
+                    rootView.addView(imageView)
+
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(rootView)
+
+                    val margin = dpToPx(FRAME_MARGIN)
+                    // Привязываем к сторонам frameImageView
+                    constraintSet.connect(
+                        imageView.id, ConstraintSet.START,
+                        frameImageView.id, ConstraintSet.START, margin
                     )
-                    val shadow = View.DragShadowBuilder(v)
-                    v.startDragAndDrop(dragData, shadow, v, 0)
-                    true
+                    constraintSet.connect(
+                        imageView.id, ConstraintSet.END,
+                        frameImageView.id, ConstraintSet.END, margin
+                    )
+                    constraintSet.connect(
+                        imageView.id, ConstraintSet.TOP,
+                        frameImageView.id, ConstraintSet.TOP, margin
+                    )
+                    constraintSet.connect(
+                        imageView.id, ConstraintSet.BOTTOM,
+                        frameImageView.id, ConstraintSet.BOTTOM, margin
+                    )
+
+                    constraintSet.constrainWidth(imageView.id, 0)  // 0 = MATCH_CONSTRAINT
+                    constraintSet.constrainHeight(imageView.id, 0) // 0 = MATCH_CONSTRAINT
+
+                    constraintSet.applyTo(rootView)
                 }
             }
-            stackContainer?.addView(imageView)
         }
 
         galleryData?.images?.last()?.let { showTitle(it) }
     }
 
-    private fun updateItems(adapter: QuestionAdapter?) {
-        galleryData?.images?.reversed()?.let { adapter?.updateItems(it) }
+    private fun updateItems() {
+        galleryData?.images?.reversed()?.let { questionAdapter?.updateItems(it) }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun createDraggableImageView(galleryImage: GalleryImage): ImageView {
+        return ImageView(requireContext()).apply {
+            tag = galleryImage.id
+            setImageResource(galleryImage.imageRes)
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            adjustViewBounds = false
+
+            elevation = 12f
+            alpha = 0.98f // избежать прозрачности от родителя
+
+            setOnTouchListener { v, event ->
+                val parent = v.parent as? ViewGroup ?: return@setOnTouchListener false
+
+                when (event.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> {
+                        parent.requestDisallowInterceptTouchEvent(true)
+                        // Поднимаем НАД всеми вью в том же родителе
+                        v.bringToFront()
+                        // Принудительно перерисовываем родителя
+                        parent.invalidate()
+                        true
+                    }
+
+                    MotionEvent.ACTION_MOVE -> {
+                        val parentLocation = IntArray(2)
+                        parent.getLocationOnScreen(parentLocation)
+
+                        val x = event.rawX - parentLocation[0] - v.width / 2f
+                        val y = event.rawY - parentLocation[1] - v.height / 2f
+
+                        v.x = x.coerceIn(0f, parent.width - v.width.toFloat())
+                        v.y = y.coerceIn(0f, parent.height - v.height.toFloat())
+
+                        true
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        val rawX = event.rawX
+                        val rawY = event.rawY
+
+                        val leftRect = IntArray(2).apply { leftDropArea?.getLocationOnScreen(this) ?: intArrayOf(0, 0) }
+                        val rightRect = IntArray(2).apply { rightDropArea?.getLocationOnScreen(this) ?: intArrayOf(0, 0) }
+
+                        val inLeftArea = leftDropArea != null &&
+                                rawX >= leftRect[0] && rawX <= leftRect[0] + leftDropArea.getIntWidth() &&
+                                rawY >= leftRect[1] && rawY <= leftRect[1] + leftDropArea.getIntHeight()
+
+                        val inRightArea = rightDropArea != null &&
+                                rawX >= rightRect[0] && rawX <= rightRect[0] + rightDropArea.getIntWidth() &&
+                                rawY >= rightRect[1] && rawY <= rightRect[1] + rightDropArea.getIntHeight()
+
+                        val side = when {
+                            inLeftArea -> Side.LEFT
+                            inRightArea -> Side.RIGHT
+                            else -> null
+                        }
+
+                        val isCorrectAnswer = side != null && side == galleryImage.correctSide
+
+                        if (isCorrectAnswer) {
+                            galleryImage.state = State.CORRECT
+                            updateItems()
+                            v.visibility = View.GONE
+                            checkIsFinished()
+                        } else {
+                            val x = (frameImageView?.x ?: 0f) + dpToPx(FRAME_MARGIN)
+                            val y = (frameImageView?.y ?: 0f) + dpToPx(FRAME_MARGIN)
+                            v.animate()
+                                .x(x)
+                                .y(y)
+                                .setDuration(300)
+                                .start()
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
     }
 
     private fun showTitle(galleryImage: GalleryImage) {
         pictureNameTextView?.text = galleryImage.title
+        pictureNameTextView?.visibility = View.VISIBLE
     }
 
     private fun hideTitle() {
@@ -166,7 +219,8 @@ class GalleryFragment : Fragment() {
     }
 
     private fun checkIsFinished() {
-        if (galleryData?.images?.none { it.state == State.DEFAULT } == true) {
+        if (galleryData?.images?.all { it.state == State.CORRECT } == true) {
+            frameImageView?.visibility = View.GONE
             hideTitle()
             Constants.DATAGAME.stones++
             DialogMessage.showMessage(
@@ -177,15 +231,24 @@ class GalleryFragment : Fragment() {
                 requireActivity()
             )
         } else {
-            galleryData?.images?.reversed()?.firstOrNull { it.state == State.DEFAULT }?.let {
+            galleryData?.images?.lastOrNull { it.state == State.DEFAULT }?.let {
                 showTitle(it)
-            } ?: run {
-                hideTitle()
-            }
+            } ?: hideTitle()
         }
     }
 
+    private fun View?.getIntWidth(): Int = this?.width ?: 0
+
+    private fun View?.getIntHeight(): Int = this?.height ?: 0
+
+    private fun dpToPx(dp: Int): Int {
+        val metrics: DisplayMetrics = Resources.getSystem().displayMetrics
+        val px = dp * (metrics.densityDpi / 160f)
+        return px.roundToInt()
+    }
+
     companion object {
+        private const val FRAME_MARGIN = 8
         const val GALLERY_IMAGES_ARG = "GALLERY_IMAGES_ARG"
 
         @JvmStatic

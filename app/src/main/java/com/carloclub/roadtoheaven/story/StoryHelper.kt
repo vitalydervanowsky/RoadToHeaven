@@ -39,7 +39,7 @@ object StoryHelper {
                     audioRes = R.raw.organ
                 ),
                 PageData(
-                    text = "Навукоўцы сцвердзілі, што плямы на Гостыі - гэта сапраўдны кавалачак чалавечай сардэчнай мышцы.",
+                    text = "Навукоўцы сцвердзілі, што плямы на Гостыі — гэта сапраўдны кавалачак чалавечай сардэчнай мышцы.",
                     imageRes = R.drawable.sokulka_story_4,
                     audioRes = R.raw.organ
                 )
