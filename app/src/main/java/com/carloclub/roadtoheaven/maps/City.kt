@@ -10,4 +10,8 @@ enum class City(
     LIEGE(R.drawable.city_liege),
     FAVERNEY(R.drawable.city_faverney),
     LANCIANO(R.drawable.city_lanciano),
+    BUENOS(R.drawable.city_buenos),
+    TUMAKA(R.drawable.city_tumaka),
+    TRYWANDRUM(R.drawable.city_trywandrum),
+    LIPA(R.drawable.city_lipa),
 }

@@ -27,5 +27,21 @@ object CityHelper {
                 city = City.LANCIANO,
                 isEnabled = false
             ),
+                MapCity(
+                        city = City.BUENOS,
+                        isEnabled = false
+                ),
+                MapCity(
+                        city = City.TUMAKA,
+                        isEnabled = false
+                ),
+                MapCity(
+                        city = City.TRYWANDRUM,
+                        isEnabled = false
+                ),
+                MapCity(
+                        city = City.LIPA,
+                        isEnabled = false
+                ),
         )
 }
