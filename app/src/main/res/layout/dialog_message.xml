@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@drawable/sokulka_church">
+    tools:background="@drawable/sokolka_church">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialog"

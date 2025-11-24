@@ -50,7 +50,7 @@ class SchoolClassFragment : Fragment() {
     }
 
     private fun initData() {
-        val city = arguments?.getSerializable(Constants.CITY_ARG) as? City ?: City.SOKULKA
+        val city = arguments?.getSerializable(Constants.CITY_ARG) as? City ?: City.SOKOLKA
         classType = arguments?.getSerializable(CLASS_TYPE_ARG) as? ClassType ?: ClassType.A
         classLessonData = LessonHelper.getClassLessonData(city, classType)
         isLessonDone = false

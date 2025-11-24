@@ -640,7 +640,7 @@ public class MyMap {
     public static MyMap getMap(City city){
         MyMap myMap = null;
         switch (city) {
-            case SOKULKA:
+            case SOKOLKA:
             myMap = new MyMap(20, 10, R.drawable.map_sokolka);
             Sokolka.LoadMap(myMap);
             Sokolka.loadTexts(myMap);

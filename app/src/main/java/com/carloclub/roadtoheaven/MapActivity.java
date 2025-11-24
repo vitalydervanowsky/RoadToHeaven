@@ -98,7 +98,7 @@ public class MapActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.CITY_ARG)) {
             city = (City) getIntent().getSerializableExtra(Constants.CITY_ARG);
             if (city == null) {
-                city = City.SOKULKA;
+                city = City.SOKOLKA;
             }
             map = MyMap.getMap(city);
         }

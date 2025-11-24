@@ -8,7 +8,7 @@ object CityHelper {
     fun getAllCities(): List<MapCity> =
         listOf(
             MapCity(
-                city = City.SOKULKA,
+                city = City.SOKOLKA,
                 isEnabled = true
             ),
             MapCity(
