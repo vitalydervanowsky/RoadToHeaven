@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- creation of animation list-->
+    <item
+        android:drawable="@drawable/persona8"
+        android:duration="700" />
+    <item
+        android:drawable="@drawable/persona8_2"
+        android:duration="100" />
+
+
+</animation-list>

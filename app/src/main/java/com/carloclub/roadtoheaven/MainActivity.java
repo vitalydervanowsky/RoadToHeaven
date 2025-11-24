@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     imageViewWallpaper =findViewById(R.id.imageViewWallpaper);
                     car = findViewById(R.id.car);
                     imageViewWallpaper.setImageResource(0);
-                    car.setImageDrawable(getDrawable(R.drawable.mainanimation));
+                    car.setImageDrawable(getDrawable(R.drawable.caranimation));
                     ((AnimationDrawable)car.getDrawable()).start();
                     rrrMediaPlayer.start();
                 }

@@ -90,13 +90,41 @@ public class MyMap {
     }
     public ArrayList<MapCell> getCellsStones() {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
+        for (int i=1;i<=8;i++){
+            CR.add(null);
+        }
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("books1")|| mMapCells[x][y].type.equals("stones1")|| mMapCells[x][y].type.equals("RM1")|| mMapCells[x][y].type.equals("tetris")
-                        || mMapCells[x][y].type.equals("building1")|| mMapCells[x][y].type.equals("cinema1")|| mMapCells[x][y].type.equals("kids")){
-                    if (mMapCells[x][y].object.isActual())
-                        CR.add(mMapCells[x][y]);
+                if (mMapCells[x][y].type.equals("stones1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(0,mMapCells[x][y]);
                 }
+                if (mMapCells[x][y].type.equals("church2")&&mMapCells[x][y].object.isActual()){
+                    CR.set(1,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("cinema1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(2,mMapCells[x][y]);
+                }
+                if ((mMapCells[x][y].type.equals("building1")|| mMapCells[x][y].type.equals("tetris"))&&mMapCells[x][y].object.isActual()){
+                    CR.set(3,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("kids")&&mMapCells[x][y].object.isActual()){
+                    CR.set(4,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("school1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(5,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("RM1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(6,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("books1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(7,mMapCells[x][y]);
+                }
+
+//                if (mMapCells[x][y].type.equals("books1")|| mMapCells[x][y].type.equals("stones1")|| mMapCells[x][y].type.equals("RM1")|| mMapCells[x][y].type.equals("tetris")
+//                        || mMapCells[x][y].type.equals("building1")|| mMapCells[x][y].type.equals("cinema1")|| mMapCells[x][y].type.equals("kids")){
+//                    if (mMapCells[x][y].object.isActual())
+//
+//                }
 
             }
 
@@ -289,7 +317,7 @@ public class MyMap {
                     mMapCells[x][y+1].object= mMapCells[x][y].object;
                     mMapCells[x][y+1].type = "school1";
                     mMapCells[x+1][y+1].object= mMapCells[x][y].object;
-                    mMapCells[x+1][y+1].type = "school1";
+                    mMapCells[x+1][y+1].type = "school2";
 
                 }
                 else if (mMapCells[x][y].type.equals("building")){
@@ -340,7 +368,7 @@ public class MyMap {
 
                     mMapCells[x][y+2].type = "church1";
                     mMapCells[x][y+2].object= mMapCells[x][y].object;
-                    mMapCells[x+1][y+2].type = "church1";
+                    mMapCells[x+1][y+2].type = "church2";
                     mMapCells[x+1][y+2].object= mMapCells[x][y].object;
                     mMapCells[x+2][y+2].type = "church1";
                     mMapCells[x+2][y+2].object= mMapCells[x][y].object;

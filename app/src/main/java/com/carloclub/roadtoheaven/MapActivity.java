@@ -366,10 +366,11 @@ public class MapActivity extends AppCompatActivity {
         showAnimateViev(findViewById(R.id.stones5), CR, 5);
         showAnimateViev(findViewById(R.id.stones6), CR, 6);
         showAnimateViev(findViewById(R.id.stones7), CR, 7);
+        showAnimateViev(findViewById(R.id.stones8), CR, 8);
     }
 
     private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell,boolean animate){
-        if (CR.size()>=numCell){
+        if (CR.size()>=numCell && CR.get(numCell-1)!=null){
             IV.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) IV.getLayoutParams();
             int x = CR.get(numCell-1).x * map.scale;
@@ -611,6 +612,23 @@ public class MapActivity extends AppCompatActivity {
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.ConstraintStones).getLayoutParams();
         params.setMargins(params.leftMargin, 0, 0, 0);
         findViewById(R.id.ConstraintStones).setLayoutParams(params);
+
+        if (Constants.DATAGAME.getStones()>=1)
+            findViewById(R.id.imageViewStone1).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone1).setAlpha((float) 1/2);
+        if (Constants.DATAGAME.getStones()>=2)
+            findViewById(R.id.imageViewStone2).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone2).setAlpha((float) 1/2);
+        if (Constants.DATAGAME.getStones()>=3)
+            findViewById(R.id.imageViewStone3).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone3).setAlpha((float) 1/2);
+        if (Constants.DATAGAME.getStones()>=4)
+            findViewById(R.id.imageViewStone4).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone4).setAlpha((float) 1/2);
 
         if (hideStoness!=null) {hideStoness.cancel(); hideStoness=null;}
         hideStoness = new HideStoness();

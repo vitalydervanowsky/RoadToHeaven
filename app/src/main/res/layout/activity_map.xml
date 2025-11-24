@@ -157,7 +157,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona1animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones2"
@@ -181,7 +181,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona3animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones4"
@@ -193,7 +193,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona4animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones7"
@@ -205,7 +205,19 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona7animation"></ImageView>
+
+                <ImageView
+                    android:id="@+id/stones8"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="96dp"
+                    android:fillAfter="true"
+                    android:fillEnabled="true"
+                    android:visibility="invisible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/persona8animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones6"
@@ -217,7 +229,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona6animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/stones5"
@@ -229,7 +241,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/persona2animation"></ImageView>
+                    app:srcCompat="@drawable/persona5animation"></ImageView>
 
                 <ImageView
                     android:id="@+id/nav"
