@@ -65,7 +65,7 @@
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_canister" />
+            app:srcCompat="@drawable/icon_fuel" />
 
         <TextView
             android:id="@+id/textView4"

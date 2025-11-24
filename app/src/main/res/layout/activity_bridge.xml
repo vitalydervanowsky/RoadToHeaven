@@ -102,7 +102,7 @@
         android:fillEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/imageView30"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/carleft1">
+        app:srcCompat="@drawable/cabrioleft">
 
     </ImageView>
 

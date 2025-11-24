@@ -52,7 +52,7 @@ public class MapObjectBridge extends MapObject {
     public void runAction(){
 
         if ((Constants.DATAGAME.getStones()+Constants.DATAGAME.getRubies())<7) {
-            DialogMessage.showMessage(R.drawable.icon_stones, R.drawable.icon_stones, Messages.getMessageNotEnoughStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
+            DialogMessage.showMessage(R.drawable.icon_stone, R.drawable.icon_stone, Messages.getMessageNotEnoughStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
             return;
         }
 //        //запускаем строительство моста
