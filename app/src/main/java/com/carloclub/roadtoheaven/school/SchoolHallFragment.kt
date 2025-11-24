@@ -14,7 +14,7 @@ import com.carloclub.roadtoheaven.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener
-import com.carloclub.roadtoheaven.school.model.ClassType
+import com.carloclub.roadtoheaven.model.ClassType
 
 class SchoolHallFragment : Fragment() {
 

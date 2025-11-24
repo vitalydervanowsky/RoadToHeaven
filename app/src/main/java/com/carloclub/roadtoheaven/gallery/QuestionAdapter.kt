@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.gallery.model.GalleryImage
-import com.carloclub.roadtoheaven.gallery.model.State
+import com.carloclub.roadtoheaven.model.GalleryImage
+import com.carloclub.roadtoheaven.model.State
 
 class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.Question>() {
 

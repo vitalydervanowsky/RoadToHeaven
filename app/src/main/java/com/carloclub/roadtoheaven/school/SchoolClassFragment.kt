@@ -16,10 +16,11 @@ import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool
 import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.helper.LessonHelper
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener
-import com.carloclub.roadtoheaven.school.model.ClassLessonData
-import com.carloclub.roadtoheaven.school.model.ClassType
+import com.carloclub.roadtoheaven.model.ClassLessonData
+import com.carloclub.roadtoheaven.model.ClassType
 import com.carloclub.roadtoheaven.story.StoryFragment
 import com.carloclub.roadtoheaven.story.model.StoryData
 
@@ -51,7 +52,7 @@ class SchoolClassFragment : Fragment() {
     private fun initData() {
         val city = arguments?.getSerializable(Constants.CITY_ARG) as? City ?: City.SOKULKA
         classType = arguments?.getSerializable(CLASS_TYPE_ARG) as? ClassType ?: ClassType.A
-        classLessonData = SchoolHelper.getLessonData(city, classType)
+        classLessonData = LessonHelper.getClassLessonData(city, classType)
         isLessonDone = false
     }
 

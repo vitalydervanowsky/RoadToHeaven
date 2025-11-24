@@ -34,7 +34,6 @@ public class MyMap {
     public Words[] wordsForRM;
     public int mLength;
     public int mHeight;
-    public ArrayList<Lesson> myLessons;
 
     public ArrayList<Question> tetrisQuestion;
 

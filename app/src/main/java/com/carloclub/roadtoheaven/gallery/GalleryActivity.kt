@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.gallery.model.GalleryData
+import com.carloclub.roadtoheaven.model.GalleryData
 
 class GalleryActivity : AppCompatActivity() {
 

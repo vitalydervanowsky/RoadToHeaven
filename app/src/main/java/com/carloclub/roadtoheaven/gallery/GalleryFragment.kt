@@ -21,10 +21,10 @@ import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage
 import com.carloclub.roadtoheaven.Messages
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.gallery.model.GalleryData
-import com.carloclub.roadtoheaven.gallery.model.GalleryImage
-import com.carloclub.roadtoheaven.gallery.model.Side
-import com.carloclub.roadtoheaven.gallery.model.State
+import com.carloclub.roadtoheaven.model.GalleryData
+import com.carloclub.roadtoheaven.model.GalleryImage
+import com.carloclub.roadtoheaven.model.State
+import com.carloclub.roadtoheaven.model.ClassType
 import kotlin.math.roundToInt
 
 class GalleryFragment : Fragment() {
@@ -74,13 +74,12 @@ class GalleryFragment : Fragment() {
     private fun initAdapter() {
         questionAdapter = QuestionAdapter()
         questionRecyclerView?.adapter = questionAdapter
-        updateItems()
     }
 
     private fun setDataToViews() {
         titleTextView?.text = galleryData?.title
-        leftTextView?.text = galleryData?.leftSideDescription
-        rightTextView?.text = galleryData?.rightSideDescription
+        leftTextView?.text = galleryData?.topics?.get(ClassType.A)
+        rightTextView?.text = galleryData?.topics?.get(ClassType.B)
         galleryData?.images?.forEach { galleryImage ->
             val imageView = createDraggableImageView(galleryImage)
             val rootView = view as? ConstraintLayout ?: return@forEach
@@ -116,14 +115,15 @@ class GalleryFragment : Fragment() {
                     constraintSet.constrainHeight(imageView.id, 0) // 0 = MATCH_CONSTRAINT
 
                     constraintSet.applyTo(rootView)
+
+                    showTitle(galleryImage)
+                    updateQuestionNumberBar()
                 }
             }
         }
-
-        galleryData?.images?.last()?.let { showTitle(it) }
     }
 
-    private fun updateItems() {
+    private fun updateQuestionNumberBar() {
         galleryData?.images?.reversed()?.let { questionAdapter?.updateItems(it) }
     }
 
@@ -179,17 +179,17 @@ class GalleryFragment : Fragment() {
                                 rawX >= rightRect[0] && rawX <= rightRect[0] + rightDropArea.getIntWidth() &&
                                 rawY >= rightRect[1] && rawY <= rightRect[1] + rightDropArea.getIntHeight()
 
-                        val side = when {
-                            inLeftArea -> Side.LEFT
-                            inRightArea -> Side.RIGHT
+                        val classType = when {
+                            inLeftArea -> ClassType.A
+                            inRightArea -> ClassType.B
                             else -> null
                         }
 
-                        val isCorrectAnswer = side != null && side == galleryImage.correctSide
+                        val isCorrectAnswer = classType != null && classType == galleryImage.classType
 
                         if (isCorrectAnswer) {
                             galleryImage.state = State.CORRECT
-                            updateItems()
+                            updateQuestionNumberBar()
                             v.visibility = View.GONE
                             checkIsFinished()
                         } else {
