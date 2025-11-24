@@ -15,7 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.story.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryData
 
 class StoryFragment : Fragment() {
 

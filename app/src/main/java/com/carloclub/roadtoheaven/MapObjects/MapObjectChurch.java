@@ -5,7 +5,7 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.model.DialogButton;
 import com.carloclub.roadtoheaven.story.StoryHelper;
-import com.carloclub.roadtoheaven.story.model.StoryData;
+import com.carloclub.roadtoheaven.model.StoryData;
 
 public class MapObjectChurch extends MapObject {
     String title;

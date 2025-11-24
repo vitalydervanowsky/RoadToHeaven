@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool
@@ -22,7 +22,7 @@ import com.carloclub.roadtoheaven.model.DialogButtonListener
 import com.carloclub.roadtoheaven.model.ClassLessonData
 import com.carloclub.roadtoheaven.model.ClassType
 import com.carloclub.roadtoheaven.story.StoryFragment
-import com.carloclub.roadtoheaven.story.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryData
 
 class SchoolClassFragment : Fragment() {
 

@@ -19,8 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.carloclub.roadtoheaven.MapObjects.MapObject;
-import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
+import com.carloclub.roadtoheaven.maps.City;
 
 import java.util.ArrayList;
 import java.util.Timer;

@@ -1,6 +1,6 @@
 package com.carloclub.roadtoheaven.model
 
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 
 data class ImageLesson(
     val id: Int,

@@ -16,7 +16,8 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectTetris;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
-import com.carloclub.roadtoheaven.Maps.Sokolka;
+import com.carloclub.roadtoheaven.maps.Sokolka;
+import com.carloclub.roadtoheaven.maps.City;
 
 import java.util.ArrayList;
 import java.util.Random;

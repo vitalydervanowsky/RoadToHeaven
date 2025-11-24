@@ -2,10 +2,10 @@ package com.carloclub.roadtoheaven.story
 
 import android.app.Activity
 import android.content.Intent
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.story.model.PageData
-import com.carloclub.roadtoheaven.story.model.StoryData
+import com.carloclub.roadtoheaven.model.PageData
+import com.carloclub.roadtoheaven.model.StoryData
 
 object StoryHelper {
     fun showStoryActivity(activity: Activity, storyData: StoryData) {
@@ -14,9 +14,10 @@ object StoryHelper {
         })
     }
 
-    fun getStoryData(city: City) =
+    fun getStoryData(city: City): StoryData? =
         when (city) {
             City.SOKULKA -> getChurchStoryDataForSokulka()
+            else -> null
         }
 
     private fun getChurchStoryDataForSokulka() =

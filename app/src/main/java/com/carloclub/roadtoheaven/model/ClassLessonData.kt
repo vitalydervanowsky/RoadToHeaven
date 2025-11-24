@@ -1,6 +1,5 @@
 package com.carloclub.roadtoheaven.model
 
-import com.carloclub.roadtoheaven.story.model.PageData
 import java.io.Serializable
 
 data class ClassLessonData(

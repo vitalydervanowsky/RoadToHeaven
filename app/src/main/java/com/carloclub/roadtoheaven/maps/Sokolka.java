@@ -1,4 +1,4 @@
-package com.carloclub.roadtoheaven.Maps;
+package com.carloclub.roadtoheaven.maps;
 
 import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.MyMap;

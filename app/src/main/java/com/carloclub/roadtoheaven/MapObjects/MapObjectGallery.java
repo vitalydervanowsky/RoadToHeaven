@@ -5,7 +5,7 @@ import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.carloclub.roadtoheaven.City;
+import com.carloclub.roadtoheaven.maps.City;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.gallery.GalleryActivity;
@@ -13,7 +13,7 @@ import com.carloclub.roadtoheaven.gallery.GalleryFragment;
 import com.carloclub.roadtoheaven.helper.LessonHelper;
 import com.carloclub.roadtoheaven.model.DialogButton;
 import com.carloclub.roadtoheaven.story.StoryHelper;
-import com.carloclub.roadtoheaven.story.model.StoryData;
+import com.carloclub.roadtoheaven.model.StoryData;
 
 public class MapObjectGallery extends MapObject {
     String title;

@@ -1,6 +1,6 @@
 package com.carloclub.roadtoheaven.helper
 
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.mapper.toGalleryImage
 import com.carloclub.roadtoheaven.mapper.toPageData

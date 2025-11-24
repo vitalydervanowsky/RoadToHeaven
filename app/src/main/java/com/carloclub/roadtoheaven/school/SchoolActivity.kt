@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.carloclub.roadtoheaven.Constants
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
 
 class SchoolActivity : AppCompatActivity() {

@@ -3,17 +3,20 @@ package com.carloclub.roadtoheaven;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.VideoView;
 
+import com.carloclub.roadtoheaven.helper.CityHelper;
+import com.carloclub.roadtoheaven.maps.CityAdapter;
+import com.carloclub.roadtoheaven.maps.MapCity;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -135,15 +138,14 @@ public class MainActivity extends AppCompatActivity {
 
                 setContentView(R.layout.activity_main);
 
-                ImageView sokolka = findViewById(R.id.imageSokolka);
-                sokolka.setOnClickListener(v ->{
+                List<MapCity> cities = CityHelper.INSTANCE.getAllCities();
+                CityAdapter cityAdapter = new CityAdapter(cities, mapCity -> {
                     Intent i = new Intent(MainActivity.this, MapActivity.class);
-                    i.putExtra(Constants.CITY_ARG, City.SOKULKA);
+                    i.putExtra(Constants.CITY_ARG, mapCity.getCity());
                     startActivityForResult(i,0);
+                    return null;
                 });
-
-
-
+                ((RecyclerView) findViewById(R.id.recyclerView)).setAdapter(cityAdapter);
             });
         }
 

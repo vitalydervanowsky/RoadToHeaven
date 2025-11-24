@@ -1,4 +1,4 @@
-package com.carloclub.roadtoheaven.story.model
+package com.carloclub.roadtoheaven.model
 
 import java.io.Serializable
 

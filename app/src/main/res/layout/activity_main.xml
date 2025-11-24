@@ -19,116 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
 
-    <HorizontalScrollView
-        android:id="@+id/scrollViewH"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_main_city"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/imageSokolka"
-                android:layout_width="160dp"
-                android:layout_height="143dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/city_sokolka" />
-
-
-            <ImageView
-                android:id="@+id/imageAusburg"
-                android:layout_width="160dp"
-                android:layout_height="143dp"
-                android:layout_marginStart="15dp"
-                android:alpha="0.2"
-                app:layout_constraintStart_toEndOf="@+id/imageSokolka"
-                app:layout_constraintTop_toTopOf="@+id/imageSokolka"
-                app:srcCompat="@drawable/city_ausburg" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="87dp"
-                android:layout_height="90dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageLieg"
-                app:layout_constraintEnd_toEndOf="@+id/imageLieg"
-                app:layout_constraintStart_toStartOf="@+id/imageLieg"
-                app:layout_constraintTop_toTopOf="@+id/imageLieg"
-                app:srcCompat="@android:drawable/ic_lock_lock"
-                tools:ignore="MissingConstraints" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="87dp"
-                android:layout_height="90dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageAusburg"
-                app:layout_constraintEnd_toEndOf="@+id/imageAusburg"
-                app:layout_constraintStart_toStartOf="@+id/imageAusburg"
-                app:layout_constraintTop_toTopOf="@+id/imageAusburg"
-                app:srcCompat="@android:drawable/ic_lock_lock"
-                tools:ignore="MissingConstraints" />
-
-            <ImageView
-                android:id="@+id/imageLieg"
-                android:layout_width="160dp"
-                android:layout_height="143dp"
-                android:layout_marginStart="15dp"
-                android:alpha="0.2"
-                app:layout_constraintStart_toEndOf="@+id/imageAusburg"
-                app:layout_constraintTop_toTopOf="@+id/imageAusburg"
-                app:srcCompat="@drawable/city_lieg" />
-
-            <ImageView
-                android:id="@+id/imageFaverne"
-                android:layout_width="160dp"
-                android:layout_height="143dp"
-                android:layout_marginStart="15dp"
-                android:alpha="0.2"
-                app:layout_constraintStart_toEndOf="@+id/imageLieg"
-                app:layout_constraintTop_toTopOf="@+id/imageLieg"
-                app:srcCompat="@drawable/city_faverne" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="87dp"
-                android:layout_height="90dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageFaverne"
-                app:layout_constraintEnd_toEndOf="@+id/imageFaverne"
-                app:layout_constraintStart_toStartOf="@+id/imageFaverne"
-                app:layout_constraintTop_toTopOf="@+id/imageFaverne"
-                app:srcCompat="@android:drawable/ic_lock_lock"
-                tools:ignore="MissingConstraints" />
-
-            <ImageView
-                android:id="@+id/imageLancyana"
-                android:layout_width="160dp"
-                android:layout_height="143dp"
-                android:layout_marginStart="15dp"
-                android:alpha="0.2"
-                app:layout_constraintStart_toEndOf="@+id/imageFaverne"
-                app:layout_constraintTop_toTopOf="@+id/imageFaverne"
-                app:srcCompat="@drawable/city_lancyana" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="87dp"
-                android:layout_height="90dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageLancyana"
-                app:layout_constraintEnd_toEndOf="@+id/imageLancyana"
-                app:layout_constraintStart_toStartOf="@+id/imageLancyana"
-                app:layout_constraintTop_toTopOf="@+id/imageLancyana"
-                app:srcCompat="@android:drawable/ic_lock_lock"
-                tools:ignore="MissingConstraints" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </HorizontalScrollView>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"/>
 
     <ImageView
         android:id="@+id/imageView16"
@@ -147,7 +48,7 @@
         android:layout_marginStart="15dp"
         android:fillAfter="true"
         android:fillEnabled="true"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollViewH"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/caranimation">
 

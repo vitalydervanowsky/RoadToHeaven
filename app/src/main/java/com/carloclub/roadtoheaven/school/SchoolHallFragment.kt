@@ -10,7 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage.showMessage
-import com.carloclub.roadtoheaven.City
+import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener

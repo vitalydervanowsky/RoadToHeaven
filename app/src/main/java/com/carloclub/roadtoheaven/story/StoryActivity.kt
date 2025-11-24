@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.carloclub.roadtoheaven.R
-import com.carloclub.roadtoheaven.story.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryData
 
 class StoryActivity : AppCompatActivity() {
 
