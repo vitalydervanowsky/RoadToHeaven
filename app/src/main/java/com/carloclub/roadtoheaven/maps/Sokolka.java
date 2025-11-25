@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class Sokolka {
     public static void loadTexts(MyMap Map) {
-        if (Constants.DATAGAME.currentLang==Constants.LANG_RU){
+        if (Constants.isRu()) {
             loadTextsRU(Map);
         }
-        if (Constants.DATAGAME.currentLang==Constants.LANG_BY){
+        if (Constants.isBy()) {
             loadTextsBY(Map);
         }
     }
@@ -158,20 +158,24 @@ public class Sokolka {
         Map.addWordsForRM(5, "ДРУЖА","Анёле Божы,","мой, Ты заўсёды будзь са мной.\nРана, увечар і ўначы Будзь ласкаў мне памагчы");
         Map.addWordsForRM(6, "ЗМАГАЦЬ","Анёле Божы, дружа мой, Ты заўсёды будзь са мной.\nРана, увечар і ўначы Будзь ласкаў мне памагчы","духа злога, Верна служыць Богу.\nДушу, цела сцеражы, Да жыцця вечнага давядзі.");
 
-        Map.tetrisQuestion = new ArrayList<MyMap.Question>();
+        Map.tetrisQuestion = new ArrayList<>();
         String dataQuestion;
         dataQuestion = "Разбяры цаглінкі і ўбачыш: Хто шчаслівы, бо спазнае міласэрнасць?";
         Map.tetrisQuestion.add(new MyMap.Question(dataQuestion,"Справядлівыя","Чыстыя сэрцам","Міласэрныя","Міратворцы",3,0, R.drawable.back_tetris));
-        Map.cinemaQuestion = new ArrayList<MyMap.Question>();
+
+        Map.cinemaQuestion = new ArrayList<>();
         dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым кадры фільма \"Паліяна\"";
         Map.cinemaQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.polianna));
-        Map.scoolQuestion = new ArrayList<MyMap.Question>();
+
+        Map.schoolQuestions = new ArrayList<>();
         dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым малюнку?";
-        Map.scoolQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.mercy_act_body_gallery_5));
-        dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым малюнку?";
-        Map.scoolQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",3,0, R.drawable.mercy_act_soul_gallery_7));
-        Map.kidsQuestion = new ArrayList<MyMap.Question>();
-        dataQuestion = "Які ўчынак міласэрнасці паказаны на гэтым малюнку?";
+        Map.schoolQuestions.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",3,0, R.drawable.mercy_act_body_gallery_5));
+        Map.schoolQuestions.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",3,0, R.drawable.mercy_act_soul_gallery_7));
+
+        Map.churchQuestions = new ArrayList<>();
+        Map.churchQuestions.add(new MyMap.Question(dataQuestion,"Вучыць тых, хто не ведае","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",1,0, R.drawable.mercy_act_soul_gallery_2));
+
+        Map.kidsQuestion = new ArrayList<>();
         Map.kidsQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",1,0, R.drawable.drawing1));
     }
 
@@ -315,8 +319,6 @@ public class Sokolka {
         Map.mMapCells[19][7].type = "fuel";
         Map.mMapCells[19][8].type = "forest";
         Map.mMapCells[19][9].type = "river";
-        Map.mMapCells[8][3].attributes[0] = "Костёл Св. Антония";  	//Титул:
-        Map.mMapCells[8][3].attributes[2] = "churchsokolka2";  	//Интерьер:
         Map.mMapCells[0][3].attributes[0] = "Пол";  	//Имя
         Map.mMapCells[0][3].attributes[1] = "9";  	//Таргет X:
         Map.mMapCells[0][3].attributes[2] = "4";  	//Таргет Y:

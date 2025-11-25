@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
 
-import com.carloclub.roadtoheaven.Constants;
-import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.Figure;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
@@ -23,6 +20,8 @@ import com.carloclub.roadtoheaven.PaintView;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.helper.MessageUtil;
+import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.Calendar;
@@ -72,20 +71,12 @@ public class MapObjectTetris extends MapObject {
     public void endVictorina(boolean isOK) {
         if (!isOK) {
             //incorrectMediaPlayer.start();
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageMistake(), "", mapActivity);
+            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageMistake(), mapActivity);
 
         } else {
             //triumfMediaPlayer.start();
-            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
-            mapActivity.updateBar();
-
-            if (Constants.DATAGAME.getStones() == 7) {
-                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, Messages.getMessageGotAllStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-            } else {
-                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, Messages.getMessageGotStone(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-            }
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
             lastSuccess = Calendar.getInstance().getTime();
-            mapActivity.showRubies();
         }
         dialog.dismiss();
 
@@ -105,7 +96,7 @@ public class MapObjectTetris extends MapObject {
     @Override
     public void runAction(){
         if (!isActual()) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
+            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageGalleryTechnicalBreak(), mapActivity);
             return;
         }
         if (dialog==null) {

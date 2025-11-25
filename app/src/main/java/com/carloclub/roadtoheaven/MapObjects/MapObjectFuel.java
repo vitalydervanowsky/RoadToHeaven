@@ -83,7 +83,7 @@ public class MapObjectFuel extends MapObject {
     }
 
     private void showQuestion() {
-        MyMap.Question currentQuestion = questions.getQuestion(level, Constants.LANG_BY);
+        MyMap.Question currentQuestion = questions.getQuestion(level);
         questionTextView.setVisibility(View.VISIBLE);
         questionTextView.setText(currentQuestion.question);
         victorina.loadQuestion(currentQuestion);

@@ -53,4 +53,9 @@
         <item name="android:fontFamily">@font/ubuntu_medium</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="Text.Italic" parent="Theme.RoadToHeaven">
+        <item name="android:fontFamily">@font/ubuntu_medium_italic</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

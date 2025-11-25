@@ -2,12 +2,12 @@ package com.carloclub.roadtoheaven.MapObjects;
 
 import android.media.MediaPlayer;
 
-import com.carloclub.roadtoheaven.Constants;
-import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.Puzzle;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.helper.MessageUtil;
+import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.Calendar;
@@ -34,16 +34,8 @@ public class MapObjectStones extends MapObject {
 
         } else {
             triumfMediaPlayer.start();
-            Constants.DATAGAME.setStones(Constants.DATAGAME.getStones() + 1);
-            mapActivity.updateBar();
-
-            if (Constants.DATAGAME.getStones() == 7) {
-                DialogMessage.showMessage(R.drawable.bridge, R.drawable.stones1, Messages.getMessageGotAllStones(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-            } else {
-                DialogMessage.showMessage(R.drawable.gratulation, R.drawable.stones1, Messages.getMessageGotStone(), Messages.getMessageHowManyStonesGot() + String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
-            }
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
             lastSuccess = Calendar.getInstance().getTime();
-            mapActivity.showRubies();
         }
         puzzle.dialog.hide();
 
@@ -57,7 +49,7 @@ public class MapObjectStones extends MapObject {
     @Override
     public void runAction() {
         if (!isActual()) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
+            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageGalleryTechnicalBreak(), mapActivity);
             return;
         }
 

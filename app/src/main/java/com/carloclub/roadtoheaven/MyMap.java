@@ -39,7 +39,8 @@ public class MyMap {
     public ArrayList<Question> tetrisQuestion;
 
     public ArrayList<Question> cinemaQuestion;
-    public ArrayList<Question> scoolQuestion;
+    public ArrayList<Question> schoolQuestions;
+    public ArrayList<Question> churchQuestions;
     public ArrayList<Question> kidsQuestion;
 
     public MapObject currentObject;
@@ -485,7 +486,7 @@ public class MyMap {
     public void addMission(int i){
         Missions[i] = new Mission();
     }
-    public Question[] getQuestions(int count, String language) {
+    public Question[] getQuestions(int count) {
         for (int q = 0; q< mQuestions.length; q++)
             mQuestions[q].used = false;
 
@@ -502,7 +503,7 @@ public class MyMap {
                     }
             }
             mQuestions[index].used=true;
-            if (language.equals(Constants.LANG_BY)) {
+            if (Constants.isBy()) {
                 AQ[i] = mQuestions[index];
             } else {
                 AQ[i] = mQuestions[index];

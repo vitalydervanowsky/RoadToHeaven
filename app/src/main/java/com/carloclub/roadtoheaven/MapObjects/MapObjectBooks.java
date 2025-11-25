@@ -21,6 +21,7 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class MapObjectBooks extends MapObject {
     public void runAction(){
 
         if (!isActual()) { //чаще 3 минут не давать
-            DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,Messages.getMessageTechnicalBreak(),"", mapActivity);
+            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageTechnicalBreak(), mapActivity);
             return;
         }
         if (dialog==null) {

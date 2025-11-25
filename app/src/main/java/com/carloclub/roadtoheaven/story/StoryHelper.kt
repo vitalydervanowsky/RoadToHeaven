@@ -2,26 +2,42 @@ package com.carloclub.roadtoheaven.story
 
 import android.app.Activity
 import android.content.Intent
-import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.maps.City
+import com.carloclub.roadtoheaven.model.DialogInfo
 import com.carloclub.roadtoheaven.model.PageData
+import com.carloclub.roadtoheaven.model.Person
 import com.carloclub.roadtoheaven.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryType
 
 object StoryHelper {
-    fun showStoryActivity(activity: Activity, storyData: StoryData) {
-        activity.startActivity(Intent(activity, StoryActivity::class.java).apply {
-            putExtra(StoryFragment.STORY_DATA_ARG, storyData)
-        })
+    fun showStoryActivityForResult(activity: Activity, city: City) {
+        activity.startActivityForResult(Intent(activity, StoryActivity::class.java).apply {
+            putExtra(StoryFragment.STORY_DATA_ARG, getStoryData(city))
+        },  111)
     }
 
-    fun getStoryData(city: City): StoryData? =
+    private fun getStoryData(city: City): StoryData =
         when (city) {
             City.SOKOLKA -> getChurchStoryDataForSokolka()
-            else -> null
+            else -> getChurchStoryDataForSokolka()
         }
 
     private fun getChurchStoryDataForSokolka() =
         StoryData(
+            type = StoryType.CHURCH,
+            person = Person.KSENIYA,
+            title = null,
+            startDialogInfo = DialogInfo(
+                message = "12 кастрычніка 2008 года адбыўся эўхарыстычны цуд у горадзе Сакулка. Хочаш даведацца больш?",
+                yesButton = "Так",
+                noButton = "Нe",
+            ),
+            endDialogInfo = DialogInfo(
+                message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
+                yesButton = "Выканаць заданне",
+                noButton = "Выйсцi з касцёла",
+            ),
             position = 0,
             pages = listOf(
                 PageData(
@@ -45,7 +61,7 @@ object StoryHelper {
                     audioRes = R.raw.sokolka_story_4
                 )
             ),
-            dialogMessage = "12 кастрычніка 2008 года адбыўся эўхарыстычны цуд у горадзе Сакулка. Хочаш даведацца больш?",
             backgroundImageRes = R.drawable.sokolka_church,
+            audioRes = R.raw.organ,
         )
 }

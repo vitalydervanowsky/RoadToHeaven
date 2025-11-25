@@ -9,12 +9,15 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.carloclub.roadtoheaven.Constants
-import com.carloclub.roadtoheaven.DialogMessage.showMessage
 import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.helper.LessonHelper
+import com.carloclub.roadtoheaven.helper.MessageUtil.showDialog
 import com.carloclub.roadtoheaven.model.DialogButton
 import com.carloclub.roadtoheaven.model.DialogButtonListener
 import com.carloclub.roadtoheaven.model.ClassType
+import com.carloclub.roadtoheaven.model.Person
+import com.carloclub.roadtoheaven.story.StartStoryFragment
 
 class SchoolHallFragment : Fragment() {
 
@@ -46,18 +49,15 @@ class SchoolHallFragment : Fragment() {
     }
 
     private fun initPersonaDialogs() {
-        showMessage(
-            0,
-            0,
-            "Хвала Хрысту! Запрашаем на заняткi",
-            null,
-            requireActivity(),
-            R.drawable.olga,
-            DialogButton(
+        showDialog(
+            message = "Хвала Хрысту! Запрашаем на заняткi",
+            activity = requireActivity(),
+            personImageRes = Person.OLGA.smallSizeImageRes,
+            yesDialogButton = DialogButton(
                 title = "Добра",
                 listener = null
             ),
-            DialogButton(
+            noDialogButton = DialogButton(
                 title = "Выйсцi",
                 listener = object : DialogButtonListener {
                     override fun onButtonClicked() {
@@ -65,7 +65,6 @@ class SchoolHallFragment : Fragment() {
                     }
                 }
             ),
-            null,
         )
     }
 
@@ -79,9 +78,10 @@ class SchoolHallFragment : Fragment() {
 
     private fun openClass(type: ClassType) {
         val city = arguments?.getSerializable(Constants.CITY_ARG) as? City
+        val storyData = LessonHelper.getStoryDataForSchool(city, type)
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SchoolClassFragment.newInstance(city, type))
-            .addToBackStack(SchoolClassFragment::class.java.simpleName)
+            .replace(R.id.fragmentContainerView, StartStoryFragment.newInstance(storyData, type))
+            .addToBackStack(StartStoryFragment::class.java.simpleName)
             .commit()
     }
 

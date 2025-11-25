@@ -16,18 +16,18 @@ public class OldQuestions {
         createQuestions();
     }
 
-    public MyMap.Question getQuestion(int level, String language) {
+    public MyMap.Question getQuestion(int level) {
         Random random = new Random();
         int index = random.nextInt(N);
-        if (language.equals(Constants.LANG_BY)) {
+        if (Constants.isBy()) {
             return byQuestions[level - 1][index];
         } else {
             return ruQuestions[level - 1][index];
         }
     }
 
-    public MyMap.Question getQuestion(int level, String language, int index) {
-        if (language.equals(Constants.LANG_BY)) {
+    public MyMap.Question getQuestion(int level, int index) {
+        if (Constants.isBy()) {
             return byQuestions[level - 1][index];
         } else {
             return ruQuestions[level - 1][index];

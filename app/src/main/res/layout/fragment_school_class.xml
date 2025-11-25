@@ -14,14 +14,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/school" />
+        tools:ignore="contentDescription"
+        tools:srcCompat="@drawable/school_lesson" />
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        style="@style/Text.Italic"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="48dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Тэма урока:\n\nУчынкі міласэрнасці для душы бліжняга" />
 
     <ImageView
         android:id="@+id/closeImageView"
@@ -31,6 +38,7 @@
         android:padding="8dp"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="contentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

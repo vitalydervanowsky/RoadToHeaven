@@ -4,21 +4,38 @@ import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.mapper.toGalleryImage
 import com.carloclub.roadtoheaven.mapper.toPageData
-import com.carloclub.roadtoheaven.model.ClassLessonData
 import com.carloclub.roadtoheaven.model.ClassType
+import com.carloclub.roadtoheaven.model.DialogInfo
 import com.carloclub.roadtoheaven.model.GalleryData
 import com.carloclub.roadtoheaven.model.ImageLesson
+import com.carloclub.roadtoheaven.model.Person
+import com.carloclub.roadtoheaven.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryType
 
 // todo добавить переводы и логику получения строк
 object LessonHelper {
 
-    fun getClassLessonData(city: City?, classType: ClassType): ClassLessonData =
-        ClassLessonData(
-            title = getLessonTitles(city)[classType].orEmpty(),
-            dialogMessage = getLessonDialogMessages(city)[classType].orEmpty(),
+    fun getStoryDataForSchool(city: City?, classType: ClassType): StoryData =
+        StoryData(
+            type = StoryType.SCHOOL,
+            person = Person.OLGA,
+            title = "Тэма ўрока:\n\n" + getLessonTitles(city)[classType].orEmpty(),
+            startDialogInfo = DialogInfo(
+                message = getLessonDialogMessages(city)[classType].orEmpty(),
+                yesButton = "Хачу ведаць!",
+                noButton = "Выйсцi з класа",
+            ),
+            endDialogInfo = DialogInfo(
+                message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
+                yesButton = "Выканаць заданне",
+                noButton = "Выйсцi з класа",
+            ),
+            position = 0,
             pages = getImageLessons(city)
                 .filter { it.classType == classType }
-                .map { it.toPageData() }
+                .map { it.toPageData() },
+            backgroundImageRes = R.drawable.school_lesson,
+            audioRes = null,
         )
 
     private fun getImageLessons(city: City?): List<ImageLesson> =

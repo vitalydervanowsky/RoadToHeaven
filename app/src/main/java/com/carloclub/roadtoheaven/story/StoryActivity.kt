@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.StoryData
+import com.carloclub.roadtoheaven.model.StoryType
 
 class StoryActivity : AppCompatActivity() {
 
@@ -27,8 +28,15 @@ class StoryActivity : AppCompatActivity() {
         } else {
             null
         }
+        if (storyData == null) finish()
+        val storyType = storyData?.type ?: StoryType.SCHOOL
+        val fragment = when (storyType) {
+            StoryType.SCHOOL -> StoryFragment.newInstance(storyData)
+            StoryType.CHURCH -> StartStoryFragment.newInstance(storyData)
+            StoryType.WELL -> StartStoryFragment.newInstance(storyData)
+        }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, StoryFragment.newInstance(storyData))
+            .replace(R.id.fragmentContainerView, fragment)
             .commit()
     }
 }

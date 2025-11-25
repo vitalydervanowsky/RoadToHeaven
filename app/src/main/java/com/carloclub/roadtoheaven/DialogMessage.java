@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
 
 import com.carloclub.roadtoheaven.gallery.GalleryActivity;
@@ -19,11 +18,11 @@ import com.carloclub.roadtoheaven.model.DialogButton;
 
 public class DialogMessage {
     public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity) {
-        showMessage(imageBig, imageSmall, text, bonus, activity, 0, null, null, null);
+        showMessage(imageBig, imageSmall, text, bonus, activity, 0, null, null);
     }
 
     public static void showMessage(int imageBig, int imageSmall, String text, String bonus, Activity activity, int idSourcePersona) {
-        showMessage(imageBig, imageSmall, text, bonus, activity, idSourcePersona, null, null, null);
+        showMessage(imageBig, imageSmall, text, bonus, activity, idSourcePersona, null, null);
     }
 
     public static void showMessage(
@@ -34,8 +33,7 @@ public class DialogMessage {
             Activity activity,
             int idSourcePersona,
             DialogButton yesDialogButton,
-            DialogButton noDialogButton,
-            Integer backgroundRes
+            DialogButton noDialogButton
     ) {
         Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_message);
@@ -54,14 +52,6 @@ public class DialogMessage {
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             );
-        }
-        ConstraintLayout root = dialog.findViewById(R.id.root);
-        if (backgroundRes != null) {
-            if (backgroundRes == 0) {
-                root.setBackground(null);
-            } else {
-                root.setBackgroundResource(backgroundRes);
-            }
         }
         ImageView imageViewBig = dialog.findViewById(R.id.imageViewBig);
         if (imageBig != 0) {

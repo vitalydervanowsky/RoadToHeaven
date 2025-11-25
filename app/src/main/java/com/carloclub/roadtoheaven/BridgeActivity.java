@@ -30,7 +30,6 @@ public class BridgeActivity extends AppCompatActivity {
     int step = 0;
     boolean pause = false;
     boolean isGameOver = true;
-    String lang = Constants.LANG_BY;
     Dialog dialog;
     Dialog dialogAI;
     Button buttonThank;
@@ -64,7 +63,7 @@ public class BridgeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        questions = Constants.DATAGAME.map.getQuestions(maxStep, "Ru");
+        questions = Constants.DATAGAME.map.getQuestions(maxStep);
 
         questionTextView = findViewById(R.id.questionTextView);
         //stepTextView = findViewById(R.id.stepTextView);
@@ -157,11 +156,7 @@ public class BridgeActivity extends AppCompatActivity {
     }
 
     private void changeLang() {
-        if (isBy())
-            lang = Constants.LANG_RU;
-        else
-            lang = Constants.LANG_BY;
-        buttonLang.setText(lang);
+        buttonLang.setText(Constants.DATAGAME.currentLang.name());
         if (isGameOver)
             showStartMenu();
         else{
@@ -321,10 +316,6 @@ public class BridgeActivity extends AppCompatActivity {
         if (triumfMediaPlayer == null) {
             triumfMediaPlayer = MediaPlayer.create(this, R.raw.triumf);
         }
-    }
-
-    private boolean isBy() {
-        return lang.equals(Constants.LANG_BY);
     }
 
     class TimerDown extends TimerTask {

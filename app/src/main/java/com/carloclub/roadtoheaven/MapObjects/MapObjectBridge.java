@@ -79,7 +79,7 @@ public class MapObjectBridge extends MapObject {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        questions = mapActivity.map.getQuestions(maxStep, "Ru");
+        questions = mapActivity.map.getQuestions(maxStep);
 
         questionTextView = dialog.findViewById(R.id.questionTextView);
         //stepTextView = findViewById(R.id.stepTextView);

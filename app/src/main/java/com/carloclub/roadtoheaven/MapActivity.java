@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.maps.City;
 
 import java.util.ArrayList;
@@ -692,19 +694,29 @@ public class MapActivity extends AppCompatActivity {
 
     }
 
+    private boolean hasCurrentCellTask() {
+        return map != null && map.currentObject != null && map.currentObject.task != null;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 111 && resultCode == RESULT_OK) {
-            if (map.currentObject.task.isStarted) {
-                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(1));
-                puzzle.startPuzzle(true);
-            } else {
-                Puzzle puzzle = new Puzzle(map.currentObject, map.scoolQuestion.get(0));
+        if (requestCode == 111 && resultCode == RESULT_OK && hasCurrentCellTask()) {
+            Puzzle puzzle = null;
+            if (map.currentObject instanceof MapObjectSchool) {
+                if (map.currentObject.task.isStarted) {
+                    puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(1));
+                } else {
+                    puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(0));
+                }
+            } else if (map.currentObject instanceof MapObjectChurch) {
+                puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
+            }
+            if (puzzle != null) {
                 puzzle.startPuzzle(true);
             }
-        } else if (resultCode == RESULT_OK) {
+        /*} else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
             Intent i = new Intent(this, DialogActivity.class);
@@ -712,7 +724,7 @@ public class MapActivity extends AppCompatActivity {
             //i.putExtra("CityName", "Sokolka");
             startActivityForResult(i, 0);
 
-            finish();
+            finish();*/
         }
     }
     class MoveCar extends TimerTask {

@@ -1,6 +1,6 @@
 package com.carloclub.roadtoheaven;
 
-import java.util.ArrayList;
+import com.carloclub.roadtoheaven.model.Language;
 
 public class DataGame {
     private int speed = 60;
@@ -19,7 +19,7 @@ public class DataGame {
     public String currentMap="";
 
     public int SCALE = 100;
-    public String currentLang="BY";
+    public Language currentLang = Language.BY;
 
     public DataGame(){
         loadData("AutoSave");
