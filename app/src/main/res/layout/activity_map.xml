@@ -292,13 +292,13 @@
 
     <TextView
         android:id="@+id/textFuel"
+        style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="8 км"
         android:textColor="#5C1B07"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -315,13 +315,13 @@
 
     <TextView
         android:id="@+id/textMoney"
+        style="@style/Text"
         android:layout_width="46dp"
         android:layout_height="23dp"
         android:layout_marginTop="5dp"
         android:text="1000 р."
         android:textColor="#E1921E"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
@@ -349,25 +349,25 @@
 
     <TextView
         android:id="@+id/textStones"
+        style="@style/Text"
         android:layout_width="35dp"
         android:layout_height="27dp"
         android:layout_marginTop="5dp"
         android:text="0"
         android:textColor="#434132"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/textRubi"
+        style="@style/Text"
         android:layout_width="36dp"
         android:layout_height="24dp"
         android:text="0"
         android:textColor="#B62318"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="106dp" />
 
@@ -507,9 +507,9 @@
 
     <TextView
         android:id="@+id/textViewTheme"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fontFamily="serif"
         android:gravity="center"
         android:text="Тэма 1. Учынкі міласэрнасці і малітва."
         android:textColor="#C50345"

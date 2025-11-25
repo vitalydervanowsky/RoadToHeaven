@@ -3,72 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="10dp">
 
     <TextView
         android:id="@+id/buttonAnswer1"
-        android:layout_width="0dp"
+        style="@style/Text"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
         android:background="@drawable/romb"
         android:gravity="center|center_horizontal"
-        android:text="Знаю ответ"
         android:textColor="#F1F1ED"
         android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer2"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Знаю ответ" />
 
     <TextView
         android:id="@+id/buttonAnswer2"
-        android:layout_width="0dp"
+        style="@style/Text"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/romb"
         android:gravity="center|center_horizontal"
-        android:text="Разгадать подсказку"
         android:textColor="#F1F1ED"
         android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer3"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1"
+        tools:text="Разгадать подсказку" />
 
     <TextView
         android:id="@+id/buttonAnswer3"
-        android:layout_width="0dp"
+        style="@style/Text"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/romb"
         android:gravity="center|center_horizontal"
-        android:text="3"
         android:textColor="#F1F1ED"
         android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswer4"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAnswer4"
-        app:layout_constraintStart_toStartOf="@+id/buttonAnswer4"
-        app:layout_goneMarginLeft="3dp" />
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2"
+        tools:text="3" />
 
     <TextView
         android:id="@+id/buttonAnswer4"
-        android:layout_width="0dp"
+        style="@style/Text"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/romb"
         android:gravity="center|center_horizontal"
-        android:text="4"
         android:textColor="#F1F1ED"
         android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_goneMarginLeft="3dp" />
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer3"
+        tools:text="4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

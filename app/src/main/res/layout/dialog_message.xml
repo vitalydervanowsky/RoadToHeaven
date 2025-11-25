@@ -38,13 +38,13 @@
 
         <TextView
             android:id="@+id/textViewBonus"
+            style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:textColor="#603C06"
             android:textSize="35sp"
-            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/yesButton"
             app:layout_constraintEnd_toStartOf="@+id/imageViewSmall"

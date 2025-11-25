@@ -42,6 +42,7 @@
 
     <TextView
         android:id="@+id/textViewQuestion"
+        style="@style/Text.Italic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -51,13 +52,13 @@
         android:text="Текст вопроса"
         android:textColor="#E91E63"
         android:textSize="20sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@+id/imageView17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"

@@ -47,6 +47,7 @@
 
     <TextView
         android:id="@+id/textPray"
+        style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
@@ -55,13 +56,13 @@
         android:text="Вітай, Марыя, поўная ??? Пан з Табою..."
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />
 
     <TextView
         android:id="@+id/word1"
+        style="@style/Text"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
@@ -71,13 +72,13 @@
         android:text="Ласкі"
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />
 
     <TextView
         android:id="@+id/word2"
+        style="@style/Text"
         android:layout_width="90dp"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
@@ -87,29 +88,30 @@
         android:text="Езус"
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/word1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />
 
     <TextView
         android:id="@+id/word3"
+        style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="560dp"
         android:background="@drawable/rombgreen"
         android:gravity="center|center_horizontal"
+        android:paddingHorizontal="8dp"
         android:text=" Благаслаўлёная "
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/word2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />
 
     <TextView
         android:id="@+id/word4"
+        style="@style/Text"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
@@ -119,13 +121,13 @@
         android:text="хлеба"
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />
 
     <TextView
         android:id="@+id/word5"
+        style="@style/Text"
         android:layout_width="90dp"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
@@ -135,7 +137,6 @@
         android:text="святла"
         android:textColor="#F1F1ED"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/word4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="3dp" />

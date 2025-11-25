@@ -17,6 +17,7 @@
 
     <TextView
         android:id="@+id/button"
+        style="@style/Text"
         android:layout_width="300dp"
         android:layout_height="58dp"
         android:layout_marginBottom="50dp"
@@ -25,7 +26,6 @@
         android:text="Продолжить"
         android:textColor="#F1F1ED"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/videoView"

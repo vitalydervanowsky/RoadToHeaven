@@ -508,6 +508,7 @@
 
     <TextView
         android:id="@+id/textViewTrials"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -538,6 +539,7 @@
 
     <TextView
         android:id="@+id/textViewQuestion"
+        style="@style/Text.Italic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -545,13 +547,13 @@
         android:text="Знайдзі сярод літараў прапушчанае слова"
         android:textColor="#3F51B5"
         android:textSize="18sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/textViewTrials"
         app:layout_constraintStart_toStartOf="@+id/textViewTrials"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

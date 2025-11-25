@@ -114,16 +114,15 @@
 
     <TextView
         android:id="@+id/questionTextView"
+        style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#00F6E7E7"
         android:gravity="center|center_horizontal"
         android:text="К сожалению, Вы ошиблись(((\n  Cтоительство моста прервано"
-
         android:textColor="#2525C1"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/my_included_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView30"
@@ -131,6 +130,7 @@
 
     <TextView
         android:id="@+id/buttonRules"
+        style="@style/Text"
         android:layout_width="38dp"
         android:layout_height="37dp"
         android:background="@drawable/empty_button"
@@ -144,6 +144,7 @@
 
     <TextView
         android:id="@+id/buttonLang"
+        style="@style/Text"
         android:layout_width="38dp"
         android:layout_height="37dp"
         android:layout_marginEnd="10dp"
@@ -175,23 +176,5 @@
         app:layout_constraintStart_toStartOf="@+id/my_included_layout"
         app:layout_constraintTop_toBottomOf="@+id/questionTextView"
         app:srcCompat="@drawable/icon_ruby" />
-
-    <!--Button
-        android:id="@+id/buttonAnswer4"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/romb"
-        android:text="@string/exit_button"
-        android:textColor="#F1F1ED"
-        android:textSize="@dimen/text_size_16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lineLayout"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer3"
-        app:layout_goneMarginLeft="3dp" /-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
