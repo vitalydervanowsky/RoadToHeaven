@@ -9,7 +9,7 @@ data class ImageLesson(
     val description: String,
     val classType: ClassType,
     val classTitle: String?,
-    val schoolImageRes: Int,
-    val galleryImageRes: Int,
-    val audioRes: Int,
+    val schoolImageRes: Int?,
+    val galleryImageRes: Int?,
+    val audioRes: Int?,
 )

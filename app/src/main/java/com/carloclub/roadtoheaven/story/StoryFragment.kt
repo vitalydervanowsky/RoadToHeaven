@@ -80,7 +80,13 @@ class StoryFragment : Fragment() {
                 textView?.text = pageData.text
                 pageData.imageRes?.let { imageView?.setImageResource(it) }
                 mediaPlayer?.stop()
-                mediaPlayer = pageData.audioRes?.let { MediaPlayer.create(activity, it) }
+                pageData.audioRes?.let {
+                    mediaPlayer = MediaPlayer.create(activity, it)
+                    muteImageView?.visibility = View.VISIBLE
+                } ?: run {
+                    mediaPlayer = null
+                    muteImageView?.visibility = View.GONE
+                }
                 if (isMuted) {
                     muteImageView?.setImageResource(R.drawable.ic_sound_off)
                 } else {

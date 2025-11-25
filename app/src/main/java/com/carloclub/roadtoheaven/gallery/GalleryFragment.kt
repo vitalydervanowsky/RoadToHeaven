@@ -133,7 +133,7 @@ class GalleryFragment : Fragment() {
     private fun createDraggableImageView(galleryImage: GalleryImage): ImageView {
         return ImageView(requireContext()).apply {
             tag = galleryImage.id
-            setImageResource(galleryImage.imageRes)
+            galleryImage.imageRes?.let { setImageResource(it) }
             scaleType = ImageView.ScaleType.CENTER_CROP
             adjustViewBounds = false
 
