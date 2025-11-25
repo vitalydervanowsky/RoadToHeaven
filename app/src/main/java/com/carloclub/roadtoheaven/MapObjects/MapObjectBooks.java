@@ -1,9 +1,9 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.app.Dialog;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +21,12 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import android.os.Vibrator;
-import android.os.VibrationEffect;
 
 public class MapObjectBooks extends MapObject {
     private TextView TextMoney;
@@ -123,15 +122,13 @@ public class MapObjectBooks extends MapObject {
     }
     @Override
     public boolean isActual(){
-        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
-            return false;
-        }
-        return true;
+        //чаще 3 минут не давать
+        return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
     @Override
     public void runAction(){
 
-        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
+        if (!isActual()) { //чаще 3 минут не давать
             DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,Messages.getMessageTechnicalBreak(),"", mapActivity);
             return;
         }

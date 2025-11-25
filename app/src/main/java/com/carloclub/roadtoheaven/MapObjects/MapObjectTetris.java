@@ -23,6 +23,7 @@ import com.carloclub.roadtoheaven.PaintView;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -97,15 +98,13 @@ public class MapObjectTetris extends MapObject {
 
     @Override
     public boolean isActual(){
-        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
-            return false;
-        }
-        return true;
+        //чаще 3 минут не давать
+        return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
 
     @Override
     public void runAction(){
-        if (lastSuccess != null && (Calendar.getInstance().getTime().getTime() - lastSuccess.getTime()) < 180000) { //чаще 3 минут не давать
+        if (!isActual()) { //чаще 3 минут не давать
             DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
             return;
         }

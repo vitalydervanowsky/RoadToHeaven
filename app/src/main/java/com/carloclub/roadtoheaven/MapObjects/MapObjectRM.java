@@ -10,8 +10,8 @@ import androidx.core.view.WindowCompat;
 
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.helper.TimeUtil;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class MapObjectRM extends MapObject {
@@ -56,10 +56,8 @@ public class MapObjectRM extends MapObject {
 
     @Override
     public boolean isActual(){
-        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
-            return false;
-        }
-        return true;
+        //чаще 3 минут не давать
+        return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
     @Override
     public void runAction() {
