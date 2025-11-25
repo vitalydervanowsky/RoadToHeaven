@@ -5,8 +5,9 @@ import android.media.MediaPlayer;
 
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
-import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
+
+import java.util.Date;
 
 public class MapObject {
     public int x;
@@ -16,6 +17,7 @@ public class MapObject {
     public MapActivity mapActivity;
     public Task task;
     public MediaPlayer mediaPlayer;
+    public Date lastSuccess;
 
     public MapObject(int x, int y, MapActivity activity) {
         this.x = x;

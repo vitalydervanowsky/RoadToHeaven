@@ -10,8 +10,6 @@ import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 
-import java.util.Calendar;
-
 public class MapObjectHelpBoy extends MapObject {
     public Task task;
 

@@ -12,12 +12,9 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
 
-import java.util.Date;
-
 public class MapObjectRM extends MapObject {
     public MediaPlayer playerPaterNoster;
     public MediaPlayer playerAveMaria;
-    Date lastSuccess;
 
     public MapObjectRM(int X, int Y, MapActivity activity) {
         super(X, Y, activity);

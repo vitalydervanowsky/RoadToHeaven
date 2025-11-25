@@ -26,7 +26,6 @@ import com.carloclub.roadtoheaven.helper.TimeUtil;
 import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,7 +44,6 @@ public class MapObjectTetris extends MapObject {
     TimerDown mtimerDown;
     int GameFigurs=0;
     int OneColor=0;
-    Date lastSuccess;
 
     MyMap.Question question;
 

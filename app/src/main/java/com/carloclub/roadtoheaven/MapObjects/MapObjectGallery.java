@@ -17,12 +17,10 @@ import com.carloclub.roadtoheaven.maps.City;
 import com.carloclub.roadtoheaven.model.DialogButton;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MapObjectGallery extends MapObject {
     String title;
     int interiorId;
-    public Date lastSuccess;
 
     public MapObjectGallery(int x, int y, MapActivity activity) {
         super(x, y, activity);

@@ -26,7 +26,6 @@ import com.carloclub.roadtoheaven.helper.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 public class MapObjectBooks extends MapObject {
@@ -35,7 +34,6 @@ public class MapObjectBooks extends MapObject {
     TextView[] imageViews;
     private TextView TextFuel;
     String targetWord="ХЛЕБА";
-    Date lastSuccess;
     public Vibrator vibrator;
     public ArrayList<TextView> moveView;
     public MapObjectBooks(int X, int Y, MapActivity mActivity){

@@ -12,11 +12,9 @@ import com.carloclub.roadtoheaven.helper.TimeUtil;
 import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MapObjectStones extends MapObject {
     Puzzle puzzle;
-    Date lastSuccess;
     private MediaPlayer triumfMediaPlayer;
     private final Person person = Person.KSENIYA;
 

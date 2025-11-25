@@ -15,12 +15,10 @@ import com.carloclub.roadtoheaven.helper.TimeUtil;
 import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MapObjectKids extends MapObject {
     Victorina victorina;
     MyMap.Question question;
-    Date lastSuccess;
     private final Person person = Person.CARLO;
 
     public MapObjectKids(int x, int y, MapActivity activity) {
