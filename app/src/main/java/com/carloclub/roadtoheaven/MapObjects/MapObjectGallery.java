@@ -5,6 +5,8 @@ import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.carloclub.roadtoheaven.DialogMessage;
+import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.maps.City;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.R;
@@ -15,9 +17,13 @@ import com.carloclub.roadtoheaven.model.DialogButton;
 import com.carloclub.roadtoheaven.story.StoryHelper;
 import com.carloclub.roadtoheaven.model.StoryData;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MapObjectGallery extends MapObject {
     String title;
     int interiorId;
+    public Date lastSuccess;
 
     public MapObjectGallery(int x, int y, MapActivity activity) {
         super(x, y, activity);
@@ -27,6 +33,10 @@ public class MapObjectGallery extends MapObject {
 
     @Override
     public void runAction() {
+        if (lastSuccess != null && (Calendar.getInstance().getTime().getTime() - lastSuccess.getTime()) < 180000) { //чаще 3 минут не давать
+            DialogMessage.showMessage(R.drawable.fail, R.drawable.fail, Messages.getMessageGalleryTechnicalBreak(), "", mapActivity);
+            return;
+        }
         // todo добавить данные для диалога
         StoryData storyData = StoryHelper.INSTANCE.getStoryData(mapActivity.city);
         showMessage(
@@ -48,11 +58,25 @@ public class MapObjectGallery extends MapObject {
         );
     }
 
+    @Override
+    public boolean isActual(){
+        if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
+            return false;
+        }
+        return true;
+    }
 
     private void showGalleryActivity(Activity activity, City city) {
         Intent intent = new Intent(activity, GalleryActivity.class);
         intent.putExtra(GalleryFragment.GALLERY_IMAGES_ARG, LessonHelper.INSTANCE.getGalleryData(city));
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void finishTask() {
+        lastSuccess = Calendar.getInstance().getTime();
+        mapActivity.showRubies();
+
     }
 
     @Override

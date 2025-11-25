@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.DialogMessage
+import com.carloclub.roadtoheaven.MapObjects.MapObjectGallery
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool
 import com.carloclub.roadtoheaven.Messages
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.GalleryData
@@ -230,6 +232,7 @@ class GalleryFragment : Fragment() {
                 Messages.getMessageHowManyStonesGot() + Constants.DATAGAME.stones.toString(),
                 requireActivity()
             )
+            (Constants.DATAGAME.map.currentObject as MapObjectGallery).finishTask()
         } else {
             galleryData?.images?.lastOrNull { it.state == State.DEFAULT }?.let {
                 showTitle(it)

@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         timerDown = new TimerStart();
         timer.schedule(timerDown, 3000, 30);
 
+        findViewById(R.id.nextButton).setOnClickListener(v -> {
+            progressCar=progressCar+100;
+        });
 
     }
 
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 if (progressCar==220){
                     rrrMediaPlayer.stop();
                     car.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.nextButton).setVisibility(View.VISIBLE);
                 }
                 if (progressCar<400){
                     imageViewWallpaper.setImageResource(R.drawable.slide1);

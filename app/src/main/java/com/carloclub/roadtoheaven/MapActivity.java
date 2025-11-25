@@ -615,19 +615,31 @@ public class MapActivity extends AppCompatActivity {
         if (Constants.DATAGAME.getStones()>=1)
             findViewById(R.id.imageViewStone1).setAlpha(1);
         else
-            findViewById(R.id.imageViewStone1).setAlpha((float) 1/2);
+            findViewById(R.id.imageViewStone1).setAlpha((float) 1/3);
         if (Constants.DATAGAME.getStones()>=2)
             findViewById(R.id.imageViewStone2).setAlpha(1);
         else
-            findViewById(R.id.imageViewStone2).setAlpha((float) 1/2);
+            findViewById(R.id.imageViewStone2).setAlpha((float) 1/3);
         if (Constants.DATAGAME.getStones()>=3)
             findViewById(R.id.imageViewStone3).setAlpha(1);
         else
-            findViewById(R.id.imageViewStone3).setAlpha((float) 1/2);
+            findViewById(R.id.imageViewStone3).setAlpha((float) 1/3);
         if (Constants.DATAGAME.getStones()>=4)
             findViewById(R.id.imageViewStone4).setAlpha(1);
         else
-            findViewById(R.id.imageViewStone4).setAlpha((float) 1/2);
+            findViewById(R.id.imageViewStone4).setAlpha((float) 1/3);
+        if (Constants.DATAGAME.getStones()>=5)
+            findViewById(R.id.imageViewStone5).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone5).setAlpha((float) 1/3);
+        if (Constants.DATAGAME.getStones()>=6)
+            findViewById(R.id.imageViewStone6).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone6).setAlpha((float) 1/3);
+        if (Constants.DATAGAME.getStones()>=7)
+            findViewById(R.id.imageViewStone7).setAlpha(1);
+        else
+            findViewById(R.id.imageViewStone7).setAlpha((float) 1/3);
 
         if (hideStoness!=null) {hideStoness.cancel(); hideStoness=null;}
         hideStoness = new HideStoness();

@@ -385,6 +385,7 @@
         android:id="@+id/imageViewtruck"
         android:layout_width="45dp"
         android:layout_height="48dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView23"
@@ -399,6 +400,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView8"
         app:srcCompat="@drawable/icon_tasks" />
+
+    <ImageView
+        android:id="@+id/imageViewSetting"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_setting" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintStones"
@@ -417,7 +428,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone" />
+            app:srcCompat="@drawable/blue_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone5"
@@ -426,7 +437,7 @@
             android:alpha="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageViewStone4"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone" />
+            app:srcCompat="@drawable/green_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone6"
@@ -435,7 +446,7 @@
             android:alpha="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageViewStone5"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone" />
+            app:srcCompat="@drawable/grey_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone7"
@@ -444,7 +455,7 @@
             android:alpha="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageViewStone6"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone" />
+            app:srcCompat="@drawable/lime_green_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone3"
@@ -452,7 +463,7 @@
             android:layout_height="35dp"
             app:layout_constraintEnd_toStartOf="@+id/imageViewStone4"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone" />
+            app:srcCompat="@drawable/pink_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone2"
@@ -460,7 +471,7 @@
             android:layout_height="35dp"
             app:layout_constraintEnd_toStartOf="@+id/imageViewStone3"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone_ok" />
+            app:srcCompat="@drawable/purple_stone" />
 
         <ImageView
             android:id="@+id/imageViewStone1"
@@ -468,7 +479,7 @@
             android:layout_height="35dp"
             app:layout_constraintEnd_toStartOf="@+id/imageViewStone2"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stone_ok" />
+            app:srcCompat="@drawable/yellow_stone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

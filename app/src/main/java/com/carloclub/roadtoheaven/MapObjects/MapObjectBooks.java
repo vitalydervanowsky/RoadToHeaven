@@ -41,70 +41,12 @@ public class MapObjectBooks extends MapObject {
     public MapObjectBooks(int X, int Y, MapActivity mActivity){
         super(X, Y, mActivity);
         type = "books";
-        dialog = new Dialog(mapActivity);
-        dialog.setContentView(R.layout.dialog_words);
+
         imageViews = new TextView[36];
 
         moveView = new ArrayList<TextView>();
         vibrator = (Vibrator) mActivity.getSystemService(mActivity.VIBRATOR_SERVICE);
 
-        imageViews[0]=dialog.findViewById(R.id.textLetter1);
-        imageViews[1]=dialog.findViewById(R.id.textLetter2);
-        imageViews[2]=dialog.findViewById(R.id.textLetter3);
-        imageViews[3]=dialog.findViewById(R.id.textLetter4);
-        imageViews[4]=dialog.findViewById(R.id.textLetter5);
-        imageViews[5]=dialog.findViewById(R.id.textLetter6);
-        imageViews[6]=dialog.findViewById(R.id.textLetter7);
-        imageViews[7]=dialog.findViewById(R.id.textLetter8);
-        imageViews[8]=dialog.findViewById(R.id.textLetter9);
-        imageViews[9]=dialog.findViewById(R.id.textLetter10);
-        imageViews[10]=dialog.findViewById(R.id.textLetter11);
-        imageViews[11]=dialog.findViewById(R.id.textLetter12);
-        imageViews[12]=dialog.findViewById(R.id.textLetter13);
-        imageViews[13]=dialog.findViewById(R.id.textLetter14);
-        imageViews[14]=dialog.findViewById(R.id.textLetter15);
-        imageViews[15]=dialog.findViewById(R.id.textLetter16);
-        imageViews[16]=dialog.findViewById(R.id.textLetter17);
-        imageViews[17]=dialog.findViewById(R.id.textLetter18);
-        imageViews[18]=dialog.findViewById(R.id.textLetter19);
-        imageViews[19]=dialog.findViewById(R.id.textLetter20);
-        imageViews[20]=dialog.findViewById(R.id.textLetter21);
-        imageViews[21]=dialog.findViewById(R.id.textLetter22);
-        imageViews[22]=dialog.findViewById(R.id.textLetter23);
-        imageViews[23]=dialog.findViewById(R.id.textLetter24);
-        imageViews[24]=dialog.findViewById(R.id.textLetter25);
-        imageViews[25]=dialog.findViewById(R.id.textLetter26);
-        imageViews[26]=dialog.findViewById(R.id.textLetter27);
-        imageViews[27]=dialog.findViewById(R.id.textLetter28);
-        imageViews[28]=dialog.findViewById(R.id.textLetter29);
-        imageViews[29]=dialog.findViewById(R.id.textLetter30);
-        imageViews[30]=dialog.findViewById(R.id.textLetter31);
-        imageViews[31]=dialog.findViewById(R.id.textLetter32);
-        imageViews[32]=dialog.findViewById(R.id.textLetter33);
-        imageViews[33]=dialog.findViewById(R.id.textLetter34);
-        imageViews[34]=dialog.findViewById(R.id.textLetter35);
-        imageViews[35]=dialog.findViewById(R.id.textLetter36);
-
-
-//        for (int i=0; i<36;i++){
-//            imageViews[i].setOnTouchListener(new View.OnTouchListener(){
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                return onTouchView(v.getId(),event);
-//                }
-//            });
-//        }
-        dialog.findViewById(R.id.layoutLetters).setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return onTouchView(v.getId(),event);
-            }
-        });
-
-        Button buttonStopPuzle = dialog.findViewById(R.id.close);
-        buttonStopPuzle.setOnClickListener(v -> {
-            dialog.hide();
-        });
         //Button buttonStop = dialog.findViewById(R.id.close);
         //buttonStop.setOnClickListener(v -> endFill());
 
@@ -160,6 +102,7 @@ public class MapObjectBooks extends MapObject {
                     dialog.hide();
                     lastSuccess = Calendar.getInstance().getTime();
                     Constants.DATAGAME.setStones(Constants.DATAGAME.getStones()+1);
+                    mapActivity.showRubies();
                     DialogMessage.showMessage(R.drawable.gratulation,R.drawable.stones1, Messages.getMessageGotStone(),Messages.getMessageHowManyStonesGot() +String.valueOf(Constants.DATAGAME.getStones()), mapActivity);
                 }
                 touchFinish();
@@ -187,10 +130,65 @@ public class MapObjectBooks extends MapObject {
     }
     @Override
     public void runAction(){
+
         if (lastSuccess!=null && (Calendar.getInstance().getTime().getTime()-lastSuccess.getTime())<180000) { //чаще 3 минут не давать
             DialogMessage.showMessage(R.drawable.fail,R.drawable.fail,Messages.getMessageTechnicalBreak(),"", mapActivity);
             return;
         }
+        if (dialog==null) {
+            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
+            dialog.setContentView(R.layout.dialog_words);
+        }
+
+        imageViews[0]=dialog.findViewById(R.id.textLetter1);
+        imageViews[1]=dialog.findViewById(R.id.textLetter2);
+        imageViews[2]=dialog.findViewById(R.id.textLetter3);
+        imageViews[3]=dialog.findViewById(R.id.textLetter4);
+        imageViews[4]=dialog.findViewById(R.id.textLetter5);
+        imageViews[5]=dialog.findViewById(R.id.textLetter6);
+        imageViews[6]=dialog.findViewById(R.id.textLetter7);
+        imageViews[7]=dialog.findViewById(R.id.textLetter8);
+        imageViews[8]=dialog.findViewById(R.id.textLetter9);
+        imageViews[9]=dialog.findViewById(R.id.textLetter10);
+        imageViews[10]=dialog.findViewById(R.id.textLetter11);
+        imageViews[11]=dialog.findViewById(R.id.textLetter12);
+        imageViews[12]=dialog.findViewById(R.id.textLetter13);
+        imageViews[13]=dialog.findViewById(R.id.textLetter14);
+        imageViews[14]=dialog.findViewById(R.id.textLetter15);
+        imageViews[15]=dialog.findViewById(R.id.textLetter16);
+        imageViews[16]=dialog.findViewById(R.id.textLetter17);
+        imageViews[17]=dialog.findViewById(R.id.textLetter18);
+        imageViews[18]=dialog.findViewById(R.id.textLetter19);
+        imageViews[19]=dialog.findViewById(R.id.textLetter20);
+        imageViews[20]=dialog.findViewById(R.id.textLetter21);
+        imageViews[21]=dialog.findViewById(R.id.textLetter22);
+        imageViews[22]=dialog.findViewById(R.id.textLetter23);
+        imageViews[23]=dialog.findViewById(R.id.textLetter24);
+        imageViews[24]=dialog.findViewById(R.id.textLetter25);
+        imageViews[25]=dialog.findViewById(R.id.textLetter26);
+        imageViews[26]=dialog.findViewById(R.id.textLetter27);
+        imageViews[27]=dialog.findViewById(R.id.textLetter28);
+        imageViews[28]=dialog.findViewById(R.id.textLetter29);
+        imageViews[29]=dialog.findViewById(R.id.textLetter30);
+        imageViews[30]=dialog.findViewById(R.id.textLetter31);
+        imageViews[31]=dialog.findViewById(R.id.textLetter32);
+        imageViews[32]=dialog.findViewById(R.id.textLetter33);
+        imageViews[33]=dialog.findViewById(R.id.textLetter34);
+        imageViews[34]=dialog.findViewById(R.id.textLetter35);
+        imageViews[35]=dialog.findViewById(R.id.textLetter36);
+
+
+        dialog.findViewById(R.id.layoutLetters).setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return onTouchView(v.getId(),event);
+            }
+        });
+
+        Button buttonStopPuzle = dialog.findViewById(R.id.close);
+        buttonStopPuzle.setOnClickListener(v -> {
+            dialog.hide();
+        });
 
         //Выводім хаотічные числа, и целевое слово среди них
         String alfabet = "АБВГДЕЁЖЗІКЛМНОПРСТУЎФХЦЧШЫьЭЮЯ";
@@ -227,9 +225,6 @@ public class MapObjectBooks extends MapObject {
 
 
         //показываем диалог и растягиваем почти на веь экран
-        if (dialog==null) {
-            dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
-        }
 
         dialog.show();
         Window window = dialog.getWindow();
