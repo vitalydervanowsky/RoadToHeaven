@@ -6,10 +6,12 @@ import com.carloclub.roadtoheaven.Constants;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
+import com.carloclub.roadtoheaven.model.Person;
 import com.carloclub.roadtoheaven.school.SchoolActivity;
 
 public class MapObjectSchool extends MapObject {
 
+    private final Person person = Person.OLGA;
     public Task taskB;
 
     public MapObjectSchool(int x, int y, MapActivity activity) {
@@ -40,7 +42,7 @@ public class MapObjectSchool extends MapObject {
             } else {
                 taskB.isFinished = true;
             }
-            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity, person);
         }
     }
 }

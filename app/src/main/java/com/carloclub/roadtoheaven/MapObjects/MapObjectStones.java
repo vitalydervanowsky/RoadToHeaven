@@ -9,6 +9,7 @@ import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
+import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,15 +18,13 @@ public class MapObjectStones extends MapObject {
     Puzzle puzzle;
     Date lastSuccess;
     private MediaPlayer triumfMediaPlayer;
+    private final Person person = Person.KSENIYA;
 
     public MapObjectStones(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "stones";
 
-        if (triumfMediaPlayer == null) {
-            triumfMediaPlayer = MediaPlayer.create(mapActivity, R.raw.triumf);
-        }
-
+        triumfMediaPlayer = MediaPlayer.create(mapActivity, R.raw.triumf);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class MapObjectStones extends MapObject {
 
         } else {
             triumfMediaPlayer.start();
-            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity, person);
             lastSuccess = Calendar.getInstance().getTime();
         }
         puzzle.dialog.hide();

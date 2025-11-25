@@ -23,6 +23,7 @@ import com.carloclub.roadtoheaven.Victorina;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
+import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -56,7 +57,7 @@ public class MapObjectTetris extends MapObject {
     boolean GameOver=false;
     Victorina victorina;
 
-
+    private final Person person = Person.KSENIYA;
     //public database DB;
 
     public MapObjectTetris(int X, int Y, MapActivity mActivity) {
@@ -75,7 +76,7 @@ public class MapObjectTetris extends MapObject {
 
         } else {
             //triumfMediaPlayer.start();
-            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity, person);
             lastSuccess = Calendar.getInstance().getTime();
         }
         dialog.dismiss();

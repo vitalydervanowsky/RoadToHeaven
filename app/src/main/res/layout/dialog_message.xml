@@ -96,9 +96,9 @@
         android:id="@+id/imageViewBig"
         android:layout_width="59dp"
         android:layout_height="53dp"
-        android:layout_marginStart="392dp"
         android:layout_marginTop="-27dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/dialog"
+        app:layout_constraintStart_toEndOf="@id/imagePersona"
         app:layout_constraintTop_toTopOf="@id/dialog"
         app:srcCompat="@drawable/gratulation"
         tools:visibility="gone" />

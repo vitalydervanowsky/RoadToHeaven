@@ -12,6 +12,7 @@ import com.carloclub.roadtoheaven.Victorina;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
+import com.carloclub.roadtoheaven.model.Person;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class MapObjectKids extends MapObject {
     Victorina victorina;
     MyMap.Question question;
     Date lastSuccess;
+    private final Person person = Person.CARLO;
 
     public MapObjectKids(int x, int y, MapActivity activity) {
         super(x, y, activity);
@@ -76,7 +78,7 @@ public class MapObjectKids extends MapObject {
 
         } else {
             //triumfMediaPlayer.start();
-            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity);
+            TaskUtil.INSTANCE.handleTaskSuccess(mapActivity, person);
             lastSuccess = Calendar.getInstance().getTime();
         }
         dialog.dismiss();

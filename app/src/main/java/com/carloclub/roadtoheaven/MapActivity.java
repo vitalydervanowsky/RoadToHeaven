@@ -1,5 +1,6 @@
 package com.carloclub.roadtoheaven;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 import com.carloclub.roadtoheaven.maps.City;
 
 import java.util.ArrayList;
@@ -703,16 +705,7 @@ public class MapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 111 && resultCode == RESULT_OK && hasCurrentCellTask()) {
-            Puzzle puzzle = null;
-            if (map.currentObject instanceof MapObjectSchool) {
-                if (map.currentObject.task.isStarted) {
-                    puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(1));
-                } else {
-                    puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(0));
-                }
-            } else if (map.currentObject instanceof MapObjectChurch) {
-                puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
-            }
+            Puzzle puzzle = getPuzzle();
             if (puzzle != null) {
                 puzzle.startPuzzle(true);
             }
@@ -727,6 +720,25 @@ public class MapActivity extends AppCompatActivity {
             finish();*/
         }
     }
+
+    // todo надо сделать общий список с заданиями, которые будут начинаться без зависимости от типа ячейки
+    @Nullable
+    private Puzzle getPuzzle() {
+        Puzzle puzzle = null;
+        if (map.currentObject instanceof MapObjectSchool) {
+            if (map.currentObject.task.isStarted) {
+                puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(1));
+            } else {
+                puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(0));
+            }
+        } else if (map.currentObject instanceof MapObjectChurch) {
+            puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
+        } else if (map.currentObject instanceof MapObjectWell) {
+            puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
+        }
+        return puzzle;
+    }
+
     class MoveCar extends TimerTask {
         ////////////int Orientation =0; // 0 вниз 1- влево  2-вправо
         @Override

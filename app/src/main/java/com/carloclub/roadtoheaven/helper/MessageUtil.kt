@@ -6,6 +6,7 @@ import com.carloclub.roadtoheaven.DialogMessage
 import com.carloclub.roadtoheaven.Messages
 import com.carloclub.roadtoheaven.R
 import com.carloclub.roadtoheaven.model.DialogButton
+import com.carloclub.roadtoheaven.model.Person
 
 object MessageUtil {
     fun showDialog(
@@ -37,7 +38,10 @@ object MessageUtil {
         )
     }
 
-    fun showSuccessTaskFinishedDialog(mapActivity: Activity) {
+    fun showSuccessTaskFinishedDialog(
+        mapActivity: Activity,
+        person: Person,
+    ) {
         if (Constants.DATAGAME.stones == 7) {
             DialogMessage.showMessage(
                 R.drawable.bridge,
@@ -52,7 +56,8 @@ object MessageUtil {
                 R.drawable.stones1,
                 Messages.getMessageGotStone(),
                 Messages.getMessageHowManyStonesGot() + Constants.DATAGAME.stones.toString(),
-                mapActivity
+                mapActivity,
+                person.withStoneImageRes,
             )
         }
     }

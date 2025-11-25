@@ -11,13 +11,13 @@ import com.carloclub.roadtoheaven.model.StoryData
 import com.carloclub.roadtoheaven.model.StoryType
 
 object StoryHelper {
-    fun showStoryActivityForResult(activity: Activity, city: City) {
+    fun showStoryActivityForResult(activity: Activity, storyData: StoryData) {
         activity.startActivityForResult(Intent(activity, StoryActivity::class.java).apply {
-            putExtra(StoryFragment.STORY_DATA_ARG, getStoryData(city))
-        },  111)
+            putExtra(StoryFragment.STORY_DATA_ARG, storyData)
+        }, 111)
     }
 
-    private fun getStoryData(city: City): StoryData =
+    fun getChurchStoryData(city: City): StoryData =
         when (city) {
             City.SOKOLKA -> getChurchStoryDataForSokolka()
             else -> getChurchStoryDataForSokolka()
@@ -63,5 +63,44 @@ object StoryHelper {
             ),
             backgroundImageRes = R.drawable.sokolka_church,
             audioRes = R.raw.organ,
+        )
+
+    fun getWellStoryData(city: City): StoryData =
+        when (city) {
+            City.SOKOLKA -> getWellStoryDataForSokolka()
+            else -> getWellStoryDataForSokolka()
+        }
+
+    private fun getWellStoryDataForSokolka(): StoryData =
+        StoryData(
+            type = StoryType.WELL,
+            person = Person.FATHER_EUGENE,
+            title = null,
+            startDialogInfo = DialogInfo(
+                message = "hello",
+                yesButton = "yes",
+                noButton = "no",
+            ),
+            endDialogInfo = DialogInfo(
+                message = "congrats",
+                yesButton = "yes",
+                noButton = "no",
+            ),
+            position = 0,
+            pages = listOf(
+                // todo add father Eugene story here
+                PageData(
+                    text = "Падчас Святой Імшы асвечаная Гостыя ўпала на падлогу і святар паклаў яе ў пасудзіну з вадой.",
+                    imageRes = R.drawable.sokolka_story_1,
+                    audioRes = R.raw.sokolka_story_1
+                ),
+                PageData(
+                    text = "Падчас Святой Імшы асвечаная Гостыя ўпала на падлогу і святар паклаў яе ў пасудзіну з вадой.",
+                    imageRes = R.drawable.sokolka_story_1,
+                    audioRes = R.raw.sokolka_story_1
+                ),
+            ),
+            backgroundImageRes = R.drawable.well,
+            audioRes = null,
         )
 }
