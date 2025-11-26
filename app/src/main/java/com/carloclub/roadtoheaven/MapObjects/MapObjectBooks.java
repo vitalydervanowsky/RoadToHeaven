@@ -1,5 +1,7 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
+
 import android.app.Dialog;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -23,6 +25,7 @@ import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
+import com.carloclub.roadtoheaven.model.DialogButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -124,13 +127,8 @@ public class MapObjectBooks extends MapObject {
         //чаще 3 минут не давать
         return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
-    @Override
-    public void runAction(){
 
-        if (!isActual()) { //чаще 3 минут не давать
-            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageTechnicalBreak(), mapActivity);
-            return;
-        }
+    public void startTask(){
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
             dialog.setContentView(R.layout.dialog_words);
@@ -237,6 +235,18 @@ public class MapObjectBooks extends MapObject {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
+
+    }
+    @Override
+    public void runAction(){
+
+        if (!isActual()) { //чаще 3 минут не давать
+            MessageUtil.INSTANCE.showFailureDialog(Messages.getMessageTechnicalBreak(), mapActivity);
+            return;
+        }
+        startTask();
+
+
         //mediaPlayer.start();
     }
 

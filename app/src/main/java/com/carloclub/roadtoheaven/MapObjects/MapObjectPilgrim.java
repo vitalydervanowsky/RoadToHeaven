@@ -1,5 +1,7 @@
 package com.carloclub.roadtoheaven.MapObjects;
 
+import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
+
 import android.app.Dialog;
 
 import com.carloclub.roadtoheaven.Constants;
@@ -8,6 +10,7 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
+import com.carloclub.roadtoheaven.model.DialogButton;
 
 public class MapObjectPilgrim extends MapObject {
     public Dialog dialog2;
@@ -33,13 +36,32 @@ public class MapObjectPilgrim extends MapObject {
         return !task.isStarted && !task.isFinished;
     }
 
+    public void startTask(){
+        mapActivity.myTasks.add(task);
+        task.startTask();
+        mapActivity.showRubies();
+    }
     @Override
     public void runAction(){
         if (!task.isStarted) {
-            DialogMessage.showMessage(0, 0, Messages.getMessageFromPilgrim(), Messages.getMessageThanks(), mapActivity, R.drawable.karalina);
-            mapActivity.myTasks.add(task);
-            task.startTask();
-            mapActivity.showRubies();
+            showMessage(
+                    0,
+                    0,
+                    Messages.getMessageFromPilgrim(),
+                    Messages.getMessageThanks(),
+                    mapActivity,
+                    R.drawable.karalina,
+                    new DialogButton(
+                            "Падвезці",
+                            () -> startTask()
+                    ),
+                    new DialogButton(
+                            "Не",
+                            null
+                    )
+            );
+            //DialogMessage.showMessage(0, 0, Messages.getMessageFromPilgrim(), Messages.getMessageThanks(), mapActivity, R.drawable.karalina);
+
         }
     }
 
