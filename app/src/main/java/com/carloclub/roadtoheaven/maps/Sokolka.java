@@ -204,21 +204,23 @@ public class Sokolka {
         Map.mMapCells[1][9].type = "river";
         Map.mMapCells[2][0].type = "school";
         Map.mMapCells[2][2].type = "Road";
-        Map.mMapCells[2][3].type = "stones";
+        Map.mMapCells[2][3].type = "forest";
+        Map.mMapCells[2][4].type = "forest";
         Map.mMapCells[2][5].type = "Road";
         Map.mMapCells[2][6].type = "hospital";
         Map.mMapCells[2][8].type = "Road";
         Map.mMapCells[2][9].type = "river";
         Map.mMapCells[3][2].type = "Road";
+        Map.mMapCells[3][3].type = "forest";
         Map.mMapCells[3][5].type = "Road";
         Map.mMapCells[3][8].type = "Road";
         Map.mMapCells[3][9].type = "river";
         Map.mMapCells[4][0].type = "forest";
         Map.mMapCells[4][1].type = "forest";
         Map.mMapCells[4][2].type = "Road";
-        Map.mMapCells[4][3].type = "building";
+        Map.mMapCells[4][3].type = "stones";
         Map.mMapCells[4][5].type = "Road";
-        Map.mMapCells[4][6].type = "forest";
+        Map.mMapCells[4][6].type = "hunger";
         Map.mMapCells[4][7].type = "forest";
         Map.mMapCells[4][8].type = "Road";
         Map.mMapCells[4][9].type = "river";
@@ -226,7 +228,7 @@ public class Sokolka {
         Map.mMapCells[5][2].type = "Road";
         Map.mMapCells[5][5].type = "Road";
         Map.mMapCells[5][6].type = "Road";
-        Map.mMapCells[5][7].type = "marketplace";
+        Map.mMapCells[5][7].type = "well";
         Map.mMapCells[5][8].type = "Road";
         Map.mMapCells[5][9].type = "river";
         Map.mMapCells[6][2].type = "Road";
@@ -262,7 +264,7 @@ public class Sokolka {
         Map.mMapCells[10][9].type = "river";
         Map.mMapCells[11][0].type = "build";
         Map.mMapCells[11][2].type = "Road";
-        Map.mMapCells[11][3].type = "hunger";
+        Map.mMapCells[11][3].type = "forest";
         Map.mMapCells[11][4].type = "RM";
         Map.mMapCells[11][6].type = "Road";
         Map.mMapCells[11][7].type = "forest";
@@ -296,7 +298,7 @@ public class Sokolka {
         Map.mMapCells[16][2].type = "Road";
         Map.mMapCells[16][3].type = "cinema";
         Map.mMapCells[16][5].type = "Road";
-        Map.mMapCells[16][6].type = "build";
+        Map.mMapCells[16][6].type = "building";
         Map.mMapCells[16][8].type = "Road";
         Map.mMapCells[16][9].type = "river";
         Map.mMapCells[17][0].type = "build";
@@ -322,10 +324,14 @@ public class Sokolka {
         Map.mMapCells[19][7].type = "fuel";
         Map.mMapCells[19][8].type = "forest";
         Map.mMapCells[19][9].type = "river";
+        Map.mMapCells[8][3].attributes[0] = "Костёл Св. Антония";  	//Титул:
+        Map.mMapCells[8][3].attributes[2] = "churchsokolka2";  	//Интерьер:
         Map.mMapCells[0][3].attributes[0] = "Пол";  	//Имя
         Map.mMapCells[0][3].attributes[1] = "9";  	//Таргет X:
         Map.mMapCells[0][3].attributes[2] = "4";  	//Таргет Y:
         Map.mMapCells[0][3].attributes[3] = "Привет! Меня зовут Каролина. Я еду автоспом в санктуарий святого Антония. Если ты меня подвезешь, я буду тебе очень благодарна.";  	//Приветствие:
         Map.mMapCells[0][3].attributes[4] = "1000";  	//Награда:
     }
+
+
 }

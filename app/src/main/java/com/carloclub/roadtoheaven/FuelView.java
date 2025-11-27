@@ -28,7 +28,7 @@ public class FuelView extends ImageView {
 
     private void init() {
         paint = new Paint();
-        paint.setColor(Color.GREEN); // Цвет квадрата
+        paint.setColor(Color.rgb(0,190,0)); // Цвет квадрата
     }
 
     @Override

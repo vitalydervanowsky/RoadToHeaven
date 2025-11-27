@@ -372,60 +372,44 @@ public class MapActivity extends AppCompatActivity {
 
     public void showRubies(){
         ArrayList<MyMap.MapCell> CR = map.getCellsRubies();
-        showAnimateViev(findViewById(R.id.ruby1), CR, 1);
-        showAnimateViev(findViewById(R.id.ruby2), CR, 2);
-        showAnimateViev(findViewById(R.id.ruby3), CR, 3);
-        showAnimateViev(findViewById(R.id.ruby4), CR, 4);
-
-        CR = map.getCellsEndRubies();
-        showAnimateViev(findViewById(R.id.endruby1), CR, 1, false);
-        showAnimateViev(findViewById(R.id.endruby2), CR, 2, false);
-        showAnimateViev(findViewById(R.id.endruby3), CR, 3, false);
-        showAnimateViev(findViewById(R.id.endruby4), CR, 4, false);
+        showAnimateViev(findViewById(R.id.ruby1), CR, 1,80);
+        showAnimateViev(findViewById(R.id.ruby2), CR, 2,80);
+        showAnimateViev(findViewById(R.id.ruby3), CR, 3,80);
+        showAnimateViev(findViewById(R.id.ruby4), CR, 4,40);
 
         CR = map.getCellsStones();
-        showAnimateViev(findViewById(R.id.stones1), CR, 1);
-        showAnimateViev(findViewById(R.id.stones2), CR, 2);
-        showAnimateViev(findViewById(R.id.stones3), CR, 3);
-        showAnimateViev(findViewById(R.id.stones4), CR, 4);
-        showAnimateViev(findViewById(R.id.stones5), CR, 5);
-        showAnimateViev(findViewById(R.id.stones6), CR, 6);
-        showAnimateViev(findViewById(R.id.stones7), CR, 7);
-        showAnimateViev(findViewById(R.id.stones8), CR, 8);
+        showAnimateViev(findViewById(R.id.stones1), CR, 1,80);
+        showAnimateViev(findViewById(R.id.stones2), CR, 2,80);
+        showAnimateViev(findViewById(R.id.stones3), CR, 3,80);
+        showAnimateViev(findViewById(R.id.stones4), CR, 4,80);
+        showAnimateViev(findViewById(R.id.stones5), CR, 5,80);
+        showAnimateViev(findViewById(R.id.stones6), CR, 6,80);
+        showAnimateViev(findViewById(R.id.stones7), CR, 7,80);
+        showAnimateViev(findViewById(R.id.stones8), CR, 8,80);
     }
 
-    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell,boolean animate){
+    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell, int prc){
         if (CR.size()>=numCell && CR.get(numCell-1)!=null){
             IV.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) IV.getLayoutParams();
             int x = CR.get(numCell-1).x * map.scale;
             int y = CR.get(numCell-1).y * map.scale;
 
-            if (animate){
-                params.setMargins(x,y+ map.scale/2-map.scale/8,0,0);
-                params.width = (int)(map.scale *0.7);
+
+                params.setMargins(x+map.scale/3,y+ map.scale/2-map.scale/6,0,0);
+                params.width = (int)(map.scale * prc / 100);
                 params.height = params.width;
                 IV.setLayoutParams(params);
                 AnimationDrawable  IVAnimation = (AnimationDrawable)IV.getDrawable();
                 IVAnimation.start();
-            }
-            else {
-                params.setMargins(x,y,0,0);
-                params.width = (map.scale);
-                params.height = params.width;
-                IV.setLayoutParams(params);
 
 
-            }
         }
         else IV.setVisibility(View.INVISIBLE);
 
 
     }
 
-    private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell){
-        showAnimateViev(IV, CR, numCell, true);
-    }
 
     private void moveImageView(int positionY, int positionX) {
         if  (isEvacuation) return;

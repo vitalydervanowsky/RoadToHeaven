@@ -15,6 +15,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectSTO;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectTetris;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
 import com.carloclub.roadtoheaven.maps.Sokolka;
 import com.carloclub.roadtoheaven.maps.City;
@@ -41,7 +42,6 @@ public class MyMap {
     public ArrayList<Question> cinemaQuestion;
     public ArrayList<Question> schoolQuestions;
     public ArrayList<Question> churchQuestions;
-    public ArrayList<Question> wellQuestions;
     public ArrayList<Question> kidsQuestion;
 
     public MapObject currentObject;
@@ -67,38 +67,72 @@ public class MyMap {
     }
     public ArrayList<MapCell> getCellsRubies() {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
+        for (int i=1;i<=4;i++){
+            CR.add(null);
+        }
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
-                    if (mMapCells[x][y].object.isActual())
-                        CR.add(mMapCells[x][y]);
+                if (mMapCells[x][y].type.equals("helpboy")&&mMapCells[x][y].object.isActual()){
+                    CR.set(0,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("hunger")&&mMapCells[x][y].object.isActual()){
+                    CR.set(1,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("pilgrim")&&mMapCells[x][y].object.isActual()){
+                    CR.set(2,mMapCells[x][y]);
                 }
 
             }
+//        ArrayList<MapCell> CR = new ArrayList<MapCell>();
+//        for (int x = 0; x < this.mLength; x++)
+//            for (int y = 0; y < this.mHeight; y++){
+//                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+//                    if (mMapCells[x][y].object.isActual())
+//                        CR.add(mMapCells[x][y]);
+//                }
+//
+//            }
 
         return CR;
     }
     public ArrayList<MapCell> getCellsEndRubies() {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
+        for (int i=1;i<=4;i++){
+            CR.add(null);
+        }
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
-                    if (!mMapCells[x][y].object.isActual())
-                        CR.add(mMapCells[x][y]);
+                if (mMapCells[x][y].type.equals("helpboy")&&mMapCells[x][y].object.isActual()){
+                    CR.set(0,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("hunger")&&mMapCells[x][y].object.isActual()){
+                    CR.set(1,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("pilgrim")&&mMapCells[x][y].object.isActual()){
+                    CR.set(2,mMapCells[x][y]);
                 }
 
             }
+
+//        for (int x = 0; x < this.mLength; x++)
+//            for (int y = 0; y < this.mHeight; y++){
+//                if (mMapCells[x][y].type.equals("pilgrim")|| mMapCells[x][y].type.equals("hunger")|| mMapCells[x][y].type.equals("helpboy")){
+//                    if (!mMapCells[x][y].object.isActual())
+//                        CR.add(mMapCells[x][y]);
+//                }
+//
+//            }
 
         return CR;
     }
     public ArrayList<MapCell> getCellsStones() {
         ArrayList<MapCell> CR = new ArrayList<MapCell>();
-        for (int i=1;i<=8;i++){
+        for (int i=1;i<=9;i++){
             CR.add(null);
         }
         for (int x = 0; x < this.mLength; x++)
             for (int y = 0; y < this.mHeight; y++){
-                if (mMapCells[x][y].type.equals("stones1")&&mMapCells[x][y].object.isActual()){
+                if (mMapCells[x][y].type.equals("well")&&mMapCells[x][y].object.isActual()){
                     CR.set(0,mMapCells[x][y]);
                 }
                 if (mMapCells[x][y].type.equals("church2")&&mMapCells[x][y].object.isActual()){
@@ -121,6 +155,9 @@ public class MyMap {
                 }
                 if (mMapCells[x][y].type.equals("books1")&&mMapCells[x][y].object.isActual()){
                     CR.set(7,mMapCells[x][y]);
+                }
+                if (mMapCells[x][y].type.equals("stones1")&&mMapCells[x][y].object.isActual()){
+                    CR.set(8,mMapCells[x][y]);
                 }
 
 //                if (mMapCells[x][y].type.equals("books1")|| mMapCells[x][y].type.equals("stones1")|| mMapCells[x][y].type.equals("RM1")|| mMapCells[x][y].type.equals("tetris")
@@ -445,6 +482,12 @@ public class MyMap {
                 }
                 else if (mMapCells[x][y].type.equals("market")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
+                }
+                else if (mMapCells[x][y].type.equals("marketplace")) {
+                    mMapCells[x][y].object = new MapObjectWell(x, y, MainActivity);
+                }
+                else if (mMapCells[x][y].type.equals("well")) {
+                    mMapCells[x][y].object = new MapObjectWell(x, y, MainActivity);
                 }
                 else if (mMapCells[x][y].type.equals("cafe")) {
                     mMapCells[x][y].object = new MapObject(x, y, MainActivity);
