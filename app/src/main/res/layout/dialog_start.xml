@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/start" />
+        app:srcCompat="@drawable/start"
+        tools:ignore="contentDescription" />
 
 
     <ImageView
@@ -27,9 +28,8 @@
         android:fillEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/caranimation">
-
-    </ImageView>
+        app:srcCompat="@drawable/caranimation"
+        tools:ignore="contentDescription" />
 
     <TextView
         android:id="@+id/nextButton"

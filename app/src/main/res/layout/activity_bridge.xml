@@ -13,55 +13,63 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/river" />
+        app:srcCompat="@drawable/river"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageView31"
         android:layout_width="74dp"
         android:layout_height="97dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pope"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone3"
         android:layout_width="51dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/nostone"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone4"
-        app:layout_constraintTop_toTopOf="@+id/imageStone4" />
+        app:layout_constraintTop_toTopOf="@+id/imageStone4"
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone2"
         android:layout_width="51dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/nostone"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone3"
-        app:layout_constraintTop_toTopOf="@+id/imageStone3" />
+        app:layout_constraintTop_toTopOf="@+id/imageStone3"
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone5"
         android:layout_width="51dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/nostone"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone6"
-        app:layout_constraintTop_toTopOf="@+id/imageStone6" />
+        app:layout_constraintTop_toTopOf="@+id/imageStone6"
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone4"
         android:layout_width="51dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/nostone"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone5"
-        app:layout_constraintTop_toTopOf="@+id/imageStone5" />
+        app:layout_constraintTop_toTopOf="@+id/imageStone5"
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone6"
@@ -71,7 +79,8 @@
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone7"
         app:layout_constraintTop_toTopOf="@+id/imageStone7"
-        app:srcCompat="@drawable/nostone" />
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone7"
@@ -81,17 +90,19 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/nostone" />
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/imageStone1"
         android:layout_width="51dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/nostone"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/imageStone2"
-        app:layout_constraintTop_toTopOf="@+id/imageStone2" />
+        app:layout_constraintTop_toTopOf="@+id/imageStone2"
+        app:srcCompat="@drawable/nostone"
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/car2"
@@ -102,15 +113,15 @@
         android:fillEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/imageView30"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cabrioleft">
-
-    </ImageView>
+        app:srcCompat="@drawable/cabrioleft"
+        tools:ignore="contentDescription" />
 
     <TextView
         android:id="@+id/buttonAdvice"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/questionTextView"
@@ -175,6 +186,7 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/my_included_layout"
         app:layout_constraintTop_toBottomOf="@+id/questionTextView"
-        app:srcCompat="@drawable/icon_ruby" />
+        app:srcCompat="@drawable/icon_ruby"
+        tools:ignore="contentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

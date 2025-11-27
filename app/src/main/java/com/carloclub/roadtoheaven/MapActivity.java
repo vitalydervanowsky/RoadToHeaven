@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,10 +25,16 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 import com.carloclub.roadtoheaven.maps.City;
+import com.carloclub.roadtoheaven.maps.SideMenuButton;
+import com.carloclub.roadtoheaven.maps.SideMenuButtonAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import kotlin.Unit;
 
 public class MapActivity extends AppCompatActivity {
     ImageView imageView; //Карта
@@ -37,6 +44,7 @@ public class MapActivity extends AppCompatActivity {
     TextView textMoney;
     TextView textStones;
     TextView textRubi;
+    private RecyclerView sideMenuRecyclerView;
     public MediaPlayer correctMediaPlayer;
 
     int clickX;
@@ -144,7 +152,26 @@ public class MapActivity extends AppCompatActivity {
         textMoney = findViewById(R.id.textMoney);
         textStones = findViewById(R.id.textStones);
         textRubi = findViewById(R.id.textRubi);
-
+        sideMenuRecyclerView = findViewById(R.id.sideMenuRecyclerView);
+        List<SideMenuButton> sideMenuButtons = Arrays.asList(
+                new SideMenuButton(SideMenuButton.Type.SETTINGS),
+                new SideMenuButton(SideMenuButton.Type.TASKS),
+                new SideMenuButton(SideMenuButton.Type.BAG),
+                new SideMenuButton(SideMenuButton.Type.TOW)
+        );
+        SideMenuButtonAdapter sideMenuButtonAdapter = new SideMenuButtonAdapter(sideMenuButtons, type -> {
+           switch (type) {
+               case SETTINGS:
+               case BAG:
+               case TASKS:
+                   break;
+               case TOW:
+                   startEvacuation();
+                   break;
+           }
+           return Unit.INSTANCE;
+        });
+        sideMenuRecyclerView.setAdapter(sideMenuButtonAdapter);
         fuelView = findViewById(R.id.fuelView);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
@@ -258,10 +285,6 @@ public class MapActivity extends AppCompatActivity {
         });
         imageView.setOnClickListener(v -> {
             moveImageView(clickY, (clickX));
-        });
-
-        findViewById(R.id.imageViewtruck).setOnClickListener(v -> {
-            startEvacuation();
         });
 
         //включаем анимацию текущего положения машины (картинки)
@@ -877,7 +900,7 @@ public class MapActivity extends AppCompatActivity {
                         moveWalpaper.cancel();
                         moveWalpaper = null;
                         unlock = true;
-
+                        sideMenuRecyclerView.setVisibility(View.VISIBLE);
                         //startNextTask();
                         return;
 
