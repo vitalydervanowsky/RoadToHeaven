@@ -77,27 +77,46 @@ object StoryHelper {
             person = Person.FATHER_EUGENE,
             title = null,
             startDialogInfo = DialogInfo(
-                message = "hello",
-                yesButton = "yes",
-                noButton = "no",
+                message = "Супакой i дабро! Вітаю каля студні і хачу распавесці новую гісторыю",
+                yesButton = "Хачу паслухаць",
+                noButton = "Выйсци",
             ),
             endDialogInfo = DialogInfo(
-                message = "congrats",
-                yesButton = "yes",
-                noButton = "no",
+                message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
+                yesButton = "Здабыць камень",
+                noButton = "Выйсци",
             ),
             position = 0,
             pages = listOf(
-                // todo add father Eugene story here
                 PageData(
-                    text = "Падчас Святой Імшы асвечаная Гостыя ўпала на падлогу і святар паклаў яе ў пасудзіну з вадой.",
-                    imageRes = R.drawable.sokolka_story_1,
-                    audioRes = R.raw.sokolka_story_1
+                    text = "Міша прынес на дзіцячую пляцоўку яблыкі. Яго сябра Косця запытаўся ў яго: \"Дзе ты ўзяў такія смачныя яблыкі?\"",
+                    imageRes = R.drawable.sokolka_well_1,
+                    audioRes = null
                 ),
                 PageData(
-                    text = "Падчас Святой Імшы асвечаная Гостыя ўпала на падлогу і святар паклаў яе ў пасудзіну з вадой.",
-                    imageRes = R.drawable.sokolka_story_1,
-                    audioRes = R.raw.sokolka_story_1
+                    text = "Міша расказаў , што сарваў яблыкі у садзе бабулі, якая ўсе роўна нічога не заўважыла.",
+                    imageRes = R.drawable.sokolka_well_2,
+                    audioRes = null
+                ),
+                PageData(
+                    text = "Косця сказаў сябру: \"Так рабіць нельга! Бо красці  гэта грэх. Ты павінен вярнуць яблыкі бабулі і папрасіць прабачэння.\"",
+                    imageRes = R.drawable.sokolka_well_3,
+                    audioRes = null
+                ),
+                PageData(
+                    text = "Непроста гэта было зрабіць, але ў Мішы атрымалася! Ен папрасіў прабачэння, і паабяцаў так болей не рабіць.",
+                    imageRes = R.drawable.sokolka_well_4,
+                    audioRes = null
+                ),
+                PageData(
+                    text = "Бабуля прабачыла хлопчыка. І нават пачаставала яго яблыкамі.",
+                    imageRes = R.drawable.sokolka_well_5,
+                    audioRes = null
+                ),
+                PageData(
+                    text = "У нядзелю Міша прыступіў да сакрамэнту споведзі.",
+                    imageRes = R.drawable.sokolka_well_6,
+                    audioRes = null
                 ),
             ),
             backgroundImageRes = R.drawable.well,
