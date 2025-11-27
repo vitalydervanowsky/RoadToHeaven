@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.carloclub.roadtoheaven.MapObjects.MapObject;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
+import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,7 +17,6 @@ public class Victorina {
     MapObject object;
     int userAnswer;
     boolean pause;
-    View context;
     TextView buttonAnswer1;
     TextView buttonAnswer2;
     TextView buttonAnswer3;
@@ -25,19 +26,14 @@ public class Victorina {
     private MediaPlayer triumfMediaPlayer;
     int trueAnswer;
     String [] answers;
-    Random random;
     Timer timer;
     TimerVictorina timerDown;
 
     Dialog dialog;
 
-    private boolean shouldDismissDialogOnSuccess = false;
-
-
     public Victorina (MapObject forObject, Dialog dialog){
         object=forObject;
         this.dialog = dialog;
-        this.context=context;
         timer = new Timer();
 
         buttonAnswer1 = dialog.findViewById(R.id.buttonAnswer1);
@@ -73,6 +69,9 @@ public class Victorina {
     }
 
     private void enterAnswer(int userAnswer) {
+        if (hasDialogIncorrectAnswerTextView()) {
+            dialog.findViewById(R.id.incorrectAnswerTextview).setVisibility(View.GONE);
+        }
         if (pause) return;
         if (trueAnswer == 1) {
             buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
@@ -127,11 +126,6 @@ public class Victorina {
         this.trueAnswer = trueAnswer;
     }
 
-    public void showAnswers(boolean shouldDismissDialogOnSuccess) {
-        this.shouldDismissDialogOnSuccess = shouldDismissDialogOnSuccess;
-        showAnswers();
-    }
-
     public void showAnswers() {
         buttonAnswer1.setVisibility(View.VISIBLE);
         buttonAnswer2.setVisibility(View.VISIBLE);
@@ -170,12 +164,28 @@ public class Victorina {
                 buttonAnswer4.setVisibility(View.VISIBLE);
 
                 object.endVictorina(userAnswer == trueAnswer);
-                if (shouldDismissDialogOnSuccess) {
-                    dialog.dismiss();
+                if (userAnswer == trueAnswer) {
+                    if (isShouldDismissDialogOnSuccess()) {
+                        dialog.dismiss();
+                    }
+                } else {
+                    if (hasDialogIncorrectAnswerTextView()) {
+                        dialog.findViewById(R.id.incorrectAnswerTextview).setVisibility(View.VISIBLE);
+                    }
                 }
 
             });
         }
+    }
+
+    private boolean hasDialogIncorrectAnswerTextView() {
+        return object instanceof MapObjectWell && dialog.findViewById(R.id.incorrectAnswerTextview) != null;
+    }
+
+    private boolean isShouldDismissDialogOnSuccess() {
+        return object instanceof MapObjectWell ||
+                object instanceof MapObjectSchool ||
+                object instanceof MapObjectChurch;
     }
 
 }

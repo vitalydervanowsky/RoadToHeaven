@@ -175,6 +175,9 @@ public class Sokolka {
         Map.churchQuestions = new ArrayList<>();
         Map.churchQuestions.add(new MyMap.Question(dataQuestion,"Вучыць тых, хто не ведае","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",1,0, R.drawable.mercy_act_soul_gallery_2));
 
+        Map.wellQuestions = new ArrayList<>();
+        Map.wellQuestions.add(new MyMap.Question("Які ўчынак міласэрнасці ўчыніў Косця?","Накарміў галоднага","Наставіў грэшніка","Адведаў вязня","Ніякага",2,0));
+
         Map.kidsQuestion = new ArrayList<>();
         Map.kidsQuestion.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Наведаць хворага","Наставіць грэшніка",1,0, R.drawable.drawing1));
     }

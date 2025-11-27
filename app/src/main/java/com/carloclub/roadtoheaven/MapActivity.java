@@ -1,6 +1,5 @@
 package com.carloclub.roadtoheaven;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
@@ -728,10 +727,7 @@ public class MapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 111 && resultCode == RESULT_OK && hasCurrentCellTask()) {
-            Puzzle puzzle = getPuzzle();
-            if (puzzle != null) {
-                puzzle.startPuzzle(true);
-            }
+            startPuzzle();
         /*} else if (resultCode == RESULT_OK) {
             //String resultData = data.getStringExtra("key"); // Получаем данные
 
@@ -745,21 +741,22 @@ public class MapActivity extends AppCompatActivity {
     }
 
     // todo надо сделать общий список с заданиями, которые будут начинаться без зависимости от типа ячейки
-    @Nullable
-    private Puzzle getPuzzle() {
+    private void startPuzzle() {
         Puzzle puzzle = null;
         if (map.currentObject instanceof MapObjectSchool) {
-            if (map.currentObject.task.isStarted) {
+            if (map.currentObject.task.isStarted && !map.schoolQuestions.isEmpty()) {
                 puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(1));
             } else {
                 puzzle = new Puzzle(map.currentObject, map.schoolQuestions.get(0));
             }
-        } else if (map.currentObject instanceof MapObjectChurch) {
+        } else if (map.currentObject instanceof MapObjectChurch && !map.churchQuestions.isEmpty()) {
             puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
-        } else if (map.currentObject instanceof MapObjectWell) {
-            puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
+        } else if (map.currentObject instanceof MapObjectWell && !map.wellQuestions.isEmpty()) {
+            puzzle = new SimplePuzzle(map.currentObject, map.wellQuestions.get(0));
         }
-        return puzzle;
+        if (puzzle != null) {
+            puzzle.startPuzzle();
+        }
     }
 
     class MoveCar extends TimerTask {

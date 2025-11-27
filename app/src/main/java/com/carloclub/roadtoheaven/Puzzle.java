@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.core.view.WindowCompat;
@@ -35,8 +34,6 @@ public class Puzzle {
 
     CustomImageView currentView;
     MyMap.Question question;
-
-    private boolean shouldDismissDialogOnSuccess = false;
 
     public Puzzle(MapObject mapObject, MyMap.Question question) {
         this.mapObject = mapObject;
@@ -146,7 +143,7 @@ public class Puzzle {
     public void showAnswers() {
 
         victorina.loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
-        victorina.showAnswers(shouldDismissDialogOnSuccess);
+        victorina.showAnswers();
 
     }
 
@@ -158,47 +155,44 @@ public class Puzzle {
         ((TextView) dialog.findViewById(R.id.textViewTrials)).setText(String.valueOf(attempts));
     }
 
-    public void startPuzzle(boolean shouldDismissDialogOnSuccess) {
-        this.shouldDismissDialogOnSuccess = shouldDismissDialogOnSuccess;
-        startPuzzle();
-    }
-
     public void startPuzzle() {
         attempts = 1000;
 
-        ((TextView) dialog.findViewById(R.id.textView3)).setText(Messages.getMessageDoMosaic());
         ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.question);
-        //Разрезаем изображение и по-очереди вкладываем в каждый Вью
-        //идентификатор картинки 400х400
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        Bitmap originalBitmap = BitmapFactory.decodeResource(mapObject.mapActivity.getResources(), question.imageID, options); // Определяем координаты и размеры фрагмента
+        if (!(this instanceof SimplePuzzle)) {
+            ((TextView) dialog.findViewById(R.id.textView3)).setText(Messages.getMessageDoMosaic());
+            //Разрезаем изображение и по-очереди вкладываем в каждый Вью
+            //идентификатор картинки 400х400
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            Bitmap originalBitmap = BitmapFactory.decodeResource(mapObject.mapActivity.getResources(), question.imageID, options); // Определяем координаты и размеры фрагмента
 
-        for (int y = 0; y < 4; y++)
-            for (int x = 0; x < 4; x++) {
-                int num = y * 4 + x + 1;
-                // Создаем фрагмент изображения
-                fragments[num - 1] = Bitmap.createBitmap(originalBitmap, x * 100, y * 100, 100, 100);
+            for (int y = 0; y < 4; y++)
+                for (int x = 0; x < 4; x++) {
+                    int num = y * 4 + x + 1;
+                    // Создаем фрагмент изображения
+                    fragments[num - 1] = Bitmap.createBitmap(originalBitmap, x * 100, y * 100, 100, 100);
 
+                }
+
+            //Перемешиваем вьюшки случайным образом за 8 перемещений
+            for (int i = 0; i < 16; i++) {
+                indexes[i] = i;
+            }
+            //Random random = new Random();
+            for (int i = 0; i < 8; i++) { //делаем 8 итераций, меняя 2 случайных фрагмента
+                int from = random.nextInt(15);
+                int to = random.nextInt(15);
+
+                int tmp = indexes[from];
+                indexes[from] = indexes[to];
+                indexes[to] = tmp;
             }
 
-        //Перемешиваем вьюшки случайным образом за 8 перемещений
-        for (int i = 0; i < 16; i++) {
-            indexes[i] = i;
+            //игрок должен будет вернуть всё за 14  манипуляций
+
+            updateViews();
         }
-        //Random random = new Random();
-        for (int i = 0; i < 8; i++) { //делаем 8 итераций, меняя 2 случайных фрагмента
-            int from = random.nextInt(15);
-            int to = random.nextInt(15);
-
-            int tmp = indexes[from];
-            indexes[from] = indexes[to];
-            indexes[to] = tmp;
-        }
-
-        //игрок должен будет вернуть всё за 14  манипуляций
-
-        updateViews();
         dialog.show();
         Window window = dialog.getWindow();
         if (window != null) {

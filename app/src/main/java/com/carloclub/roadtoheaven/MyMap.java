@@ -41,6 +41,7 @@ public class MyMap {
     public ArrayList<Question> cinemaQuestion;
     public ArrayList<Question> schoolQuestions;
     public ArrayList<Question> churchQuestions;
+    public ArrayList<Question> wellQuestions;
     public ArrayList<Question> kidsQuestion;
 
     public MapObject currentObject;
