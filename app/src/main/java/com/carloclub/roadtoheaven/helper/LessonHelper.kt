@@ -23,12 +23,12 @@ object LessonHelper {
             startDialogInfo = DialogInfo(
                 message = getLessonDialogMessages(city)[classType].orEmpty(),
                 yesButton = "Хачу ведаць!",
-                noButton = "Выйсцi з класа",
+                noButton = "Выйсці з класа",
             ),
             endDialogInfo = DialogInfo(
                 message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
                 yesButton = "Выканаць заданне",
-                noButton = "Выйсцi з класа",
+                noButton = "Выйсці з класа",
             ),
             position = 0,
             pages = getImageLessons(city)

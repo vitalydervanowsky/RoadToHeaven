@@ -19,13 +19,10 @@ import com.carloclub.roadtoheaven.model.DialogButton;
 import java.util.Calendar;
 
 public class MapObjectGallery extends MapObject {
-    String title;
-    int interiorId;
 
     public MapObjectGallery(int x, int y, MapActivity activity) {
         super(x, y, activity);
         type = "gallery";
-
     }
 
     @Override
@@ -43,7 +40,7 @@ public class MapObjectGallery extends MapObject {
                 mapActivity,
                 R.drawable.kseniya,
                 new DialogButton(
-                        "Хачу ведаць",
+                        "Выканаць заданне",
                         () -> showGalleryActivity(mapActivity, mapActivity.city)
                 ),
                 new DialogButton(
@@ -54,7 +51,7 @@ public class MapObjectGallery extends MapObject {
     }
 
     @Override
-    public boolean isActual(){
+    public boolean isActual() {
         //чаще 3 минут не давать
         return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
@@ -70,13 +67,5 @@ public class MapObjectGallery extends MapObject {
         lastSuccess = Calendar.getInstance().getTime();
         mapActivity.showRubies();
 
-    }
-
-    @Override
-    public void loadAttributes(String[] attributes) {
-        title = attributes[0];
-        if (attributes[2] != null) {
-            interiorId = mapActivity.getResources().getIdentifier(attributes[2], "drawable", mapActivity.getPackageName());
-        }
     }
 }

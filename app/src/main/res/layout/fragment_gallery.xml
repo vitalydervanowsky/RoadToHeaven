@@ -5,39 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/leftImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gallery_1"
+        app:layout_constraintDimensionRatio="0.58"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="contentDescription" />
+
+    <View
+        android:id="@+id/centerImageView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/gallery_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightImageView"
+        app:layout_constraintStart_toEndOf="@id/leftImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/rightImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gallery_3"
+        app:layout_constraintDimensionRatio="0.58"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="contentDescription" />
+
     <TextView
         android:id="@+id/leftTextView"
         style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="12dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/leftDropArea"
-        app:layout_constraintEnd_toEndOf="@id/leftDropArea"
-        app:layout_constraintStart_toStartOf="@id/leftDropArea"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/leftImageView"
+        app:layout_constraintEnd_toEndOf="@id/leftImageView"
+        app:layout_constraintStart_toStartOf="@id/leftImageView"
+        app:layout_constraintTop_toTopOf="@id/leftImageView"
+        app:layout_constraintVertical_bias="0.3"
         tools:text="Учынкі міласэрнасці для душы бліжняга" />
 
     <FrameLayout
         android:id="@+id/leftDropArea"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="64dp"
-        android:background="@color/green_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/leftImageView"
+        app:layout_constraintEnd_toEndOf="@id/leftImageView"
+        app:layout_constraintStart_toStartOf="@id/leftImageView"
+        app:layout_constraintTop_toTopOf="@id/leftImageView" />
 
     <TextView
         android:id="@+id/titleTextView"
         style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@id/rightDropArea"
-        app:layout_constraintStart_toEndOf="@id/leftDropArea"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/frameImageView"
+        app:layout_constraintEnd_toEndOf="@id/centerImageView"
+        app:layout_constraintStart_toStartOf="@id/centerImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="В какой зал поместить эту картину?" />
 
@@ -48,11 +81,10 @@
         android:layout_marginBottom="16dp"
         android:clickable="false"
         android:focusable="false"
-        app:layout_constraintBottom_toTopOf="@id/pictureNameTextView"
-        app:layout_constraintEnd_toStartOf="@id/rightDropArea"
-        app:layout_constraintStart_toEndOf="@id/leftDropArea"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/centerImageView"
+        app:layout_constraintStart_toEndOf="@id/centerImageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/frame" />
 
     <TextView
@@ -60,23 +92,23 @@
         style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/questionRecyclerView"
-        app:layout_constraintEnd_toStartOf="@id/rightDropArea"
-        app:layout_constraintStart_toEndOf="@id/leftDropArea"
+        app:layout_constraintEnd_toEndOf="@id/centerImageView"
+        app:layout_constraintStart_toStartOf="@id/centerImageView"
+        app:layout_constraintTop_toBottomOf="@id/frameImageView"
         tools:text="Наведваць хворых" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/centerImageView"
+        app:layout_constraintStart_toStartOf="@id/centerImageView"
         tools:itemCount="5"
         tools:listitem="@layout/item_question_bar" />
 
@@ -85,21 +117,23 @@
         style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="30dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/rightDropArea"
-        app:layout_constraintEnd_toEndOf="@id/rightDropArea"
-        app:layout_constraintStart_toStartOf="@id/rightDropArea"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/rightImageView"
+        app:layout_constraintEnd_toEndOf="@id/rightImageView"
+        app:layout_constraintStart_toStartOf="@id/rightImageView"
+        app:layout_constraintTop_toTopOf="@id/rightImageView"
+        app:layout_constraintVertical_bias="0.3"
         tools:text="Учынкі міласэрнасці для душы бліжняга" />
 
     <FrameLayout
         android:id="@+id/rightDropArea"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        android:background="@color/blue_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/rightImageView"
+        app:layout_constraintEnd_toEndOf="@id/rightImageView"
+        app:layout_constraintStart_toStartOf="@id/rightImageView"
+        app:layout_constraintTop_toTopOf="@id/rightImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
