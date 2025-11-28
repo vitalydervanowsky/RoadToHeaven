@@ -36,7 +36,7 @@ object StoryHelper {
             endDialogInfo = DialogInfo(
                 message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
                 yesButton = "Выканаць заданне",
-                noButton = "Выйсцi з касцёла",
+                noButton = "Выйсці з касцёла",
             ),
             position = 0,
             pages = listOf(
@@ -79,12 +79,12 @@ object StoryHelper {
             startDialogInfo = DialogInfo(
                 message = "Супакой i дабро! Вітаю каля студні і хачу распавесці новую гісторыю",
                 yesButton = "Хачу паслухаць",
-                noButton = "Выйсцi",
+                noButton = "Выйсці",
             ),
             endDialogInfo = DialogInfo(
                 message = "Малайчынка! Цяпер ты можаш паспрабаваць выканаць заданне па тэме i атрымаць камень",
                 yesButton = "Здабыць камень",
-                noButton = "Выйсцi",
+                noButton = "Выйсці",
             ),
             position = 0,
             pages = listOf(

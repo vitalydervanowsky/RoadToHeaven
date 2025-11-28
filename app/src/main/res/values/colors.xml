@@ -10,5 +10,6 @@
 
     <color name="blue_button">#84C8E6</color>
     <color name="green_button">#A7E45E</color>
-    <color name="green_correct">#21A821</color>
+    <color name="green_correct">#8BD414</color>
+    <color name="soft_white">#FFEFCF</color>
 </resources>

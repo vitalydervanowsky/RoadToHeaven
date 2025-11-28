@@ -58,7 +58,7 @@ class SchoolHallFragment : Fragment() {
                 listener = null
             ),
             noDialogButton = DialogButton(
-                title = "Выйсцi",
+                title = "Выйсці",
                 listener = object : DialogButtonListener {
                     override fun onButtonClicked() {
                         requireActivity().finish()

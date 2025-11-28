@@ -44,7 +44,7 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.Question>() {
                     val color = if (galleryImage.state == State.CORRECT) {
                         R.color.green_correct
                     } else {
-                        R.color.black
+                        R.color.soft_white
                     }
                     setTextColor(ContextCompat.getColor(context, color))
                 }
