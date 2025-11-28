@@ -151,7 +151,7 @@ public class MapActivity extends AppCompatActivity {
         textMoney = findViewById(R.id.textMoney);
         textStones = findViewById(R.id.textStones);
         textRubi = findViewById(R.id.textRubi);
-        sideMenuRecyclerView = findViewById(R.id.sideMenuRecyclerView);
+        //sideMenuRecyclerView = findViewById(R.id.sideMenuRecyclerView);
         List<SideMenuButton> sideMenuButtons = Arrays.asList(
                 new SideMenuButton(SideMenuButton.Type.SETTINGS),
                 new SideMenuButton(SideMenuButton.Type.TASKS),
@@ -170,7 +170,7 @@ public class MapActivity extends AppCompatActivity {
            }
            return Unit.INSTANCE;
         });
-        sideMenuRecyclerView.setAdapter(sideMenuButtonAdapter);
+        //sideMenuRecyclerView.setAdapter(sideMenuButtonAdapter);
         fuelView = findViewById(R.id.fuelView);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
@@ -386,6 +386,7 @@ public class MapActivity extends AppCompatActivity {
         showAnimateViev(findViewById(R.id.stones6), CR, 6,80);
         showAnimateViev(findViewById(R.id.stones7), CR, 7,80);
         showAnimateViev(findViewById(R.id.stones8), CR, 8,80);
+        showAnimateViev(findViewById(R.id.stones9), CR, 9,80);
     }
 
     private void showAnimateViev(ImageView IV, ArrayList<MyMap.MapCell> CR, int numCell, int prc){
@@ -735,7 +736,8 @@ public class MapActivity extends AppCompatActivity {
             }
         } else if (map.currentObject instanceof MapObjectChurch && !map.churchQuestions.isEmpty()) {
             puzzle = new Puzzle(map.currentObject, map.churchQuestions.get(0));
-        } else if (map.currentObject instanceof MapObjectWell && !map.wellQuestions.isEmpty()) {
+        }
+        else if (map.currentObject instanceof MapObjectWell && !map.wellQuestions.isEmpty()) {
             puzzle = new SimplePuzzle(map.currentObject, map.wellQuestions.get(0));
         }
         if (puzzle != null) {
@@ -881,7 +883,7 @@ public class MapActivity extends AppCompatActivity {
                         moveWalpaper.cancel();
                         moveWalpaper = null;
                         unlock = true;
-                        sideMenuRecyclerView.setVisibility(View.VISIBLE);
+                        //sideMenuRecyclerView.setVisibility(View.VISIBLE);
                         //startNextTask();
                         return;
 
