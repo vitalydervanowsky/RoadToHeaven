@@ -61,7 +61,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation"
+                    app:srcCompat="@drawable/boyanimation"
                     tools:ignore="contentDescription" />
 
                 <ImageView
@@ -74,7 +74,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation"
+                    app:srcCompat="@drawable/hungeranimation"
                     tools:ignore="contentDescription" />
 
                 <ImageView
@@ -87,7 +87,7 @@
                     android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rubyanimation"
+                    app:srcCompat="@drawable/pilgrimanimation"
                     tools:ignore="contentDescription" />
 
                 <ImageView

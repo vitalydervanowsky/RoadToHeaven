@@ -45,7 +45,7 @@ object MessageUtil {
         if (Constants.DATAGAME.stones == 7) {
             DialogMessage.showMessage(
                 R.drawable.bridge,
-                R.drawable.stones1,
+                R.drawable.blue_stone,
                 Messages.getMessageGotAllStones(),
                 Messages.getMessageHowManyStonesGot() + Constants.DATAGAME.stones.toString(),
                 mapActivity
@@ -53,7 +53,7 @@ object MessageUtil {
         } else {
             DialogMessage.showMessage(
                 R.drawable.gratulation,
-                R.drawable.stones1,
+                R.drawable.blue_stone,
                 Messages.getMessageGotStone(),
                 Messages.getMessageHowManyStonesGot() + Constants.DATAGAME.stones.toString(),
                 mapActivity,

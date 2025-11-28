@@ -64,8 +64,8 @@ public class MapActivity extends AppCompatActivity {
     public int carY=0;
 
     public int stones=0;
-    int lastY =0;   //служебный. Для параллельной прокрутки по вертикали
-    int lastX =0;   //служебный. Для параллельной прокрутки по горизонтали
+    int lastY =-1;   //служебный. Для параллельной прокрутки по вертикали
+    int lastX =-1;   //служебный. Для параллельной прокрутки по горизонтали
     int trend =3;   //0 право, 1 лево, 2 вверх, 3 вниз
     public ArrayList<Task> myTasks;
     private MediaPlayer rrrMediaPlayer;
@@ -827,15 +827,19 @@ public class MapActivity extends AppCompatActivity {
                         rrrMediaPlayer.pause();
                         nav.setVisibility(View.INVISIBLE);
 
-                        //Активизируем объект, на который попали
-                        MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
-                        if (currentCell.object != null) {
-                            map.currentObject=currentCell.object;
-                            currentCell.object.runAction();
+
+                        Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));
+
+                        if (Task==null) {
+                            //Активизируем объект, на который попали
+                            MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
+                            if (currentCell.object != null) {
+                                map.currentObject = currentCell.object;
+                                currentCell.object.runAction();
+                            }
                         }
 
                         //Если есть задания к этой ячейке, запусаем их завершение
-                        Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));
                         //if (task!=null) task.finishTask();
                         //task.startNextTask(MapActivity.this);
 
@@ -849,6 +853,8 @@ public class MapActivity extends AppCompatActivity {
                             isAnimation.start();
                             unlock = true;
                         }
+
+
                         return;
                     }
 

@@ -50,7 +50,7 @@ public class MapObjectPilgrim extends MapObject {
                     Messages.getMessageFromPilgrim(),
                     Messages.getMessageThanks(),
                     mapActivity,
-                    R.drawable.karalina,
+                    R.drawable.nikita,
                     new DialogButton(
                             "Падвезці",
                             () -> startTask()
@@ -81,7 +81,20 @@ public class MapObjectPilgrim extends MapObject {
         task.isFinished = true;
 
         Constants.DATAGAME.setRubies(Constants.DATAGAME.getRubies() +1);
-        DialogMessage.showMessage(R.drawable.happyboy,R.drawable.icon_ruby,"За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи","+1",mapActivity);
+        showMessage(
+                0,
+                R.drawable.icon_ruby,
+                Messages.getMessageYouGetRubyHelp(),
+                "+1",
+                mapActivity,
+                R.drawable.nikita,
+                new DialogButton(
+                        "Супер!",
+                        null
+                ),
+                        null
+        );
+        //DialogMessage.showMessage(R.drawable.happyboy,R.drawable.icon_ruby,"За Твоё доброе сердце Ты полчаешь 1 Рубин Помощи","+1",mapActivity);
         //DialogMessage.showMessage(R.drawable.piligrim,R.drawable.icon_money,"Спасибо, добрый человек. Вот тебе небольшой подарок от меня: 100 монет","+"+String.valueOf(bonus),mapActivity);
     }
 

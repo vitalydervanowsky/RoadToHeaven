@@ -18,6 +18,7 @@ public class MapObject {
     public Task task;
     public MediaPlayer mediaPlayer;
     public Date lastSuccess;
+    public boolean visited=false;
 
     public MapObject(int x, int y, MapActivity activity) {
         this.x = x;
@@ -32,6 +33,7 @@ public class MapObject {
 
 
     public void runAction() {
+        visited=true;
         DialogMessage.showMessage(0,0,"Привет! У меня пока нет для тебя заданий","", mapActivity);
     }
     public void finishTask() {

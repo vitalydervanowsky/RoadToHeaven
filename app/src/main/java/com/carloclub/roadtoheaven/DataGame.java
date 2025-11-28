@@ -11,7 +11,7 @@ public class DataGame {
     private int fuel =15000;
     private int money =3000;
     private int stones=0;
-    private int rubies=1;
+    private int rubies=0;
     private int burgers=0;
 
     private MapActivity mapActivity;
