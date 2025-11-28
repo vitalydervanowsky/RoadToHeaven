@@ -1,11 +1,15 @@
 package com.carloclub.roadtoheaven;
 
+import static com.carloclub.roadtoheaven.DialogMessage.showMessage;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -26,6 +30,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 import com.carloclub.roadtoheaven.maps.City;
 import com.carloclub.roadtoheaven.maps.SideMenuButton;
 import com.carloclub.roadtoheaven.maps.SideMenuButtonAdapter;
+import com.carloclub.roadtoheaven.model.DialogButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -325,14 +330,17 @@ public class MapActivity extends AppCompatActivity {
         ArrayList<MyMap.MapCell> Rote = map.buildRoute(CurrentCell,NewCell);
         if (Rote==null) return;
         map.mRoute = Rote;
+
+        startMission();
+    }
+
+    public void startMission(){
         //сразу начинаем ехать
         mMoveCar = new MoveCar();
         twistCar();
         timer.schedule(mMoveCar, 1000, 40);
         rrrMediaPlayer.start();
     }
-
-
 
     public void startEvacuation(){
         MyMap.MapCell NewCell = null;
@@ -523,6 +531,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     public void startNextTask() {
+        Task.checkTasks(MapActivity.this);
         //Если есть незавершенные, то новый не запускаем
         for (int i = 1; i <= myTasks.size(); i++) {
             Task task = myTasks.get(i - 1);
@@ -757,6 +766,7 @@ public class MapActivity extends AppCompatActivity {
 //                        currentX = NextCell.x * map.scale;
 //                        currentY = NextCell.y * map.scale;
 //                    }
+                    if (mMoveCar==null) return;
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) car.getLayoutParams();
                     if (Constants.DATAGAME.getFuel() <=0 && !isEvacuation) {
                         if (mMoveCar!=null) {mMoveCar.cancel(); mMoveCar=null;}
@@ -890,6 +900,7 @@ public class MapActivity extends AppCompatActivity {
                         unlock = true;
                         sideMenuRecyclerView.setVisibility(View.VISIBLE);
                         //startNextTask();
+
                         return;
 
                     }

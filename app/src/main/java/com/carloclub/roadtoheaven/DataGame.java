@@ -131,6 +131,6 @@ public class DataGame {
 
         mapActivity.updateBar();
 
-        Task.checkTasks(mapActivity);
+        //Task.checkTasks(mapActivity);
     }
 }
