@@ -121,7 +121,7 @@ public class MapObjectFuel extends MapObject {
             Constants.DATAGAME.setFuel(Constants.DATAGAME.getFuel()+4000);
             if (Constants.DATAGAME.getFuel()>=(Constants.DATAGAME.getTank()*1000)){
                 Constants.DATAGAME.setFuel(Constants.DATAGAME.getTank()*1000);
-                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, Messages.getMessageTankIsFull(), "", mapActivity);
+                DialogMessage.showMessage(R.drawable.icon_fuel, R.drawable.icon_fuel, Messages.getMessageTankIsFull(), null, mapActivity);
                 dialog.dismiss();
             }
             fuelView.invalidate();

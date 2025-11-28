@@ -167,7 +167,18 @@ public class Sokolka {
         Map.schoolQuestions.add(new MyMap.Question(dataQuestion,"Накарміць галоднага","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",3,0, R.drawable.mercy_act_soul_gallery_7));
 
         Map.churchQuestions = new ArrayList<>();
-        Map.churchQuestions.add(new MyMap.Question(dataQuestion,"Вучыць тых, хто не ведае","Напаіць прагнучага","Маліцца за жывых і памерлых","Наставіць грэшніка",1,0, R.drawable.mercy_act_soul_gallery_2));
+        Map.churchQuestions.add(
+                new MyMap.Question(
+                        "У якiм годзе адбыўся Эўхарыстычны цуд у Сакулке?",
+                        "2008",
+                        "1918",
+                        "2025",
+                        "там не было цуду",
+                        1,
+                        1,
+                        0
+                )
+        );
 
         Map.wellQuestions = new ArrayList<>();
         Map.wellQuestions.add(new MyMap.Question("Які ўчынак міласэрнасці ўчыніў Косця?","Накарміў галоднага","Наставіў грэшніка","Адведаў вязня","Ніякага",2,0));

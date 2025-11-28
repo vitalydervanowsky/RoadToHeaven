@@ -687,10 +687,10 @@ public class MyMap {
         MyMap myMap = null;
         switch (city) {
             case SOKOLKA:
-            myMap = new MyMap(20, 10, R.drawable.map_sokolka);
-            Sokolka.LoadMap(myMap);
-            Sokolka.loadTexts(myMap);
-            break;
+                myMap = new MyMap(20, 10, R.drawable.map_sokolka);
+                Sokolka.LoadMap(myMap);
+                Sokolka.loadTexts(myMap);
+                break;
         }
         return myMap;
     }
