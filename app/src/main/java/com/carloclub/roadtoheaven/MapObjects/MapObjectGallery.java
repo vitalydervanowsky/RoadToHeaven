@@ -35,12 +35,12 @@ public class MapObjectGallery extends MapObject {
         showMessage(
                 0,
                 0,
-                "Вiтаем! Вы зайшлi ў галерэю",
+                "Хвала Хрысту! Сёння ў нашу галерэю прывезлі новую выставу \"Учынкі Міласэрнасці\". Дапамажы мне размеркаваць карціны па залах",
                 null,
                 mapActivity,
                 R.drawable.kseniya,
                 new DialogButton(
-                        "Выканаць заданне",
+                        "Хачу дапамагчы!",
                         () -> showGalleryActivity(mapActivity, mapActivity.city)
                 ),
                 new DialogButton(
