@@ -28,6 +28,7 @@ public class MapObjectSchool extends MapObject {
 
     @Override
     public void runAction() {
+        visited=true;
         Intent intent = new Intent(mapActivity, SchoolActivity.class);
         intent.putExtra(Constants.CITY_ARG, mapActivity.city);
         mapActivity.startActivityForResult(intent, 111);

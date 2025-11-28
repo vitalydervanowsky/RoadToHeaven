@@ -23,6 +23,7 @@ import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.OldQuestions;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.gallery.GalleryActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,6 +47,7 @@ public class MapObjectFuel extends MapObject {
 
     @Override
     public void runAction(){
+        visited=true;
         if (dialog==null) {
             dialog = new Dialog(mapActivity, R.style.FullScreenDialog);
         }
@@ -79,6 +81,12 @@ public class MapObjectFuel extends MapObject {
 
         victorina = new Victorina(this, dialog);
         showQuestion();
+
+        dialog.setOnDismissListener(thisDialog -> {
+            // выполнится при закрытии диалога
+            mapActivity.startNextTask();
+
+        });
 
     }
 

@@ -828,15 +828,19 @@ public class MapActivity extends AppCompatActivity {
                         rrrMediaPlayer.pause();
                         nav.setVisibility(View.INVISIBLE);
 
-                        //Активизируем объект, на который попали
-                        MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
-                        if (currentCell.object != null) {
-                            map.currentObject=currentCell.object;
-                            currentCell.object.runAction();
+
+                        Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));
+
+                        if (Task==null) {
+                            //Активизируем объект, на который попали
+                            MyMap.MapCell currentCell = map.mMapCells[navX][navY]; //]Map.FindCellByXY(currentX, currentY);
+                            if (currentCell.object != null) {
+                                map.currentObject = currentCell.object;
+                                currentCell.object.runAction();
+                            }
                         }
 
                         //Если есть задания к этой ячейке, запусаем их завершение
-                        Task Task = com.carloclub.roadtoheaven.Task.checkTasks(MapActivity.this, map.mMapCells[navX][navY]); //map.findCellByXY(currentX, currentY));
                         //if (task!=null) task.finishTask();
                         //task.startNextTask(MapActivity.this);
 
@@ -850,6 +854,8 @@ public class MapActivity extends AppCompatActivity {
                             isAnimation.start();
                             unlock = true;
                         }
+
+
                         return;
                     }
 

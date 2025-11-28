@@ -41,7 +41,7 @@ public class Task {
         for (int i = 1; i<= mapActivity.myTasks.size(); i++){
             Task Task = mapActivity.myTasks.get(i-1);
             //Проверяем задания, которые направлены на любой объект какого-то типа (в них заполнен тип (targetType), но не заполнена ячейка (targetCell))
-            if (Task.targetType.equals(Cell.type)&& !Task.targetType.equals("")) {
+            if (Task.targetType.equals(Cell.type)&& !Task.targetType.equals("")&& !Task.isFinished) {
                 Task.finishTask();
                 return Task;
             }
@@ -51,6 +51,21 @@ public class Task {
                 Task.finishTask();
                 return Task;
             }
+
+            //проверяем задания, связанные с посещением объектов
+            if (!Task.targetType.equals("")&& !Task.isFinished){
+                for (int x = mapActivity.map.mLength -1; x>=0; x--)
+                    for (int y = mapActivity.map.mHeight -1; y>=0 ; y--){
+                        if (mapActivity.map.mMapCells[x][y].object == null){
+                            continue;
+                        }
+                        if (Task.targetType.equals("object_"+mapActivity.map.mMapCells[x][y].object.type)&&mapActivity.map.mMapCells[x][y].object.visited){
+                            Task.finishTask();
+                            return Task;
+                        }
+                    }
+            }
+
         }
         return checkTasks(mapActivity);
     }

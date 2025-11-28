@@ -71,7 +71,7 @@ public class MapObjectHunger extends MapObject {
 
         task.isFinished = true;
 
-        DialogMessage.showMessage(R.drawable.hunger, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
+        DialogMessage.showMessage(0, R.drawable.icon_ruby, Messages.getMessageYouGetRubyHelp(), "+1", mapActivity);
     }
 
 }
