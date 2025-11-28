@@ -64,8 +64,8 @@ public class MapActivity extends AppCompatActivity {
     public int carY=0;
 
     public int stones=0;
-    int lastY =0;   //служебный. Для параллельной прокрутки по вертикали
-    int lastX =0;   //служебный. Для параллельной прокрутки по горизонтали
+    int lastY =-1;   //служебный. Для параллельной прокрутки по вертикали
+    int lastX =-1;   //служебный. Для параллельной прокрутки по горизонтали
     int trend =3;   //0 право, 1 лево, 2 вверх, 3 вниз
     public ArrayList<Task> myTasks;
     private MediaPlayer rrrMediaPlayer;
