@@ -61,7 +61,7 @@ public class PaintView extends View {
             for (j=0;j<4;j++){
                 if (f.Cells[i][j]==true) {
                     p.setColor(f.color);
-                    canvas.drawRect(3 + pixels1Cell * (j+f.X+OffsetX), 3 + pixels1Cell * (i+f.Y), pixels1Cell * (j+f.X+OffsetX + 1)-4, pixels1Cell * (i+f.Y + 1)-4, p);
+                    canvas.drawRect(3 + (pixels1Cell+8) * (j+f.X+OffsetX), 3 + pixels1Cell * (i+f.Y), (pixels1Cell+8) * (j+f.X+OffsetX + 1)-4, pixels1Cell * (i+f.Y + 1)-4, p);
                 }
 //                else{
 //                    p.setColor(BackColor);
@@ -166,7 +166,7 @@ public class PaintView extends View {
             int j=0;
             for (j=0;j<4;j++){
                 if (f.Cells[i][j]==true) {
-                    mcanvas.drawRect(3 + pixels1Cell * (j+f.X), 3 + pixels1Cell * (i+f.Y), pixels1Cell * (j+f.X + 1)-4, pixels1Cell * (i+f.Y + 1)-4, p);
+                    mcanvas.drawRect(3 + (pixels1Cell+8) * (j+f.X), 3 + pixels1Cell * (i+f.Y), (pixels1Cell+8) * (j+f.X + 1)-4, pixels1Cell * (i+f.Y + 1)-4, p);
                 }
             }
         }
@@ -200,11 +200,11 @@ public class PaintView extends View {
                 for (j=0;j<FieldWidth;j++){
                     if (Cells [i][j]!=0) {
                         p.setColor(Cells [i][j]);
-                        canvas.drawRect(2 + pixels1Cell * j, 2 + pixels1Cell * i, pixels1Cell * (j + 1)-3, pixels1Cell * (i + 1)-3, p);
+                        canvas.drawRect(2 + (pixels1Cell+8) * j, 2 + pixels1Cell * i, (pixels1Cell+8) * (j + 1)-3, pixels1Cell * (i + 1)-3, p);
 
                     }
                     else {
-                        canvas.drawRect(pixels1Cell * j, pixels1Cell * i, pixels1Cell * (j + 1), pixels1Cell * (i + 1), paintGRAY);
+                        canvas.drawRect((pixels1Cell+8) * j, pixels1Cell * i, (pixels1Cell+8) * (j + 1), pixels1Cell * (i + 1), paintGRAY);
                     }
                 }
             }

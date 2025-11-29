@@ -219,6 +219,9 @@ public class MyMap {
                 if (currentCell.x == toCell.x && currentCell.y == toCell.y) {
                     return arrayList;
                 }
+//                if (toCell.object!=null && toCell.object==currentCell.object){
+//                    return arrayList;
+//                }
                 ArrayList canCells = new ArrayList<MapCell>();
 
                 if (canMove(currentCell.x - 1, currentCell.y, toCell)) {
@@ -233,6 +236,7 @@ public class MyMap {
                 if (canMove(currentCell.x, currentCell.y + 1, toCell)) {
                     canCells.add(mMapCells[currentCell.x][currentCell.y + 1]);
                 }
+
                 if (canCells.size() == 0) {
                     //в данном направленіі больше нет варіантов. удаляем направленіе
                     routes.remove(i);
@@ -267,6 +271,9 @@ public class MyMap {
         if (newCell.x == toCell.x && newCell.y == toCell.y) {
             return true;
         }
+//        if (toCell.object!=null && toCell.object==newCell.object){
+//            return true;
+//        }
         if (newCell.type.equals("Road")) {
             return true;
         }

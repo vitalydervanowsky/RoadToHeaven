@@ -143,7 +143,7 @@ public class MapObjectTetris extends MapObject {
         TetrisView.pixels1Cell=maxH/TetrisView.FieldHeight;
         float level = mapActivity.displayDensity; //.getApplicationContext().getResources().getDisplayMetrics().density;
         int H = Math.round(TetrisView.FieldHeight*TetrisView.pixels1Cell);
-        int W = Math.round(TetrisView.FieldWidth*TetrisView.pixels1Cell);
+        int W = Math.round(TetrisView.FieldWidth*(TetrisView.pixels1Cell+8));
         //dialog.findViewById(R.id.LL).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,H));
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) TetrisView.getLayoutParams();
         params.width = W;
@@ -398,6 +398,7 @@ public class MapObjectTetris extends MapObject {
                         TetrisView.invalidate();
                         //mTimerTask.cancel();
                     }else {
+                        if (mtimerDown!=null) {mtimerDown.cancel(); mtimerDown=null;}
                         int newSpeed = Speed;
                         TetrisView.FixFigure(ActualFigure);
                         int OneColorLines = TetrisView.OneColorLines();

@@ -11,7 +11,7 @@ public class Figure {
     public int X;
     public int Y;
 
-    public static int colors[] = {Color.GRAY, Color.rgb(0,162,232), Color.rgb(150,100,100), Color.rgb(0,130,0)};
+    public static int colors[] = {Color.GRAY, Color.rgb(163,32,22), Color.rgb(150,100,100), Color.rgb(0,130,0)};
 
     public Figure(){
         Cells = new boolean [4][4];

@@ -433,9 +433,36 @@ public class MapActivity extends AppCompatActivity {
 
         //Строим маршрут и запускаем движение машины
         ArrayList<MyMap.MapCell> Rote = map.buildRoute(CurrentCell,NewCell);
-        if (Rote==null) return;
+
+        if (Rote==null && NewCell.object==null) return;
+        //если в соседних ячейках этот же объект, то попробуем поехать туда
+        //сначала вниз
+        if (Rote==null &&NewCell.y<(map.mHeight-1)){
+            MyMap.MapCell alterCell = map.mMapCells[NewCell.x][NewCell.y+1];
+            if (NewCell.object==alterCell.object)
+                Rote = map.buildRoute(CurrentCell,alterCell);
+        }
+        if (Rote==null && NewCell.y>0){
+            MyMap.MapCell alterCell = map.mMapCells[NewCell.x][NewCell.y-1];
+            if (NewCell.object==alterCell.object)
+                Rote = map.buildRoute(CurrentCell,alterCell);
+        }
+        if (Rote==null && NewCell.x<(map.mLength-1)){
+            MyMap.MapCell alterCell = map.mMapCells[NewCell.x+1][NewCell.y];
+            if (NewCell.object==alterCell.object)
+                Rote = map.buildRoute(CurrentCell,alterCell);
+        }
+        if (Rote==null && NewCell.x>0){
+            MyMap.MapCell alterCell = map.mMapCells[NewCell.x-1][NewCell.y];
+            if (NewCell.object==alterCell.object)
+                Rote = map.buildRoute(CurrentCell,alterCell);
+        }
+        if (Rote==null) {
+        return;
+        }
         map.mRoute = Rote;
 
+        NewCell=Rote.get(Rote.size()-1);
         if (NewCell.x ==navX && NewCell.y ==navY ){
 
         }
