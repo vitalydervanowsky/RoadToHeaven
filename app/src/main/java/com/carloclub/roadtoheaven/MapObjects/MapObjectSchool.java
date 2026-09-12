@@ -30,7 +30,7 @@ public class MapObjectSchool extends MapObject {
     public void runAction() {
         visited=true;
         Intent intent = new Intent(mapActivity, SchoolActivity.class);
-        intent.putExtra(Constants.CITY_ARG, mapActivity.city);
+        intent.putExtra(Constants.CITY_ARG, mapActivity.map.mission.id);
         mapActivity.startActivityForResult(intent, 111);
     }
 

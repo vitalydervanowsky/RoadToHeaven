@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.databases.Mission
+import com.carloclub.roadtoheaven.databases.RthBase
 
 class CityAdapter(
-    private val items: List<MapCity>,
-    private val listener: (MapCity) -> Unit
+    private val items: List<Mission>,
+    private val listener: (Mission) -> Unit
 ) : RecyclerView.Adapter<CityAdapter.MainCity>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainCity {
@@ -26,11 +28,11 @@ class CityAdapter(
 
     inner class MainCity(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(mapCity: MapCity) {
+        fun bind(mapCity: Mission) {
             val cityImageView: ImageView = itemView.findViewById(R.id.cityImageView)
             val lockImageView: ImageView = itemView.findViewById(R.id.lockImageView)
 
-            cityImageView.setImageResource(mapCity.city.imageRes)
+            cityImageView.setImageBitmap(RthBase.instance.imageDao().getById(mapCity.imageId).getImage())
             if (mapCity.isEnabled) {
                 cityImageView.alpha = 1f
                 lockImageView.visibility = View.GONE

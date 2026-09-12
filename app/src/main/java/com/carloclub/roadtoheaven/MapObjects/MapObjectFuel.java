@@ -20,11 +20,12 @@ import com.carloclub.roadtoheaven.FuelView;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
-import com.carloclub.roadtoheaven.OldQuestions;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 import com.carloclub.roadtoheaven.gallery.GalleryActivity;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,7 +34,7 @@ public class MapObjectFuel extends MapObject {
     private TextView textFuel;
     FuelView fuelView;
 
-    OldQuestions questions;
+    DataQuestions question;
     Victorina victorina;
     TextView questionTextView;
     int level=1;
@@ -41,7 +42,7 @@ public class MapObjectFuel extends MapObject {
     public MapObjectFuel(int X, int Y, MapActivity activity) {
         super(X, Y, activity);
         type = "fuel";
-        questions=new OldQuestions();
+        //questions=new OldQuestions();
         mediaPlayer = MediaPlayer.create(activity, R.raw.azs);
     }
 
@@ -91,10 +92,12 @@ public class MapObjectFuel extends MapObject {
     }
 
     private void showQuestion() {
-        MyMap.Question currentQuestion = questions.getQuestion(level);
+        Random random = new Random();
+        int index = random.nextInt(mapActivity.map.fuelQuestions.size());
+        question = mapActivity.map.fuelQuestions.get(index);
         questionTextView.setVisibility(View.VISIBLE);
-        questionTextView.setText(currentQuestion.question);
-        victorina.loadQuestion(currentQuestion);
+        questionTextView.setText(question.TextQuestion);
+        victorina.loadQuestion(question);
         victorina.showAnswers();
     }
 

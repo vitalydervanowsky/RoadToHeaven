@@ -25,9 +25,10 @@
         <activity
             android:name=".MapActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
+            android:exported="true"
             android:resizeableActivity="true"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".DialogActivity"
             android:exported="false"

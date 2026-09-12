@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.carloclub.roadtoheaven.Constants
 import com.carloclub.roadtoheaven.maps.City
 import com.carloclub.roadtoheaven.R
+import com.carloclub.roadtoheaven.databases.Mission
+import com.carloclub.roadtoheaven.databases.RthBase
 import com.carloclub.roadtoheaven.helper.LessonHelper
 import com.carloclub.roadtoheaven.helper.MessageUtil.showDialog
 import com.carloclub.roadtoheaven.model.DialogButton
@@ -77,8 +79,9 @@ class SchoolHallFragment : Fragment() {
     }
 
     private fun openClass(type: ClassType) {
-        val city = arguments?.getSerializable(Constants.CITY_ARG) as? City
-        val storyData = LessonHelper.getStoryDataForSchool(city, type)
+        val missionID = arguments?.getSerializable(Constants.CITY_ARG) as? Int
+        val mission = missionID?.let { RthBase.instance.missionDao().getById(it) }
+        val storyData = LessonHelper.getStoryDataForSchool(mission, type)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, StartStoryFragment.newInstance(storyData, type))
             .addToBackStack(StartStoryFragment::class.java.simpleName)
@@ -86,10 +89,10 @@ class SchoolHallFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(city: City): SchoolHallFragment =
+        fun newInstance(mission: Mission): SchoolHallFragment =
             SchoolHallFragment().apply {
                 arguments = bundleOf(
-                    Constants.CITY_ARG to city
+                    Constants.CITY_ARG to mission.id
                 )
             }
     }

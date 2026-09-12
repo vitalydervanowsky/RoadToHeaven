@@ -1,5 +1,7 @@
 package com.carloclub.roadtoheaven;
 
+import android.graphics.Bitmap;
+
 import com.carloclub.roadtoheaven.MapObjects.MapObject;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectBooks;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectBridge;
@@ -17,10 +19,17 @@ import com.carloclub.roadtoheaven.MapObjects.MapObjectStones;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectTetris;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectZOO;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
+import com.carloclub.roadtoheaven.databases.DataWords;
+import com.carloclub.roadtoheaven.databases.MapCells;
+import com.carloclub.roadtoheaven.databases.Mission;
+import com.carloclub.roadtoheaven.databases.MissionQuestion;
+import com.carloclub.roadtoheaven.databases.RthBase;
 import com.carloclub.roadtoheaven.maps.Sokolka;
 import com.carloclub.roadtoheaven.maps.City;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MyMap {
@@ -29,25 +38,31 @@ public class MyMap {
     private ArrayList<MapCell> mBuildRoute;
     public MapCell[][] mMapCells;
     public Stone[] mStones;
-    public Question[] mQuestions;
+    public ArrayList<DataQuestions> mQuestions; //+
+    public ArrayList<DataQuestions> fuelQuestions;
+    public ArrayList<DataQuestions> tetrisQuestion; //+
+    public ArrayList<DataQuestions> cinemaQuestion; //+
+    public ArrayList<DataQuestions> schoolQuestions; //+
+    public ArrayList<DataQuestions> churchQuestions;
+    public ArrayList<DataQuestions> wellQuestions;
+    public ArrayList<DataQuestions> kidsQuestion;
 
-    public Mission[] Missions;
-    public Words[] wordsForBook;
-    public Words[] wordsForRM;
+    public ArrayList<DataWords> wordsForBook;
+    public ArrayList<DataWords> wordsForRM;
+
+    public Quest[] quests;
     public int mLength;
     public int mHeight;
-
-    public ArrayList<Question> tetrisQuestion;
-
-    public ArrayList<Question> cinemaQuestion;
-    public ArrayList<Question> schoolQuestions;
-    public ArrayList<Question> churchQuestions;
-    public ArrayList<Question> wellQuestions;
-    public ArrayList<Question> kidsQuestion;
 
     public MapObject currentObject;
 
     int mBackgroundId;
+
+    Bitmap background;
+
+    int mapID;
+
+    public Mission mission;
 
 
     public MyMap(int length, int height, int backgroundId) {
@@ -56,6 +71,20 @@ public class MyMap {
         mBackgroundId = backgroundId;
 
         mMapCells = new MapCell[length][height];
+        for (int x = 0; x < this.mLength; x++) {
+            for (int y = 0; y < this.mHeight; y++) {
+                mMapCells[x][y] = new MapCell(x, y);
+            }
+        }
+    }
+    public MyMap(int mapID) {
+        this.mapID = mapID;
+        mission = RthBase.instance.missionDao().getById(mapID);
+        mLength = mission.mapWidth;
+        mHeight = mission.mapHeight;
+        background = RthBase.instance.imageDao().getById(mission.mapImageId).getImage();
+
+        mMapCells = new MapCell[mLength][mHeight];
         for (int x = 0; x < this.mLength; x++) {
             for (int y = 0; y < this.mHeight; y++) {
                 mMapCells[x][y] = new MapCell(x, y);
@@ -368,7 +397,7 @@ public class MyMap {
                     mMapCells[x+1][y+1].type = "school2";
 
                 }
-                else if (mMapCells[x][y].type.equals("building")){
+                else if (mMapCells[x][y].type.equals("building") || mMapCells[x][y].type.equals("tetris")){
                     mMapCells[x][y].object = new MapObjectTetris(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
 
@@ -429,7 +458,7 @@ public class MyMap {
                     mMapCells[x][y].object = new MapObjectSTO(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                 }
-                else if (mMapCells[x][y].type.equals("stones")) {
+                else if (mMapCells[x][y].type.equals("stones")||mMapCells[x][y].type.equals("gallery")) {
                     mMapCells[x][y].object = new MapObjectGallery(x, y, MainActivity);
                     mMapCells[x][y].object.loadAttributes(mMapCells[x][y].attributes);
                     mMapCells[x + 1][y].object = mMapCells[x][y].object;
@@ -507,14 +536,14 @@ public class MyMap {
             }
 
         MapObject emptyObject = new MapObject(0,0, MainActivity);
-        for (int i = 0; i<Missions.length;i++){
+        for (int i = 0; i<quests.length;i++){
             Task Task = new Task(emptyObject);
-            Task.messageText = Missions[i].messageText;
-            Task.targetType = Missions[i].missionType;
-            Task.targetValue1 = Missions[i].targetValue1;
-            Task.targetValue2 = Missions[i].targetValue2;
-            Task.messageIconMap = MainActivity.getResources().getIdentifier(Missions[i].messageIconMap,"drawable", MainActivity.getPackageName());
-            Task.messageIconSource = MainActivity.getResources().getIdentifier(Missions[i].messageIconSource,"drawable", MainActivity.getPackageName());
+            Task.messageText = quests[i].messageText;
+            Task.targetType = quests[i].missionType;
+            Task.targetValue1 = quests[i].targetValue1;
+            Task.targetValue2 = quests[i].targetValue2;
+            Task.messageIconMap = MainActivity.getResources().getIdentifier(quests[i].messageIconMap,"drawable", MainActivity.getPackageName());
+            Task.messageIconSource = MainActivity.getResources().getIdentifier(quests[i].messageIconSource,"drawable", MainActivity.getPackageName());
 
             MainActivity.myTasks.add(Task);
         }
@@ -522,44 +551,155 @@ public class MyMap {
 
     }
 
+
+    public void loadDataMap(com.carloclub.roadtoheaven.databases.Mission m , MapActivity mapActivity){
+        Firebase.updateImage(m.mapImageId);
+        Firebase.getTable("Questions", mapActivity, "Level", String.valueOf(m.level), m.dateActual);  //специальные вопросы для этой миссии
+        Firebase.getTable("Questions", mapActivity, "Level", "0", m.dateActual); //и общие вопросы без привязки к мисии
+        //Firebase.getTable("MissionQuestions", mapActivity);
+        Firebase.getTable("MissionQuestions", mapActivity, "mapID", String.valueOf(m.id), m.dateActual); //распределение вопросов по объектам к мисии
+
+        Firebase.getTable("MapCells", mapActivity, "mapID", m.id, m.dateActual);
+        Firebase.getTable("DataWords", mapActivity, "mapID", m.id, m.dateActual);  //заданія со словамі для этой миссии
+        //Firebase.getTable("Quests", mapActivity, "mapID", m.id, m.dateActual);  //gjrf vj;yj ,tp yb[
+
+
+
+    }
+
+    public void updateMap(MapActivity mapActivity){
+
+        RthBase RTHB = RthBase.instance;
+        Mission m = RTHB.missionDao().getById(mapID);
+//        //Сначала актуализируем (загрузим) все необходимые  записи базы данных
+//        loadDataMap(m, mapActivity);
+//        m.dateActual = System.currentTimeMillis();
+//        RTHB.missionDao().upsertMission(m);
+
+
+        //затем загрузим нужные данные из базы данных
+        mLength = m.mapWidth;
+        mHeight = m.mapHeight;
+        mMapCells = new MapCell[mLength][mHeight];
+        for (int x = 0; x < this.mLength; x++) {
+            for (int y = 0; y < this.mHeight; y++) {
+                mMapCells[x][y] = new MapCell(x, y);
+            }
+        }
+        List<MapCells> mcs = RTHB.mapCellsDao().getCellsOfMap(mapID);
+        for (int i =0; i< mcs.size(); i++) {
+            MapCells mc = mcs.get(i);
+            mMapCells[mc.x-1][mc.y-1].type = mc.type;
+        }
+        quests = new Quest[0];
+        createObjects(mapActivity);
+
+        mQuestions = new ArrayList<DataQuestions>();
+        fuelQuestions = new ArrayList<DataQuestions>();
+        tetrisQuestion = new ArrayList<DataQuestions>();
+        cinemaQuestion = new ArrayList<DataQuestions>();
+        schoolQuestions = new ArrayList<DataQuestions>();
+        churchQuestions = new ArrayList<DataQuestions>();
+        wellQuestions = new ArrayList<DataQuestions>();
+        kidsQuestion = new ArrayList<DataQuestions>();
+        wordsForBook = new ArrayList<DataWords>();
+        wordsForRM = new ArrayList<DataWords>();
+
+
+        List<MissionQuestion> mqs = RTHB.missionQuestionDao().getRecordsOfMap(mapID);
+        for (int i =0; i< mqs.size(); i++) {
+            MissionQuestion mq = mqs.get(i);
+            DataQuestions dq = RTHB.dataQuestionsDao().getById(mq.idQuestion);
+            if (dq==null) continue;
+            Firebase.updateImage(dq.ImageID);
+            if (mq.typeObject.equals("bridge")){
+                mQuestions.add(dq);
+            }
+            if (mq.typeObject.equals("fuel")){
+                fuelQuestions.add(dq);
+            }
+            if (mq.typeObject.equals("tetris")){
+                tetrisQuestion.add(dq);
+            }
+            if (mq.typeObject.equals("cinema")){
+                cinemaQuestion.add(dq);
+            }
+            if (mq.typeObject.equals("school")){
+                schoolQuestions.add(dq);
+            }
+            if (mq.typeObject.equals("church")){
+                churchQuestions.add(dq);
+            }
+            if (mq.typeObject.equals("well")){
+                wellQuestions.add(dq);
+            }
+            if (mq.typeObject.equals("kids")){
+                kidsQuestion.add(dq);
+            }
+        }
+
+        translateMap();
+    }
+
+    public void translateMap(){
+        RthBase RTHB = RthBase.instance;
+        for (int i =0; i< mQuestions.size(); i++) {
+            mQuestions.set(i,mQuestions.get(i).translate(1));
+        }
+        for (int i =0; i< tetrisQuestion.size(); i++) {
+            tetrisQuestion.set(i,tetrisQuestion.get(i).translate(1));
+        }
+        for (int i =0; i< cinemaQuestion.size(); i++) {
+            cinemaQuestion.set(i,cinemaQuestion.get(i).translate(1));
+        }
+        for (int i =0; i< schoolQuestions.size(); i++) {
+            schoolQuestions.set(i,schoolQuestions.get(i).translate(1));
+        }
+        for (int i =0; i< churchQuestions.size(); i++) {
+            churchQuestions.set(i,churchQuestions.get(i).translate(1));
+        }
+        for (int i =0; i< wellQuestions.size(); i++) {
+            wellQuestions.set(i,wellQuestions.get(i).translate(1));
+        }
+        for (int i =0; i< kidsQuestion.size(); i++) {
+            kidsQuestion.set(i,kidsQuestion.get(i).translate(1));
+        }
+
+        List<DataWords> dws = RTHB.dataWordsDao().getRecordsOfMap(mapID, 1);
+        for (int i =0; i< dws.size(); i++) {
+            DataWords dw = dws.get(i);
+            if (dw.typeObject.equals("RM")) {
+                wordsForRM.add(dw);
+            }
+            if (dw.typeObject.equals("book")) {
+                wordsForBook.add(dw);
+            }
+        }
+
+    }
     public void addStone(int i, String question,String answer,String type,String data){
         mStones[i] = new Stone(question,answer,type,data);
     }
-    public void addWordsForBook(int i,String targetWord,String textBefor,String textAfter){
-        wordsForBook[i] = new Words(targetWord,textBefor,textAfter);
-    }
-    public void addWordsForRM(int i,String targetWord,String textBefor,String textAfter){
-        wordsForRM[i] = new Words(targetWord,textBefor,textAfter);
-    }
-    public void addQuestion(int i, String question, String answer1, String answer2, String answer3, String answer4,int trueAnswer,int id){
-        mQuestions[i] = new Question(question, answer1, answer2, answer3, answer4, trueAnswer, id);
-    }
 
-    public void addMission(int i){
-        Missions[i] = new Mission();
+    public void addQuest(int i){
+        quests[i] = new Quest();
     }
-    public Question[] getQuestions(int count) {
-        for (int q = 0; q< mQuestions.length; q++)
-            mQuestions[q].used = false;
-
-        Question[] AQ = new Question[count];
+    public DataQuestions[] getQuestions(int count) {
+        ArrayList<Integer> used = new ArrayList<Integer>();
+        DataQuestions[] AQ = new DataQuestions[count];
         Random random = new Random();
         for (int i=0; i<count; i++){
-            int index = random.nextInt(mQuestions.length);
-            if (mQuestions[index].used){
+            int index = random.nextInt(mQuestions.size());
+            if (used.contains(index)){
                 //тогда пробуем взять первый попавшийся неиспользованный
-                for (int q = 0; q< mQuestions.length; q++)
-                    if (mQuestions[q].used == false){
+                for (int q = 0; q< mQuestions.size(); q++)
+                    if (used.contains(q) == false){
                         index=q;
                         break;
                     }
             }
-            mQuestions[index].used=true;
-            if (Constants.isBy()) {
-                AQ[i] = mQuestions[index];
-            } else {
-                AQ[i] = mQuestions[index];
-            }
+            used.add(index);
+            AQ[i] = mQuestions.get(index);
         }
 
         return AQ;
@@ -677,7 +817,7 @@ public class MyMap {
         }
     }
 
-    public static class Mission{
+    public static class Quest{
         public String missionType="";
         public int targetValue1 =0;
         public int targetValue2 =0;
@@ -685,22 +825,22 @@ public class MyMap {
         public String messageIconSource="";
         public String  messageText="";
 
-        public Mission(){
+        public Quest(){
 
         }
     }
 
-    public static MyMap getMap(City city){
-        MyMap myMap = null;
-        switch (city) {
-            case SOKOLKA:
-                myMap = new MyMap(20, 10, R.drawable.map_sokolka);
-                Sokolka.LoadMap(myMap);
-                Sokolka.loadTexts(myMap);
-                break;
-        }
-        return myMap;
-    }
+//    public static MyMap getMap(int mapID){
+//        MyMap myMap = null;
+//        switch (city) {
+//            case SOKOLKA:
+//                myMap = new MyMap(20, 10, R.drawable.map_sokolka);
+//                Sokolka.LoadMap(myMap);
+//                Sokolka.loadTexts(myMap);
+//                break;
+//        }
+//        return myMap;
+//    }
 
 
 }

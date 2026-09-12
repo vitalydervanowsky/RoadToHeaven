@@ -93,7 +93,6 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
         getSupportActionBar().hide();
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -112,19 +111,26 @@ public class MapActivity extends AppCompatActivity {
 
         myTasks =new ArrayList <Task>();
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.CITY_ARG)) {
-            city = (City) getIntent().getSerializableExtra(Constants.CITY_ARG);
-            if (city == null) {
-                city = City.SOKOLKA;
-            }
-            map = MyMap.getMap(city);
+            int MissionID = (int) getIntent().getSerializableExtra(Constants.CITY_ARG);
+            map = new MyMap(MissionID); //MyMap.getMap(1);
+            map.updateMap(this);
         }
+
+
+        startMission();
+    }
+
+    public void startMission(){
+
+        setContentView(R.layout.activity_map);
+
         displayDensity = getApplicationContext().getResources().getDisplayMetrics().density;
         map.scale = (int) (Constants.DATAGAME.SCALE*displayDensity); //
         map.createObjects(MapActivity.this);
 
         ImageView imageBack = findViewById(R.id.imageView);
         //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) imageBack.getLayoutParams();
-        imageBack.setImageDrawable(getDrawable(map.mBackgroundId));
+        imageBack.setImageBitmap(map.background); // setImageDrawable(getDrawable(map.mBackgroundId));
         //int realScale = (int)params.height *Constants.DATAGAME.SCALE/ 21  /48; //в образце 21 вертикальная клетка
         imageBack.setLayoutParams(new ConstraintLayout.LayoutParams(map.mLength * map.scale, map.mHeight * map.scale));
 
@@ -164,16 +170,16 @@ public class MapActivity extends AppCompatActivity {
                 new SideMenuButton(SideMenuButton.Type.TOW)
         );
         SideMenuButtonAdapter sideMenuButtonAdapter = new SideMenuButtonAdapter(sideMenuButtons, type -> {
-           switch (type) {
-               case SETTINGS:
-               case BAG:
-               case TASKS:
-                   break;
-               case TOW:
-                   startEvacuation();
-                   break;
-           }
-           return Unit.INSTANCE;
+            switch (type) {
+                case SETTINGS:
+                case BAG:
+                case TASKS:
+                    break;
+                case TOW:
+                    startEvacuation();
+                    break;
+            }
+            return Unit.INSTANCE;
         });
         sideMenuRecyclerView.setAdapter(sideMenuButtonAdapter);
         fuelView = findViewById(R.id.fuelView);
@@ -331,10 +337,7 @@ public class MapActivity extends AppCompatActivity {
         if (Rote==null) return;
         map.mRoute = Rote;
 
-        startMission();
-    }
 
-    public void startMission(){
         //сразу начинаем ехать
         mMoveCar = new MoveCar();
         twistCar();

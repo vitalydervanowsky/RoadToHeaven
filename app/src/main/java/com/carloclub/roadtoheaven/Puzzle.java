@@ -12,7 +12,9 @@ import android.widget.TextView;
 import androidx.core.view.WindowCompat;
 
 import com.carloclub.roadtoheaven.MapObjects.MapObject;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 
+import java.io.File;
 import java.util.Random;
 
 public class Puzzle {
@@ -33,9 +35,9 @@ public class Puzzle {
     Victorina victorina;
 
     CustomImageView currentView;
-    MyMap.Question question;
+    DataQuestions question;
 
-    public Puzzle(MapObject mapObject, MyMap.Question question) {
+    public Puzzle(MapObject mapObject, DataQuestions question) {
         this.mapObject = mapObject;
         this.question = question;
         random = new Random();
@@ -142,7 +144,7 @@ public class Puzzle {
 
     public void showAnswers() {
 
-        victorina.loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
+        victorina.loadQuestion(question.Answer1, question.Answer2, question.Answer3, question.Answer4, question.NumOK);
         victorina.showAnswers();
 
     }
@@ -158,14 +160,14 @@ public class Puzzle {
     public void startPuzzle() {
         attempts = 1000;
 
-        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.question);
+        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.TextQuestion);
         if (!(this instanceof SimplePuzzle)) {
             ((TextView) dialog.findViewById(R.id.textView3)).setText(Messages.getMessageDoMosaic());
             //Разрезаем изображение и по-очереди вкладываем в каждый Вью
             //идентификатор картинки 400х400
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inScaled = false;
-            Bitmap originalBitmap = BitmapFactory.decodeResource(mapObject.mapActivity.getResources(), question.imageID, options); // Определяем координаты и размеры фрагмента
+            Bitmap originalBitmap =  question.getImage(); //getImageBitmapFactory.decodeResource(mapObject.mapActivity.getResources(), question.imageID, options); // Определяем координаты и размеры фрагмента
 
             for (int y = 0; y < 4; y++)
                 for (int x = 0; x < 4; x++) {

@@ -1,5 +1,7 @@
 package com.carloclub.roadtoheaven.model
 
+import android.graphics.Bitmap
+import java.io.File
 import java.io.Serializable
 
 /**
@@ -39,8 +41,8 @@ data class StoryData(
 
 data class PageData(
     val text: String,
-    val imageRes: Int? = null,
-    val audioRes: Int? = null,
+    val imageRes: String? = null,
+    val audioRes: String? = null,
 ) : Serializable
 
 data class DialogInfo(

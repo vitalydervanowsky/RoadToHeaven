@@ -9,6 +9,7 @@ import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
@@ -18,7 +19,7 @@ import java.util.Calendar;
 
 public class MapObjectKids extends MapObject {
     Victorina victorina;
-    MyMap.Question question;
+    DataQuestions question;
     private final Person person = Person.CARLO;
 
     public MapObjectKids(int x, int y, MapActivity activity) {
@@ -51,7 +52,7 @@ public class MapObjectKids extends MapObject {
         }
         dialog.show();
         question = mapActivity.map.kidsQuestion.get(0);
-        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.question);
+        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.TextQuestion);
         victorina = new Victorina(this, dialog);
         victorina.loadQuestion(question);
         victorina.showAnswers();

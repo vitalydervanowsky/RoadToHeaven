@@ -19,7 +19,7 @@ public class MapObjectChurch extends MapObject {
 
     @Override
     public void runAction() {
-        StoryData storyData = StoryHelper.INSTANCE.getChurchStoryData(mapActivity.city);
+        StoryData storyData = StoryHelper.INSTANCE.getChurchStoryData(mapActivity.map.mission);
         StoryHelper.INSTANCE.showStoryActivityForResult(mapActivity, storyData);
     }
 

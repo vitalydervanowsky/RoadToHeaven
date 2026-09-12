@@ -2,6 +2,7 @@
 
 package com.carloclub.roadtoheaven.story
 
+import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.KeyEvent
@@ -78,10 +79,14 @@ class StoryFragment : Fragment() {
             storyData?.pages?.get(position)?.let { pageData ->
                 thankButton?.visibility = getButtonVisibility(!isLastPage())
                 textView?.text = pageData.text
-                pageData.imageRes?.let { imageView?.setImageResource(it) }
+                pageData.imageRes?.let { imageView?.setImageBitmap(BitmapFactory.decodeFile(it)) }
                 mediaPlayer?.stop()
                 pageData.audioRes?.let {
-                    mediaPlayer = MediaPlayer.create(activity, it)
+                    mediaPlayer = MediaPlayer().apply {
+                        setDataSource(it)
+                        prepare() // Обязательно подготавливаем файл перед показом кнопки
+                    }
+                    //mediaPlayer = MediaPlayer.create(activity, it.getAbsolutePath())
                     muteImageView?.visibility = View.VISIBLE
                 } ?: run {
                     mediaPlayer = null

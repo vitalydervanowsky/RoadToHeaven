@@ -9,6 +9,7 @@ import com.carloclub.roadtoheaven.MapObjects.MapObject;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectChurch;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectSchool;
 import com.carloclub.roadtoheaven.MapObjects.MapObjectWell;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -115,6 +116,10 @@ public class Victorina {
 
     public void loadQuestion(MyMap.Question question) {
         loadQuestion(question.answer1, question.answer2, question.answer3, question.answer4, question.trueAnswer);
+    }
+
+    public void loadQuestion(DataQuestions question) {
+        loadQuestion(question.Answer1, question.Answer2, question.Answer3, question.Answer4, question.NumOK);
     }
 
     public void loadQuestion(String answer1, String answer2, String answer3, String answer4, int trueAnswer){

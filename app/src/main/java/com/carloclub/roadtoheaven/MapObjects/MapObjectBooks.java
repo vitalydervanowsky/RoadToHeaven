@@ -23,6 +23,7 @@ import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.databases.DataWords;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
 import com.carloclub.roadtoheaven.model.DialogButton;
@@ -204,9 +205,9 @@ public class MapObjectBooks extends MapObject {
         else {
             startX=random.nextInt(5);
             stepY=1;}
-        MyMap.Words word = (mapActivity.map.wordsForBook[random.nextInt(mapActivity.map.wordsForBook.length-1)]);
+        DataWords word = (mapActivity.map.wordsForBook.get(random.nextInt(mapActivity.map.wordsForBook.size()-1)));
         if (type.equals("RM")){
-            word = (mapActivity.map.wordsForRM[random.nextInt(mapActivity.map.wordsForRM.length-1)]);
+            word = (mapActivity.map.wordsForRM.get(random.nextInt(mapActivity.map.wordsForRM.size()-1)));
             ((ImageView)dialog.findViewById(R.id.imageDecor)).setImageResource(R.drawable.rm);
         }
 

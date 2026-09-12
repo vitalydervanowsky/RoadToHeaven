@@ -4,10 +4,11 @@ import android.app.Dialog
 import android.widget.ImageView
 import com.carloclub.roadtoheaven.MapObjects.MapObject
 import com.carloclub.roadtoheaven.MyMap.Question
+import com.carloclub.roadtoheaven.databases.DataQuestions
 
 class SimplePuzzle(
     mapObject: MapObject,
-    question: Question
+    question: DataQuestions
 ) : Puzzle(mapObject, question) {
 
     init {

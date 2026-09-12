@@ -41,9 +41,15 @@ public class Task {
         for (int i = 1; i<= mapActivity.myTasks.size(); i++){
             Task Task = mapActivity.myTasks.get(i-1);
             //Проверяем задания, которые направлены на любой объект какого-то типа (в них заполнен тип (targetType), но не заполнена ячейка (targetCell))
-            if (Task.targetType.equals(Cell.type)&& !Task.targetType.equals("")&& !Task.isFinished) {
-                Task.finishTask();
-                return Task;
+            if (!Task.targetType.equals("")&& !Task.isFinished) {
+                if (Task.targetType.equals(Cell.type)) {
+                    Task.finishTask();
+                    return Task;
+                }
+                else if (Cell.object != null && Task.targetType.equals(Cell.object.type)) {
+                    Task.finishTask();
+                    return Task;
+                }
             }
 
             //Проверяем задания, которые направлены на конкретный объект какого-то типа (в них НЕ заполнен тип (targetType), но заполнена ячейка (targetCell))

@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class GalleryImage(
     val id: Int,
-    val imageRes: Int?,
+    val imageRes: String?,
     val title: String,
     val classType: ClassType,
     var state: State = State.DEFAULT,

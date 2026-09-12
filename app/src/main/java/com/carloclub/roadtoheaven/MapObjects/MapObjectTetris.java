@@ -20,6 +20,7 @@ import com.carloclub.roadtoheaven.PaintView;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Task;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 import com.carloclub.roadtoheaven.helper.MessageUtil;
 import com.carloclub.roadtoheaven.helper.TaskUtil;
 import com.carloclub.roadtoheaven.helper.TimeUtil;
@@ -45,7 +46,7 @@ public class MapObjectTetris extends MapObject {
     int GameFigurs=0;
     int OneColor=0;
 
-    MyMap.Question question;
+    DataQuestions question;
 
     int Speed = 0;
     int temp = 700;
@@ -131,7 +132,7 @@ public class MapObjectTetris extends MapObject {
         //ViewBest.setText(Integer.toString(Best));
 
         question = mapActivity.map.tetrisQuestion.get(0);
-        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.question);
+        ((TextView) dialog.findViewById(R.id.textViewQuestion)).setText(question.TextQuestion);
 
         TetrisView = (PaintView) dialog.findViewById(R.id.viewDraw);
         TetrisView.invalidate();

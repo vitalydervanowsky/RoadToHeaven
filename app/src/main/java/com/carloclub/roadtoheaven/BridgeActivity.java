@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
+import com.carloclub.roadtoheaven.databases.DataQuestions;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,7 +41,7 @@ public class BridgeActivity extends AppCompatActivity {
     Timer timer;
     TimerDown timerDown;
 
-    MyMap.Question[] questions;
+    DataQuestions[] questions;
 
     int maxStep = 7;
 
@@ -241,7 +243,7 @@ public class BridgeActivity extends AppCompatActivity {
 
         };
 
-        int trueAnswer = questions[step-1].trueAnswer;
+        int trueAnswer = questions[step-1].NumOK;
         if (trueAnswer == 1) {
             buttonAnswer1.setBackgroundResource(R.drawable.rombgood);
         }
@@ -291,17 +293,17 @@ public class BridgeActivity extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        MyMap.Question currentQuestion = questions[step - 1];
+        DataQuestions currentQuestion = questions[step - 1];
         questionTextView.setVisibility(View.VISIBLE);
         buttonAnswer1.setVisibility(View.VISIBLE);
         buttonAnswer2.setVisibility(View.VISIBLE);
         buttonAnswer3.setVisibility(View.VISIBLE);
         buttonAnswer4.setVisibility(View.VISIBLE);
-        questionTextView.setText(currentQuestion.question);
-        buttonAnswer1.setText(currentQuestion.answer1);
-        buttonAnswer2.setText(currentQuestion.answer2);
-        buttonAnswer3.setText(currentQuestion.answer3);
-        buttonAnswer4.setText(currentQuestion.answer4);
+        questionTextView.setText(currentQuestion.TextQuestion);
+        buttonAnswer1.setText(currentQuestion.Answer1);
+        buttonAnswer2.setText(currentQuestion.Answer2);
+        buttonAnswer3.setText(currentQuestion.Answer3);
+        buttonAnswer4.setText(currentQuestion.Answer4);
         buttonAnswer2.setBackgroundResource(R.drawable.romb);
         //stepTextView.setText(getString(R.string.step_label, step, Constants.QUIZ_SIZE_HARD));
     }

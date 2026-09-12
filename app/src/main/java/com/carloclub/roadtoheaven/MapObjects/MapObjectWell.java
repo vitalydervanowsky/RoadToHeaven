@@ -19,7 +19,7 @@ public class MapObjectWell extends MapObject {
 
     @Override
     public void runAction() {
-        StoryData storyData = StoryHelper.INSTANCE.getWellStoryData(mapActivity.city);
+        StoryData storyData = StoryHelper.INSTANCE.getWellStoryData(mapActivity.map.mission);
         StoryHelper.INSTANCE.showStoryActivityForResult(mapActivity, storyData);
     }
 

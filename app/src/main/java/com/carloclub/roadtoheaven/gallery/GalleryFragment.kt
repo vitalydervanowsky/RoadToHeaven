@@ -4,6 +4,7 @@ package com.carloclub.roadtoheaven.gallery
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -133,7 +134,7 @@ class GalleryFragment : Fragment() {
     private fun createDraggableImageView(galleryImage: GalleryImage): ImageView {
         return ImageView(requireContext()).apply {
             tag = galleryImage.id
-            galleryImage.imageRes?.let { setImageResource(it) }
+            galleryImage.imageRes?.let { setImageBitmap(BitmapFactory.decodeFile(it)) }
             scaleType = ImageView.ScaleType.CENTER_CROP
             adjustViewBounds = false
 

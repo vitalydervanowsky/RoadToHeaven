@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 
 import com.carloclub.roadtoheaven.DialogMessage;
 import com.carloclub.roadtoheaven.MapActivity;
+import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.Task;
 
 import java.util.Date;
@@ -32,10 +33,27 @@ public class MapObject {
     }
 
 
-    public void runAction() {
-        visited=true;
-        DialogMessage.showMessage(0,0,"Привет! У меня пока нет для тебя заданий","", mapActivity);
+//    public void runAction() {
+//        visited=true;
+//        DialogMessage.showMessage(0,0,"Привет! У меня пока нет для тебя заданий","", mapActivity);
+//    }
+public void runAction(){
+    int a = 0;
+
+    MyMap map = mapActivity.map;
+    for (int y = 0; y < map.mHeight; y++) {
+        if (map.mMapCells[a][y].object != null && !map.mMapCells[a][y].object.type.isEmpty()) {
+            if (y < this.y){
+                DialogMessage.showMessage(0, 0, "Едте на север на" + map.mMapCells[a][y].object.type, "",mapActivity );
+            }
+            else{
+                DialogMessage.showMessage(0, 0, "Едте на юг на " + map.mMapCells[a][y].object.type, "",mapActivity );
+            }
+
+            return;
+        }
     }
+}
     public void finishTask() {
 
     }

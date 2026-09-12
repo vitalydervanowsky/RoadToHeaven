@@ -21,6 +21,7 @@ import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.MyMap;
 import com.carloclub.roadtoheaven.R;
 import com.carloclub.roadtoheaven.Victorina;
+import com.carloclub.roadtoheaven.databases.DataQuestions;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class MapObjectBridge extends MapObject {
     TextView questionTextView;
     boolean isGameOver = true;
     private MediaPlayer triumfMediaPlayer;
-    MyMap.Question[] questions;
+    DataQuestions[] questions;
     int step = 0;
     int maxStep = 7;
 
@@ -108,9 +109,9 @@ public class MapObjectBridge extends MapObject {
     }
 
     private void showQuestion() {
-        MyMap.Question currentQuestion = questions[step - 1];
+        DataQuestions currentQuestion = questions[step - 1];
         questionTextView.setVisibility(View.VISIBLE);
-        questionTextView.setText(currentQuestion.question);
+        questionTextView.setText(currentQuestion.TextQuestion);
         victorina.loadQuestion(currentQuestion);
         victorina.showAnswers();
     }

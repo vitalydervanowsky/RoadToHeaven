@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.carloclub.roadtoheaven.MapActivity;
 import com.carloclub.roadtoheaven.Messages;
 import com.carloclub.roadtoheaven.R;
+import com.carloclub.roadtoheaven.databases.Mission;
 import com.carloclub.roadtoheaven.gallery.GalleryActivity;
 import com.carloclub.roadtoheaven.gallery.GalleryFragment;
 import com.carloclub.roadtoheaven.helper.LessonHelper;
@@ -41,7 +42,7 @@ public class MapObjectGallery extends MapObject {
                 R.drawable.kseniya,
                 new DialogButton(
                         "Хачу дапамагчы!",
-                        () -> showGalleryActivity(mapActivity, mapActivity.city)
+                        () -> showGalleryActivity(mapActivity, mapActivity.map.mission)
                 ),
                 new DialogButton(
                         "Выйсці",
@@ -56,9 +57,9 @@ public class MapObjectGallery extends MapObject {
         return !TimeUtil.INSTANCE.isLessThanThreeMinutesPast(lastSuccess);
     }
 
-    private void showGalleryActivity(Activity activity, City city) {
+    private void showGalleryActivity(Activity activity, Mission mission) {
         Intent intent = new Intent(activity, GalleryActivity.class);
-        intent.putExtra(GalleryFragment.GALLERY_IMAGES_ARG, LessonHelper.INSTANCE.getGalleryData(city));
+        intent.putExtra(GalleryFragment.GALLERY_IMAGES_ARG, LessonHelper.INSTANCE.getGalleryData(mission));
         activity.startActivity(intent);
     }
 
